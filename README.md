@@ -7,12 +7,13 @@ El proyecto está diseñado para promover el aprendizaje colaborativo y fomentar
 
 ### Colaboradores del Proyecto
 
-| **Nombre**                | **Rol**              | **Perfil**                                                 |
-|---------------------------|----------------------|------------------------------------------------------------|
-| Diego Sanchez Chuquimango | Líder del Proyecto   | [LinkedIn](https://www.linkedin.com/in/dsanchezchu/)           |
-| Leonardo Sanchez Romero   | Miembro del Proyecto | [LinkedIn](https://www.linkedin.com/in/leonardo-sanchez-607883218/)           |
-| Charlie Morales Benites   | Miembro del Proyecto | [LinkedIn](https://www.linkedin.com/in/charlie-morales-benites-69553b2a6/)           |
-| Rumay Yglesias Eduardo    | Miembro del Proyecto | [LinkedIn](https://www.linkedin.com/in/eduardo-daniel-rumay-yglesias-97b106329/)           |
+| **Nombre**                | **Rol**              | **Perfil**                                                                       |    **Imagen**     |
+|---------------------------|----------------------|----------------------------------------------------------------------------------|-------------------|
+| Diego Sanchez Chuquimango | Líder del Proyecto   | [LinkedIn](https://www.linkedin.com/in/dsanchezchu/)                             |<img src="https://media.licdn.com/dms/image/v2/D4D35AQFUI7vCHQif-w/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1723740630748?e=1726959600&v=beta&t=l8LD97EMGErB5mprBrDZq4Rb9w0nlYqYevx79MLRn_s" width="100" height="100" />| 
+| Leonardo Sanchez Romero   | Miembro del Proyecto | [LinkedIn](https://www.linkedin.com/in/leonardo-sanchez-607883218/)              |<img src="https://media.licdn.com/dms/image/v2/D4E35AQHKHteEmC3OrA/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1726350962776?e=1726963200&v=beta&t=izRICBiidkfqLVpzhDi0OBLg-Wq_CAV0WqgAY-v_iks" width="100" height="100" />|
+| Charlie Morales Benites   | Miembro del Proyecto | [LinkedIn](https://www.linkedin.com/in/charlie-morales-benites-69553b2a6/)       |<img src="https://media.licdn.com/dms/image/v2/D4E35AQHJheob8SYbkQ/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1726350402772?e=1726963200&v=beta&t=BUwICWxj1WDq3tbgGU4C5kXtQLcTCbDNbAleuKz6PRA" width="100" height="100" />|
+| Rumay Yglesias Eduardo    | Miembro del Proyecto | [LinkedIn](https://www.linkedin.com/in/eduardo-daniel-rumay-yglesias-97b106329/) |<img src="https://github.com/user-attachments/assets/23d8e13f-eca0-400e-ab89-0e7c27c99627" width="100" height="100" alt="rumay-foto" />|
+
 
 ### Progreso del Proyecto Tech Comunity Peru
 
@@ -52,16 +53,15 @@ Mira cómo va avanzando nuestro trabajo visitando el siguiente enlace: [Tablero 
 
 ## Diagramas de la Aplicación
 
-Para entender mejor la estructura y diseño de la aplicación "BookHub", revisa los siguientes diagramas:
+Para entender mejor la estructura y diseño de "Tech Community Peru", revisa los siguientes diagramas:
 
 ### Diagrama de Clases
-
-![Diagrama de Clases](diagrama_clase_venta_libro.png)
+![Tech Community Peru - Diagrama Clases](https://github.com/user-attachments/assets/20cdf93d-8894-49e4-992d-0f247aeac4fa)
 
 
 ### Diagrama de Base de Datos
+![DIAGRAMA BASE DE DATO](https://github.com/user-attachments/assets/d4270221-6db2-4465-920e-530c7feec3f9)
 
-![Diagrama de Base de Datos](diagrama_base_datos_venta_libro.png)
 
 Este diagrama ilustra el esquema de la base de datos utilizada por la aplicación, mostrando las tablas, columnas, y relaciones entre las entidades.
 
