@@ -1,18 +1,21 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
+import com.techcommunityperu.techcommunityperu.model.enums.paymentStatus;
+import com.techcommunityperu.techcommunityperu.model.enums.statusInscription;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "usuario_evento")
-public class usuarioEvento {
+@Table(name = "inscripción")
+public class Inscripcion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "estado_inscripcion", nullable = false, length = 50)
-    private String estadoInscripcion;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado_inscripcion")
+    private statusInscription inscripcionStatus;
 
     // Relación con Usuario
     @ManyToOne

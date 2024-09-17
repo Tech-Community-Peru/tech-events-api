@@ -49,9 +49,4 @@ public class Usuario {
     @Column(name = "edad", nullable = true)
     private Integer edad;
 
-
-    // Relación uno a muchos con UsuarioEvento
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<usuarioEvento> usuarioEventos;
-
 }

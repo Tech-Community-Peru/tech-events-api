@@ -18,10 +18,10 @@ INSERT INTO comunidad (nombre, descripcion, fecha_creacion, cantidad_miembros, t
 
 
 -- Datos de prueba para la tabla evento
-INSERT INTO evento (nombre, costo, descripcion, calificacion, comentario, ponente_id) VALUES
-                                                                                          ('Conferencia IA 2024', 150.00, 'Una conferencia sobre el futuro de la inteligencia artificial.', 5, 'Muy interesante.', 1),
-                                                                                          ('Taller de UX/UI', 100.00, 'Aprende los fundamentos del diseño UX/UI.', 4, 'Muy útil para diseñadores.', 2),
-                                                                                          ('Hackathon de Ciberseguridad', 200.00, 'Evento competitivo enfocado en ciberseguridad.', 5, 'Experiencia retadora.', 3);
+INSERT INTO evento (nombre, costo, descripcion, categoria_evento,tipo_evento,ponente_id,comunidad_id) VALUES
+                                                                                          ('Conferencia IA 2024', 150.00, 'Una conferencia sobre el futuro de la inteligencia artificial.','GESTIONTI', 'VIRTUAL', 1,1),
+                                                                                          ('Taller de UX/UI', 100.00, 'Aprende los fundamentos del diseño UX/UI.','GESTIONTI','VIRTUAL', 2,2),
+                                                                                          ('Hackathon de Ciberseguridad', 200.00, 'Evento competitivo enfocado en ciberseguridad.','GESTIONTI', 'PRESENCIAL',3,3);
 
 -- Datos de prueba para la tabla ubicacion
 INSERT INTO ubicacion (nombre_lugar, direccion, ciudad, pais, descripcion, evento_id) VALUES
@@ -30,54 +30,21 @@ INSERT INTO ubicacion (nombre_lugar, direccion, ciudad, pais, descripcion, event
                                                                                           ('Centro de Convenciones', 'Carretera Panamericana Norte km 50', 'Santiago', 'Chile', 'Espacio ideal para conferencias y exposiciones de gran tamaño.', 3);
 
 
--- Datos de prueba para la tabla calificacion
-INSERT INTO calificacion (puntuacion, evento_id) VALUES
-                                                     (5, 1),
-                                                     (4, 2),
-                                                     (3, 3);
-
 -- Datos de prueba para la tabla comentario
-INSERT INTO comentario (comentario, evento_id) VALUES
-                                                   ('¡Excelente evento, aprendí mucho!', 1),
-                                                   ('El ponente fue muy claro y directo.', 2),
-                                                   ('Me gustaría que se extendiera más el tiempo.', 3);
+INSERT INTO comentario (fecha_publicacion, comentario, evento_id, usuario_id) VALUES
+                                                   ('2024-09-15', '¡Excelente evento, aprendí mucho!', 1, 1),
+                                                   ('2024-09-15', 'El ponente fue muy claro y directo.', 2, 2),
+                                                   ('2024-09-15', 'Me gustaría que se extendiera más el tiempo.', 3, 3);
 
--- Datos de prueba para la tabla evento_categoria
-INSERT INTO evento_categoria (nombre, descripcion, evento_id) VALUES
-                                                                  ('Inteligencia Artificial', 'Eventos sobre IA', 1),
-                                                                  ('Diseño', 'Eventos sobre UX/UI', 2),
-                                                                  ('Ciberseguridad', 'Competencias de ciberseguridad', 3);
+
 
 -- Datos de prueba para la tabla fecha
-INSERT INTO fecha (fecha_inicio, fecha_fin, evento_id) VALUES
+INSERT INTO cronograma (fecha_inicio, fecha_fin, evento_id) VALUES
                                                            ('2024-09-15 08:00:00', '2024-09-15 10:00:00', 1),
                                                            ('2024-09-16 09:00:00', '2024-09-16 11:00:00', 2),
                                                            ('2024-09-17 14:00:00', '2024-09-17 16:00:00', 3);
--- Datos de prueba para la tabla pago
-INSERT INTO pago (monto, fecha_pago, estado, usuario_id) VALUES
-                                                                                (50.00, '2024-09-15', 'PENDING', 1),
-                                                                                (75.00, '2024-09-16', 'PENDING', 2),
-                                                                                (100.00, '2024-09-17', 'PAID', 3);
 
 
--- Datos de prueba para la tabla suscripcion
-INSERT INTO suscripcion (tipo_suscripcion, fecha_inicio, fecha_fin, estado, usuario_id, pago_id) VALUES
-                                                                                                     ('Mensual', '2024-09-01 08:00:00', '2024-09-30 23:59:59', 'ACTIVE', 1, 1),
-                                                                                                     ('Anual', '2024-09-01 08:00:00', '2025-08-31 23:59:59', 'ACTIVE', 2, 2),
-                                                                                                     ('Mensual', '2024-09-15 08:00:00', '2024-10-14 23:59:59', 'INACTIVE', 3, 3);
-
-
--- Datos de prueba para la tabla acceso_premium
-INSERT INTO acceso_premium (estado, usuario_id, suscripcion_id, evento_id) VALUES
-                                                                               ('ACTIVE', 1, 1, 1),
-                                                                               ('INACTIVE', 2, 2, 2),
-                                                                               ('ACTIVE', 3, 3, 3);
-
--- Datos de prueba para la tabla evento_comunidad
-INSERT INTO evento_comunidad (evento_id, comunidad_id) VALUES
-                                                           (1, 1),
-                                                           (2, 1),
-                                                           (3, 2);
 
 -- Datos de prueba para la tabla usuario_comunidad
 INSERT INTO usuario_comunidad (usuario_id, comunidad_id, fecha_unido, rol) VALUES
@@ -86,7 +53,7 @@ INSERT INTO usuario_comunidad (usuario_id, comunidad_id, fecha_unido, rol) VALUE
                                                                                (3, 2, '2024-09-17 14:00:00', 'aministrador');
 
 -- Datos de prueba para la tabla usuario_evento
-INSERT INTO usuario_evento (estado_inscripcion, usuario_id, evento_id) VALUES
-                                                                           ('Confirmado', 1, 1),
-                                                                           ('Pendiente', 2, 1),
-                                                                           ('Cancelado', 3, 2);
+INSERT INTO inscripción(estado_inscripcion, usuario_id, evento_id) VALUES
+                                                                           ('PENDING', 1, 1),
+                                                                           ('PAID', 2, 1),
+                                                                           ('PENDING', 3, 2);

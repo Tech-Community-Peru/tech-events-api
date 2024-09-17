@@ -3,21 +3,23 @@ package com.techcommunityperu.techcommunityperu.model.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
-@Table(name = "evento_categoria")
-public class eventoCategoria {
+@Table(name = "cronograma")
+public class Cronograma {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "nombre", nullable = false, length = 50)
-    private String nombre;
+    @Column(name = "fecha_inicio", nullable = true)
+    private LocalDateTime fechaInicio;
 
-    @Column(name = "descripcion", nullable = false, length = 50)
-    private String descripcion;
+    @Column(name = "fecha_fin", nullable = true)
+    private LocalDateTime fechaFin;
 
-    // Relación con Evento
+    // Relación con Evento (Muchos a Uno)
     @ManyToOne
     @JoinColumn(name = "evento_id", referencedColumnName = "id")
     private Evento evento;

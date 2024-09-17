@@ -1,8 +1,9 @@
-package com.techcommunityperu.techcommunityperu.model.entity;
 
+package com.techcommunityperu.techcommunityperu.model.entity;
 import jakarta.persistence.*;
 import lombok.Data;
-
+import com.techcommunityperu.techcommunityperu.model.enums.categoryEvent;
+import com.techcommunityperu.techcommunityperu.model.enums.typeEvent;
 import java.util.List;
 
 @Data
@@ -23,30 +24,21 @@ public class Evento {
     @Column(name = "descripcion", columnDefinition = "TEXT")
     private String descripcion;
 
-    @Column(name = "calificacion")
-    private Integer calificacion;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "categoria_evento")
+    private categoryEvent eventoCategoria;
 
-    @Column(name = "comentario", length = 50)
-    private String comentario;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_evento")
+    private typeEvent tipoEvento;
 
     // Relación con Ponente
     @ManyToOne
     @JoinColumn(name = "ponente_id", referencedColumnName = "id",foreignKey = @ForeignKey(name = "fk_evento_ponente"))
     private Ponente ponente;
 
-    // Relación con Eventos Comunidad
-    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
-    private List<eventoComunidad> eventosComunidad;
+    @ManyToOne
+    @JoinColumn(name = "comunidad_id", referencedColumnName = "id",foreignKey= @ForeignKey(name = "fk_evento_comunidad"))
+    private Comunidad comunidad;
 
-    // Relación con Eventos Categorias
-    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
-    private List<eventoCategoria> categorias;
-
-    // Relación uno a muchos con Comentario
-    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
-    private List<Comentario> comentariol;
-
-    // Relación uno a muchos con Calificacion
-    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
-    private List<Calificacion> calificaciones;
 }

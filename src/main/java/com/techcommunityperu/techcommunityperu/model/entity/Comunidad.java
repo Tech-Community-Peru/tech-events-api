@@ -28,14 +28,4 @@ public class Comunidad {
     @Column(name = "tematica_principal", nullable = false, length = 100)
     private String tematicaPrincipal;
 
-    @ManyToOne
-    @JoinColumn(name = "creador_id", referencedColumnName = "id")
-    private Usuario creador;
-
-    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL)
-    private List<eventoComunidad> eventosComunidad;
-
-    //Relación uno a muchos con UsuarioComunidad
-    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL)
-    private List<usuarioComunidad> usuarioComunidad;
 }
