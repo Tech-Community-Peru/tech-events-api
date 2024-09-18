@@ -53,7 +53,7 @@ INSERT INTO usuario_comunidad (usuario_id, comunidad_id, fecha_unido, rol) VALUE
                                                                                (3, 2, '2024-09-17 14:00:00', 'aministrador');
 
 -- Datos de prueba para la tabla usuario_evento
-INSERT INTO inscripción(estado_inscripcion, usuario_id, evento_id) VALUES
-                                                                           ('PENDING', 1, 1),
-                                                                           ('PAID', 2, 1),
-                                                                           ('PENDING', 3, 2);
+INSERT INTO inscripción(tipo_pago,monto_pago,estado_inscripcion, usuario_id, evento_id) VALUES
+                                                                           ('CREDIT_CARD',120.50,'PENDING', 1, 1),
+                                                                           ('CREDIT_CARD',180,'PAID', 2, 2),
+                                                                           ('DEBIT_CARD',200,'PENDING', 3, 3);
