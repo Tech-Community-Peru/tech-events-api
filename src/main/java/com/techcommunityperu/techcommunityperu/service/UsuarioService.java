@@ -13,10 +13,11 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public boolean validarCredenciales(String correo_electronico, String contrasenia) {
-        Optional<Usuario> usuarioOpt = usuarioRepository.findByCorreoElectronico(correo_electronico);
+    public boolean validarCredenciales(String correoElectronico, String contrasenia) {
+        Optional<Usuario> usuarioOpt = usuarioRepository.findByCorreoElectronico(correoElectronico);
         if (usuarioOpt.isPresent()) {
             Usuario usuario = usuarioOpt.get();
+            // Comparar la contraseña directamente (sin encriptar)
             return usuario.getContrasenia().equals(contrasenia);
         }
         return false;
