@@ -1,8 +1,8 @@
 -- Datos de prueba para la tabla ponente
 INSERT INTO ponente (nombre, apellido, cargo, pais_origen, especialidad) VALUES
-    ('Juan', 'Pérez', 'Ingeniero de Software', 'Perú', 'Desarrollo de Backend'),
-    ('María', 'García', 'Arquitecta de Sistemas', 'Chile', 'Arquitectura de Software'),
-    ('Carlos', 'López', 'Analista de Datos', 'Argentina', 'Análisis de Datos');
+                                                                             ('Juan', 'Pérez', 'Ingeniero de Software', 'Perú', 'Desarrollo de Backend'),
+                                                                             ('María', 'García', 'Arquitecta de Sistemas', 'Chile', 'Arquitectura de Software'),
+                                                                             ('Carlos', 'López', 'Analista de Datos', 'Argentina', 'Análisis de Datos');
 
 -- Datos de prueba para la tabla usuario
 INSERT INTO usuario (nombre, apellido, correo_electronico, contrasenia, habilidades, linkedin, informacion_adicional, ubicacion, pais_origen, edad) VALUES
@@ -12,16 +12,16 @@ INSERT INTO usuario (nombre, apellido, correo_electronico, contrasenia, habilida
 
 -- Datos de prueba para la tabla comunidad
 INSERT INTO comunidad (nombre, descripcion, fecha_creacion, cantidad_miembros, tematica_principal) VALUES
-                                                                                                                   ('Comunidad de Desarrollo Web', 'Un espacio para compartir conocimientos sobre desarrollo web.', '2023-01-10 10:30:00', 150, 'Desarrollo Web'),
-                                                                                                                   ('Comunidad de Inteligencia Artificial', 'Discusiones y proyectos sobre IA y Machine Learning.', '2023-03-20 15:45:00', 230, 'Inteligencia Artificial'),
-                                                                                                                   ('Comunidad de Seguridad Informática', 'Compartimos tips y buenas prácticas de ciberseguridad.', '2022-11-05 09:00:00', 180, 'Ciberseguridad');
+                                                                                                       ('Comunidad de Desarrollo Web', 'Un espacio para compartir conocimientos sobre desarrollo web.', '2023-01-10 10:30:00', 150, 'Desarrollo Web'),
+                                                                                                       ('Comunidad de Inteligencia Artificial', 'Discusiones y proyectos sobre IA y Machine Learning.', '2023-03-20 15:45:00', 230, 'Inteligencia Artificial'),
+                                                                                                       ('Comunidad de Seguridad Informática', 'Compartimos tips y buenas prácticas de ciberseguridad.', '2022-11-05 09:00:00', 180, 'Ciberseguridad');
 
 
 -- Datos de prueba para la tabla evento
 INSERT INTO evento (nombre, costo, descripcion, categoria_evento,tipo_evento,ponente_id,comunidad_id) VALUES
-                                                                                          ('Conferencia IA 2024', 150.00, 'Una conferencia sobre el futuro de la inteligencia artificial.','GESTIONTI', 'VIRTUAL', 1,1),
-                                                                                          ('Taller de UX/UI', 100.00, 'Aprende los fundamentos del diseño UX/UI.','GESTIONTI','VIRTUAL', 2,2),
-                                                                                          ('Hackathon de Ciberseguridad', 200.00, 'Evento competitivo enfocado en ciberseguridad.','GESTIONTI', 'PRESENCIAL',3,3);
+                                                                                                          ('Conferencia IA 2024', 150.00, 'Una conferencia sobre el futuro de la inteligencia artificial.','GESTIONTI', 'VIRTUAL', 1,1),
+                                                                                                          ('Taller de UX/UI', 100.00, 'Aprende los fundamentos del diseño UX/UI.','GESTIONTI','VIRTUAL', 2,2),
+                                                                                                          ('Hackathon de Ciberseguridad', 200.00, 'Evento competitivo enfocado en ciberseguridad.','GESTIONTI', 'PRESENCIAL',3,3);
 
 -- Datos de prueba para la tabla ubicacion
 INSERT INTO ubicacion (nombre_lugar, direccion, ciudad, pais, descripcion, evento_id) VALUES
@@ -32,17 +32,17 @@ INSERT INTO ubicacion (nombre_lugar, direccion, ciudad, pais, descripcion, event
 
 -- Datos de prueba para la tabla comentario
 INSERT INTO comentario (fecha_publicacion, comentario, evento_id, usuario_id) VALUES
-                                                   ('2024-09-15', '¡Excelente evento, aprendí mucho!', 1, 1),
-                                                   ('2024-09-15', 'El ponente fue muy claro y directo.', 2, 2),
-                                                   ('2024-09-15', 'Me gustaría que se extendiera más el tiempo.', 3, 3);
+                                                                                  ('2024-09-15', '¡Excelente evento, aprendí mucho!', 1, 1),
+                                                                                  ('2024-09-15', 'El ponente fue muy claro y directo.', 2, 2),
+                                                                                  ('2024-09-15', 'Me gustaría que se extendiera más el tiempo.', 3, 3);
 
 
 
 -- Datos de prueba para la tabla fecha
 INSERT INTO cronograma (fecha_inicio, fecha_fin, evento_id) VALUES
-                                                           ('2024-09-15 08:00:00', '2024-09-15 10:00:00', 1),
-                                                           ('2024-09-16 09:00:00', '2024-09-16 11:00:00', 2),
-                                                           ('2024-09-17 14:00:00', '2024-09-17 16:00:00', 3);
+                                                                ('2024-09-15 08:00:00', '2024-09-15 10:00:00', 1),
+                                                                ('2024-09-16 09:00:00', '2024-09-16 11:00:00', 2),
+                                                                ('2024-09-17 14:00:00', '2024-09-17 16:00:00', 3);
 
 
 
@@ -54,6 +54,6 @@ INSERT INTO usuario_comunidad (usuario_id, comunidad_id, fecha_unido, rol) VALUE
 
 -- Datos de prueba para la tabla usuario_evento
 INSERT INTO inscripción(tipo_pago,monto_pago,estado_inscripcion, usuario_id, evento_id) VALUES
-                                                                           ('CREDIT_CARD',120.50,'PENDING', 1, 1),
-                                                                           ('CREDIT_CARD',180,'PAID', 2, 2),
-                                                                           ('DEBIT_CARD',200,'PENDING', 3, 3);
+                                                                                            ('CREDIT_CARD',120.50,'PENDING', 1, 1),
+                                                                                            ('CREDIT_CARD',180,'PAID', 2, 2),
+                                                                                            ('DEBIT_CARD',200,'PENDING', 3, 3);
