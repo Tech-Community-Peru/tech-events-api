@@ -1,5 +1,6 @@
 package com.techcommunityperu.techcommunityperu.api;
 
+import com.techcommunityperu.techcommunityperu.dto.UsuarioDTO;
 import com.techcommunityperu.techcommunityperu.model.entity.Usuario;
 import com.techcommunityperu.techcommunityperu.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +18,9 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<Usuario> register(@RequestBody Usuario usuario) {
+    public ResponseEntity<UsuarioDTO> register(@RequestBody Usuario usuario) {
         Usuario newUser= userService.registrarUsuario(usuario);
-        newUser.setContrasenia(null);
-        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+        UsuarioDTO usuarioDTO = new UsuarioDTO(newUser.getId(),newUser.getNombre());
+        return new ResponseEntity<>(usuarioDTO, HttpStatus.CREATED);
     }
 }
