@@ -1,18 +1,16 @@
 package com.techcommunityperu.techcommunityperu.api;
-
-import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.service.InscripcionService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Optional;
-
+import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 @RestController
 @RequestMapping("/inscripcion")
+@RequiredArgsConstructor
 public class InscripcionController {
 
-    @Autowired
     private InscripcionService inscripcionService;
 
     @GetMapping("/evento/{eventoId}/usuario/{usuarioId}")
