@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UsuarioService {
+public class UserService {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UserRepository userRepository;
 
     public boolean validarCredenciales(String correoElectronico, String contrasenia) {
-        Optional<Usuario> usuarioOpt = usuarioRepository.findByCorreoElectronico(correoElectronico);
+        Optional<Usuario> usuarioOpt = userRepository.findByCorreoElectronico(correoElectronico);
         if (usuarioOpt.isPresent()) {
             Usuario usuario = usuarioOpt.get();
             // Comparar la contraseña directamente (sin encriptar)
