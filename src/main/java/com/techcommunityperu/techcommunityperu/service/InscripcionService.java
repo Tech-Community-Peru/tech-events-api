@@ -5,5 +5,5 @@ import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import java.util.Optional;
 
 public interface InscripcionService {
-    Optional<Inscripcion> verificarInscripcion(String nombreUsuario, String nombreEvento);
+    Optional<Inscripcion> verificarInscripcion(Integer usuarioId, Integer eventoId);
 }

@@ -15,7 +15,7 @@ public class InscripcionServiceImpl implements InscripcionService {
     private InscripcionRepository inscripcionRepository;
 
     @Override
-    public Optional<Inscripcion> verificarInscripcion(String nombreUsuario, String nombreEvento) {
-        return inscripcionRepository.findByUsuarioNombreAndEventoNombre(nombreUsuario, nombreEvento);
+    public Optional<Inscripcion> verificarInscripcion(Integer usuarioId, Integer eventoId) {
+        return inscripcionRepository.findByUsuarioIdAndEventoId(usuarioId, eventoId);
     }
 }
