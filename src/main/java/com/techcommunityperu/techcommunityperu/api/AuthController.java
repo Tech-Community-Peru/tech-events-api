@@ -19,6 +19,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<Usuario> register(@RequestBody Usuario usuario) {
         Usuario newUser= userService.registrarUsuario(usuario);
+        newUser.setContrasenia(null);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 }
