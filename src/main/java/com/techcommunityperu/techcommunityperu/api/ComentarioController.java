@@ -1,4 +1,4 @@
-package com.techcommunityperu.techcommunityperu.controller;
+package com.techcommunityperu.techcommunityperu.api;
 
 import com.techcommunityperu.techcommunityperu.model.entity.Comentario;
 import com.techcommunityperu.techcommunityperu.service.ComentarioService;
