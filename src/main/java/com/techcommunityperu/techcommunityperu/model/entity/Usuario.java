@@ -1,13 +1,12 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 @Entity
@@ -28,25 +27,24 @@ public class Usuario {
     @Column(name = "correo_electronico", nullable = true)
     private String correoElectronico;
 
-    @Column(name = "contrasenia",nullable = true)
-    private String contrasenia;
+    @Column(name = "contrasenia", nullable = true)
+    private String contrasenia;  // Cambiado a camelCase para consistencia
 
-    @Column(name = "habilidades", nullable = false)
+    @Column(name = "habilidades",nullable = true)
     private String habilidades;
 
-    @Column(name = "linkedin", nullable = false)
+    @Column(name = "linkedin",nullable = true)
     private String linkedin;
 
-    @Column(name = "informacion_adicional", nullable = false)
+    @Column(name = "informacion_adicional",nullable = true)
     private String informacionAdicional;
 
-    @Column(name = "ubicacion", nullable = true)
+    @Column(name = "ubicacion",nullable = true)
     private String ubicacion;
 
-    @Column(name = "pais_origen", nullable = true)
+    @Column(name = "pais_origen",nullable = true)
     private String paisOrigen;
 
     @Column(name = "edad", nullable = true)
     private Integer edad;
-
 }
