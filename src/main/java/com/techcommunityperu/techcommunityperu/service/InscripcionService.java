@@ -7,6 +7,3 @@ public interface InscripcionService {
     Inscripcion obtenerInscripcionPorEventoYUsuario(Integer eventoId, Integer usuarioId);
     Optional<Inscripcion> verificarInscripcion(Integer usuarioId, Integer eventoId);
 }
-
-
-

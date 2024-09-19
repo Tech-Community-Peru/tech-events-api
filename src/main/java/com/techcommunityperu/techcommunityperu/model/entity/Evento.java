@@ -1,5 +1,5 @@
-
 package com.techcommunityperu.techcommunityperu.model.entity;
+
 import jakarta.persistence.*;
 import lombok.Data;
 import com.techcommunityperu.techcommunityperu.model.enums.categoryEvent;
@@ -34,11 +34,15 @@ public class Evento {
 
     // Relación con Ponente
     @ManyToOne
-    @JoinColumn(name = "ponente_id", referencedColumnName = "id",foreignKey = @ForeignKey(name = "fk_evento_ponente"))
+    @JoinColumn(name = "ponente_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_evento_ponente"))
     private Ponente ponente;
 
+    // Relación con Comunidad
     @ManyToOne
-    @JoinColumn(name = "comunidad_id", referencedColumnName = "id",foreignKey= @ForeignKey(name = "fk_evento_comunidad"))
+    @JoinColumn(name = "comunidad_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_evento_comunidad"))
     private Comunidad comunidad;
 
+    // Relación con Comentarios
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comentario> comentarios;
 }
