@@ -15,10 +15,20 @@ public class UserServiceImpl  implements UserService {
     @Transactional
     @Override
     public Usuario registrarUsuario(Usuario usuario) {
-        if(userRepository.existsByCorreoElectronico(usuario.getCorreoElectronico())){
-            throw new RuntimeException("El correo electronico ya existe");
+        if (userRepository.existsByCorreoElectronico(usuario.getCorreoElectronico())) {
+            throw new RuntimeException("El correo electrónico ya existe");
         }
-
         return userRepository.save(usuario);
+    }
+
+    @Override
+    public boolean validarCredenciales(String correoElectronico, String contrasenia) {
+        // Buscar usuario por correo
+        Usuario usuario = userRepository.findByCorreoElectronico(correoElectronico);
+        if (usuario != null) {
+            // Comparar la contraseña directamente (sin encriptar)
+            return usuario.getContrasenia().equals(contrasenia);
+        }
+        return false;
     }
 }

@@ -1,10 +1,11 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @Entity
@@ -23,9 +24,12 @@ public class Comentario {
     // Relación con Evento
     @ManyToOne
     @JoinColumn(name = "evento_id", referencedColumnName = "id")
+    @JsonIgnore
     private Evento evento;
 
-    @OneToOne
+    // Relación con Usuario
+    @ManyToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    @JsonManagedReference // Agregar esta anotación
     private Usuario usuario;
 }

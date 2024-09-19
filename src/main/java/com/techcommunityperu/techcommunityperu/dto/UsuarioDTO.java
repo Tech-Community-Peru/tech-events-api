@@ -24,5 +24,3 @@ public class UsuarioDTO {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-}
