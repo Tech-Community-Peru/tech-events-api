@@ -7,16 +7,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
-
+@Service
+public class UserServiceImpl  implements UserService {
     private final UserRepository userRepository;
 
     @Transactional
     @Override
     public Usuario registrarUsuario(Usuario usuario) {
-        // Verificar si el correo ya existe
         if (userRepository.existsByCorreoElectronico(usuario.getCorreoElectronico())) {
             throw new RuntimeException("El correo electrónico ya existe");
         }

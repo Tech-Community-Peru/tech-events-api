@@ -6,4 +6,3 @@ public interface UserService {
     Usuario registrarUsuario(Usuario usuario);
     boolean validarCredenciales(String correoElectronico, String contrasenia);
 }
-
