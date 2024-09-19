@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InscriptionRepository extends JpaRepository<Inscripcion, Integer> {
-    // Puedes agregar métodos personalizados aquí si es necesario
-    // Por ejemplo, para encontrar inscripciones por usuario o evento
     List<Inscripcion> findByUsuario(Usuario usuario);
     List<Inscripcion> findByEvento(Evento evento);
 }
