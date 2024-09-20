@@ -2,18 +2,20 @@ package com.techcommunityperu.techcommunityperu.api;
 
 import com.techcommunityperu.techcommunityperu.model.entity.Comentario;
 import com.techcommunityperu.techcommunityperu.service.ComentarioService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/comentarios")
+@RequiredArgsConstructor
 public class ComentarioController {
 
-    @Autowired
-    private ComentarioService comentarioService;
+    private final ComentarioService comentarioService;
 
     // Obtener todos los comentarios por evento
     @GetMapping("/evento/{eventoId}")
@@ -38,9 +40,15 @@ public class ComentarioController {
 
     // Eliminar un comentario por ID
     @DeleteMapping("/eliminar/{id}")
-    public ResponseEntity<Void> eliminarComentario(@PathVariable Integer id) {
-        comentarioService.eliminarComentario(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<String> eliminarComentario(@PathVariable Integer id) {
+        try {
+            comentarioService.eliminarComentario(id);
+            return ResponseEntity.ok("Comentario de id " + id + " eliminado");
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al eliminar el comentario");
+        }
     }
 
     // Obtener un comentario por ID

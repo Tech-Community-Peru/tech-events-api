@@ -20,7 +20,7 @@ public class AdminCategoryController {
     public ResponseEntity<String> recuperarContrasenia(@RequestParam String correoElectronico) {
         String contrasenia = adminUsuarioService.recuperarContraseniaPorCorreo(correoElectronico);
         if (contrasenia != null) {
-            return ResponseEntity.ok(contrasenia);
+            return ResponseEntity.ok("La contraseña es: "+contrasenia);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
         }

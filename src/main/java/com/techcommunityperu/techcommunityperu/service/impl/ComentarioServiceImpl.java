@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -32,6 +33,9 @@ public class ComentarioServiceImpl implements ComentarioService {
 
     @Override
     public void eliminarComentario(Integer id) {
+        if (!comentarioRepository.existsById(id)) {
+            throw new NoSuchElementException("Comentario con id " + id + " no existe.");
+        }
         comentarioRepository.deleteById(id);
     }
 

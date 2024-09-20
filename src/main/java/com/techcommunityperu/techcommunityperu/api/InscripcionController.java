@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/inscripcion")
 @RequiredArgsConstructor
 public class InscripcionController {
-    private InscripcionService inscripcionService;
+    private final InscripcionService inscripcionService;
 
     @GetMapping("/evento/{eventoId}/usuario/{usuarioId}")
     public ResponseEntity<String> verificarInscripcion(@PathVariable Integer eventoId, @PathVariable Integer usuarioId) {
@@ -30,7 +30,7 @@ public class InscripcionController {
 
         try {
             inscripcionService.cancelarInscripcion(eventoId, usuarioId);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok("Evento cancelado.");
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
