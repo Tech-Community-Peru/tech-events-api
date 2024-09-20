@@ -56,15 +56,9 @@ Mira cómo va avanzando nuestro trabajo visitando el siguiente enlace: [Tablero 
 Para entender mejor la estructura y diseño de "Tech Community Peru", revisa los siguientes diagramas:
 
 ### Diagrama de Clases
-![Tech Community Peru - Diagrama Clases](https://github.com/user-attachments/assets/20cdf93d-8894-49e4-992d-0f247aeac4fa)
-
-
+![img.png](img.png)
 ### Diagrama de Base de Datos
-![DIAGRAMA BASE DE DATO](https://github.com/user-attachments/assets/d4270221-6db2-4465-920e-530c7feec3f9)
-
-
-Este diagrama ilustra el esquema de la base de datos utilizada por la aplicación, mostrando las tablas, columnas, y relaciones entre las entidades.
-
+![img_4.png](img_4.png)
 ### Descripción de Capas del Proyecto
 
 | capa        | descripción                                                                                  |

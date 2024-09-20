@@ -27,7 +27,7 @@ public class InscripcionServiceImpl implements InscripcionService {
     @Transactional
     @Override
     public void cancelarInscripcion(Integer eventoId, Integer usuarioId) {
-
+        // Verificar si existe la inscripción antes de intentar eliminarla
         Inscripcion inscripcion = inscripcionRepository.findByEventoAndUsuario(eventoId, usuarioId);
 
         if (inscripcion != null) {

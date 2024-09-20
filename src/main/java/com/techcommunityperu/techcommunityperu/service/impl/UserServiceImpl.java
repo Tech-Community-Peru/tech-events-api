@@ -7,9 +7,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@RequiredArgsConstructor
+import java.util.Optional;
+
+@RequiredArgsConstructor // Esta anotación genera el constructor automáticamente.
 @Service
-public class UserServiceImpl  implements UserService {
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Transactional
@@ -24,10 +26,10 @@ public class UserServiceImpl  implements UserService {
     @Override
     public boolean validarCredenciales(String correoElectronico, String contrasenia) {
         // Buscar usuario por correo
-        Usuario usuario = userRepository.findByCorreoElectronico(correoElectronico);
-        if (usuario != null) {
+        Optional<Usuario> usuario = userRepository.findByCorreoElectronico(correoElectronico);
+        if (usuario.isPresent()) {
             // Comparar la contraseña directamente (sin encriptar)
-            return usuario.getContrasenia().equals(contrasenia);
+            return usuario.get().getContrasenia().equals(contrasenia);
         }
         return false;
     }
