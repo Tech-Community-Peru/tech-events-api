@@ -2,15 +2,27 @@ package com.techcommunityperu.techcommunityperu.service.impl;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.repository.InscripcionRepository;
 import com.techcommunityperu.techcommunityperu.service.InscripcionService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
+import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
+import com.techcommunityperu.techcommunityperu.repository.InscripcionRepository;
+import com.techcommunityperu.techcommunityperu.service.InscripcionService;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class InscripcionServiceImpl implements InscripcionService {
 
-    private final InscripcionRepository inscripcionRepository; // Asegúrate de que esté inyectado
+    @Autowired
+    private InscripcionRepository inscripcionRepository;
+
+    @Override
+    public Optional<Inscripcion> verificarInscripcion(Integer usuarioId, Integer eventoId) {
+        return inscripcionRepository.findByUsuarioIdAndEventoId(usuarioId, eventoId);
+    }
+
 
     @Transactional
     @Override
@@ -31,4 +43,5 @@ public class InscripcionServiceImpl implements InscripcionService {
     public Inscripcion obtenerInscripcionPorEventoYUsuario(Integer eventoId, Integer usuarioId) {
         return inscripcionRepository.findByEventoAndUsuario(eventoId, usuarioId);
     }
+
 }
