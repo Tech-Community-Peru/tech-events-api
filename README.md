@@ -75,6 +75,21 @@ Este diagrama ilustra el esquema de la base de datos utilizada por la aplicació
 | service     | Declara la lógica de negocio y las operaciones que se realizarán sobre las entidades.         |
 | service impl| Implementa la lógica de negocio definida en los servicios, utilizando los repositorios necesarios. |
 
+
+# Evidencias del Sprint
+
+| Nombre de paquete | Descripción |
+|-------------------|-------------|
+| **api**           | En este paquete se contienen los controladores REST que permiten que nuestra aplicación hable con el mundo exterior. Manejan las solicitudes HTTP y se aseguran de que todo funcione sin problemas. Lo usamos para probar la funcionalidad en Postman. |
+| **dto**           | Aquí están las clases que usamos para enviar datos entre las distintas partes de la aplicación. Mantienen las cosas ligeras y organizadas. Es simple, pero no significa que sea irrelevante. |
+| **entity**        | Son las clases que representan las tablas de nuestra base de datos. Están llenas de anotaciones de JPA que les dicen cómo deben comportarse. |
+| **enums**         | El paquete contiene constantes que no cambian, lo que hace que el código sea más legible. |
+| **repository**    | Resguardan las interfaces que extienden `JpaRepository` y manejan la lógica de acceso a datos. Proporcionan métodos para realizar operaciones CRUD en las entidades de la base de datos sin necesidad de implementar la lógica. |
+| **service**       | Interfaces que definen la lógica de negocio de la aplicación. Agrupan métodos que realizan operaciones específicas relacionadas con las entidades. |
+| **service/Impl**  | Clases que implementan las interfaces de servicio. Contienen la lógica específica de cada método y se comunican con los repositorios para interactuar con la base de datos. |
+| **resources**     | Es la carpeta que contiene los archivos de configuración para el funcionamiento de la aplicación. Dentro de la carpeta se incluye el archivo de propiedades para la conexión de la base de datos y el archivo SQL donde se guardan los valores de la base de datos. |
+
+
 # Asignación de Historias de Usuario
 
 
@@ -86,10 +101,10 @@ Este diagrama ilustra el esquema de la base de datos utilizada por la aplicació
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|----------|-----------------|
 | **Diego Sanchez Chuquimango**                                                                                                                                                                                                                           | Registro de cuenta                  | CRUD     | Media           |
 | <img src="https://media.licdn.com/dms/image/v2/D4D35AQFUI7vCHQif-w/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1723740630748?e=1726959600&v=beta&t=l8LD97EMGErB5mprBrDZq4Rb9w0nlYqYevx79MLRn_s" width="100" height="100" /> | Cancelación de asistencia a un evento | CRUD     | Media           |
-| **Leonardo Sanchez Romero**                                                                                                                                                                                                                             | Notificación de estado de pago      | Core     | Alta            |
+| **Leonardo Sanchez Romero**                                                                                                                                                                                                                             | Comentarios de Eventos              | CRUD     | Baja            |
 | <img src="https://media.licdn.com/dms/image/v2/D4E35AQHKHteEmC3OrA/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1726350962776?e=1726963200&v=beta&t=izRICBiidkfqLVpzhDi0OBLg-Wq_CAV0WqgAY-v_iks" width="100" height="100" /> | Inicio de sesión                    | Core     | Alta            |
-| **Charlie Morales Benites**                                                                                                                                                                                                                             | Valoración y Comentarios de Eventos | CRUD     | Baja            |
-| <img src="https://media.licdn.com/dms/image/v2/D4E35AQHJheob8SYbkQ/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1726350402772?e=1726963200&v=beta&t=BUwICWxj1WDq3tbgGU4C5kXtQLcTCbDNbAleuKz6PRA" width="100" height="100" /> | Compra de eventos premium| CRUD     | Alta            |
+| **Charlie Morales Benites**                                                                                                                                                                                                                             | Notificación de estado de pago      | Core     | Alta            | 
+| <img src="https://media.licdn.com/dms/image/v2/D4E35AQHJheob8SYbkQ/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1726350402772?e=1726963200&v=beta&t=BUwICWxj1WDq3tbgGU4C5kXtQLcTCbDNbAleuKz6PRA" width="100" height="100" /> | Compra de eventos premium| CRUD     | Core     | Alta                |
 | **Eduardo Rumay Iglesias**                                                                                                                                                                                                                              | Olvidé mi contraseña                | Core     | Alta            |
 | <img src="https://github.com/user-attachments/assets/23d8e13f-eca0-400e-ab89-0e7c27c99627" width="100" height="100" alt="rumay-foto" />                                                                                                                 | Asistencia a eventos tecnológicos   | Core     | Alta            |
 

@@ -27,13 +27,14 @@ public class PurchaseServiceImpl implements PurchaseService {
     private InscriptionRepository inscriptionRepository;
 
     @Autowired
-    private UserRepository usuarioRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private PaymentService paymentService;
 
     @Autowired
     private EmailService emailService;
+
 
     @Override
     public String purchaseTicket(Integer eventoId, Integer usuarioId, paymentType tipoPago) {
@@ -42,7 +43,7 @@ public class PurchaseServiceImpl implements PurchaseService {
                 .orElseThrow(() -> new NoSuchElementException("Evento no encontrado"));
 
         // Buscar el usuario
-        Usuario usuario = usuarioRepository.findById(usuarioId)
+        Usuario usuario = userRepository.findById(usuarioId)
                 .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado"));
 
         double monto = evento.getCosto();

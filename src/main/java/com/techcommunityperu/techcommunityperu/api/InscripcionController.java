@@ -20,7 +20,7 @@ public class InscripcionController {
 
         try {
             inscripcionService.cancelarInscripcion(eventoId, usuarioId);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok("Evento cancelado");
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

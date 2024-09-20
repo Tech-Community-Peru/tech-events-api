@@ -17,22 +17,22 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class AuthController {
     private final UserService userService;
-    // Endpoint para registrar un usuario
+
     @PostMapping("/register")
     public ResponseEntity<UsuarioDTO> register(@RequestBody Usuario usuario) {
         Usuario newUser = userService.registrarUsuario(usuario);
         UsuarioDTO usuarioDTO = new UsuarioDTO(newUser.getId(), newUser.getNombre());
         return new ResponseEntity<>(usuarioDTO, HttpStatus.CREATED);
-      
-     @PostMapping("/login")
-     public ResponseEntity<String> login(@RequestParam String correo_electronico, @RequestParam String contrasenia) {
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestParam String correo_electronico, @RequestParam String contrasenia) {
         boolean esValido = userService.validarCredenciales(correo_electronico, contrasenia);
 
         if (esValido) {
             return ResponseEntity.ok("Inicio de sesión exitoso. Redirigiendo a la página principal...");
-          } else {
+        } else {
             return ResponseEntity.status(401).body("El correo electrónico y/o la contraseña son incorrectas.");
-          }
-      }
+        }
     }
 }

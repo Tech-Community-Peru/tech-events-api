@@ -26,7 +26,7 @@ public class Usuario {
     @Column(name = "apellido", nullable = true)
     private String apellido;
 
-    @Column(name = "correo_electronico", nullable = true)
+    @Column(name = "correo_electronico", nullable = false)
     private String correoElectronico;
 
     @Column(name = "contrasenia", nullable = true)
@@ -49,9 +49,4 @@ public class Usuario {
 
     @Column(name = "edad", nullable = true)
     private Integer edad;
-
-    // Relación con Comentario
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference // Agregar esta anotación
-    private List<Comentario> comentarios;
 }
