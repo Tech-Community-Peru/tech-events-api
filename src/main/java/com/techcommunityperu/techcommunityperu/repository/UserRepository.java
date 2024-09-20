@@ -2,8 +2,12 @@ package com.techcommunityperu.techcommunityperu.repository;
 
 import com.techcommunityperu.techcommunityperu.model.entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<Usuario, Integer> {
-    boolean existsByCorreoElectronico(String correoElectronico);
-    Usuario findByCorreoElectronico(String correoElectronico);
+
+    Optional<Usuario> findByCorreoElectronico(String correoElectronico);
+
+
 }
+
