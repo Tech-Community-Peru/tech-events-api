@@ -26,13 +26,13 @@ public class Comentario {
     private String comentario;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private Usuario usuario;
-
-    @ManyToOne
     @JoinColumn(name = "evento_id",  referencedColumnName = "id")
     private Evento evento;
-
+  
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuario usuario;
+  
     @PrePersist
     public void prePersist() {
         this.fechaPublicacion = LocalDateTime.now();
