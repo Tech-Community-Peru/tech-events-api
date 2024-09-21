@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 public class ComentarioServiceImpl implements ComentarioService {
@@ -40,7 +39,8 @@ public class ComentarioServiceImpl implements ComentarioService {
     }
 
     @Override
-    public Optional<Comentario> obtenerComentarioPorId(Integer id) {
-        return comentarioRepository.findById(id);
+    public Comentario obtenerComentarioPorId(Integer id) {
+        return comentarioRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Comentario con ID " + id + " no encontrado"));
     }
 }
