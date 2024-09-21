@@ -24,12 +24,10 @@ public class Comentario {
     // Relación con Evento
     @ManyToOne
     @JoinColumn(name = "evento_id", referencedColumnName = "id")
-    @JsonIgnore
     private Evento evento;
 
     // Relación con Usuario
     @ManyToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    @JsonManagedReference // Agregar esta anotación
     private Usuario usuario;
 }
