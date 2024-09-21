@@ -1,6 +1,6 @@
 package com.techcommunityperu.techcommunityperu.api;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.techcommunityperu.techcommunityperu.dto.ComentarioDTO;
 import com.techcommunityperu.techcommunityperu.model.entity.Comentario;
 import com.techcommunityperu.techcommunityperu.service.ComentarioService;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +31,10 @@ public class ComentarioController {
     }
 
     @PostMapping("/guardar")
-    public ResponseEntity<Comentario> guardarComentario(@RequestBody Comentario comentario) {
+    public ResponseEntity<ComentarioDTO> guardarComentario(@RequestBody Comentario comentario) {
         Comentario nuevoComentario = comentarioService.guardarComentario(comentario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoComentario);
+        ComentarioDTO comentarioDTO = new ComentarioDTO(nuevoComentario.getId(),nuevoComentario.getComentario());
+        return ResponseEntity.status(HttpStatus.CREATED).body(comentarioDTO);
     }
 
     @DeleteMapping("/eliminar/{id}")

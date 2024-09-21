@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Table(name = "comentario")
 @Data
 @NoArgsConstructor
-@JsonIgnoreProperties({"usuario", "evento"}) // Ignorar referencias cíclicas
 public class Comentario {
 
     @Id
