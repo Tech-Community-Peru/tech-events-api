@@ -19,15 +19,17 @@ public class ComentarioController {
     private final ComentarioService comentarioService;
 
     @GetMapping("/evento/{eventoId}")
-    public ResponseEntity<List<Comentario>> obtenerComentariosPorEvento(@PathVariable Integer eventoId) {
-        List<Comentario> comentarios = comentarioService.obtenerComentariosPorEvento(eventoId);
-        return ResponseEntity.ok(comentarios);
+    public ResponseEntity<ComentarioDTO> obtenerComentariosPorEvento(@PathVariable Integer eventoId) {
+        Comentario comentarios = comentarioService.obtenerComentariosPorEvento(eventoId);
+        ComentarioDTO comentarioDTO = new ComentarioDTO(comentarios.getId(),comentarios.getComentario());
+        return ResponseEntity.ok(comentarioDTO);
     }
 
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<Comentario>> obtenerComentariosPorUsuario(@PathVariable Integer usuarioId) {
-        List<Comentario> comentarios = comentarioService.obtenerComentariosPorUsuario(usuarioId);
-        return ResponseEntity.ok(comentarios);
+    public ResponseEntity<ComentarioDTO> obtenerComentariosPorUsuario(@PathVariable Integer usuarioId) {
+        Comentario comentarios = comentarioService.obtenerComentariosPorUsuario(usuarioId);
+        ComentarioDTO comentarioDTO = new ComentarioDTO(comentarios.getId(),comentarios.getComentario());
+        return ResponseEntity.ok(comentarioDTO);
     }
 
     @PostMapping("/guardar")
@@ -49,13 +51,4 @@ public class ComentarioController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Comentario> obtenerComentarioPorId(@PathVariable Integer id) {
-        try {
-            Comentario comentario = comentarioService.obtenerComentarioPorId(id);
-            return ResponseEntity.ok(comentario);
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-    }
 }

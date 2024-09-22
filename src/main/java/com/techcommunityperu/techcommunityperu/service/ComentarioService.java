@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface ComentarioService {
     Comentario guardarComentario(Comentario comentario);
-    List<Comentario> obtenerComentariosPorEvento(Integer eventoId);
-    List<Comentario> obtenerComentariosPorUsuario(Integer usuarioId);
+    Comentario obtenerComentariosPorEvento(Integer eventoId);
+    Comentario obtenerComentariosPorUsuario(Integer usuarioId);
     void eliminarComentario(Integer id);
     Comentario obtenerComentarioPorId(Integer id);
 }
