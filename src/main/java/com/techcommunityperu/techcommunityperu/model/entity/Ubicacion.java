@@ -6,8 +6,8 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-@Entity
 @Table(name = "ubicacion")
+@Entity
 public class Ubicacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +24,8 @@ public class Ubicacion {
     private String descripcion;
 
     // Relación con Evento
-    @ManyToOne
-    @JoinColumn(name = "evento_id", nullable = false)
-    private Evento evento;
+//    @ManyToOne
+//    @JoinColumn(name = "evento_id", nullable = false)
+//    private Evento evento;
 
 }

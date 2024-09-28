@@ -31,6 +31,10 @@ public class Comentario {
     @ManyToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "comunidad_id", referencedColumnName = "id")
+    private Comunidad comunidad;
   
     @PrePersist
     public void prePersist() {
