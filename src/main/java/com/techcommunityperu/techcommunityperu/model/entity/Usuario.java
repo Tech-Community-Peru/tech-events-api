@@ -1,12 +1,8 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.techcommunityperu.techcommunityperu.model.enums.Role;
+import jakarta.persistence.*;
 import lombok.Data;
 
 
@@ -48,4 +44,8 @@ public class Usuario {
 
     @Column(name = "edad", nullable = true)
     private Integer edad;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rol")
+    private Role role;
 }

@@ -24,7 +24,7 @@ public class usuarioComunidad {
     @Column(name = "fecha_unido", nullable = false)
     private LocalDateTime fechaUnido;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "rol")
-    private Role role;
+    public String getRolUsuario() {
+        return usuario.getRole().name(); // Devuelve el nombre del rol del usuario
+    }
 }

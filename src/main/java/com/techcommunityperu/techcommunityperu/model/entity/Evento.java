@@ -9,7 +9,6 @@ import java.util.List;
 @Data
 @Table (name = "evento")
 @Entity
-
 public class Evento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
@@ -42,7 +41,13 @@ public class Evento {
     @JoinColumn(name = "comunidad_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_evento_comunidad"))
     private Comunidad comunidad;
 
-    // Relación con Comentarios
-    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comentario> comentarios;
+    // Relación con Ubicacion
+    @ManyToOne
+    @JoinColumn(name = "ubicacion_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_evento_ubicacion"))
+    private Ubicacion ubicacion;
+
+
+//     Relación con Comentarios
+//    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Comentario> comentarios;
 }
