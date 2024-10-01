@@ -1,7 +1,13 @@
 package com.techcommunityperu.techcommunityperu.model.enums;
 
 public enum categoryEvent {
-    GESTIONTI,
+    BIG_DATA,
     CIBERSEGURIDAD,
-    MACHINNELEARNING
+    MACHINNELEARNING,
+    INTELIGENCIA_ARTIFICIAL,
+    CLOUD,
+    DEVOPS,
+    INNOVACION,
+    MACHINE_LEARNING,
+    BLOCKCHAIN
 }
