@@ -6,4 +6,5 @@ import java.math.BigDecimal;
 
 public interface EmailService {
     void sendConfirmationEmail(Inscripcion inscripcion, double monto);
+    String sendEmail(String to, String subject, String text);
 }
