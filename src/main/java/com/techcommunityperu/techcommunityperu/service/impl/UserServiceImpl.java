@@ -33,4 +33,9 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+
+    @Override
+    public Optional<Usuario> findByCorreoElectronico(String correoElectronico) {
+        return userRepository.findByCorreoElectronico(correoElectronico);
+    }
 }
