@@ -24,7 +24,4 @@ public class usuarioComunidad {
     @Column(name = "fecha_unido", nullable = false)
     private LocalDateTime fechaUnido;
 
-    public String getRolUsuario() {
-        return usuario.getRole().name(); // Devuelve el nombre del rol del usuario
-    }
 }
