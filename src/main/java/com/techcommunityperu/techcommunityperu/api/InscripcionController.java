@@ -1,17 +1,30 @@
 package com.techcommunityperu.techcommunityperu.api;
+
+import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
+import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.service.InscripcionService;
 import lombok.RequiredArgsConstructor;
-import java.util.Optional;
-import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/inscripcion")
 @RequiredArgsConstructor
 public class InscripcionController {
     private final InscripcionService inscripcionService;
+
+    @PostMapping
+    public ResponseEntity<String> crearInscripcion(@RequestBody InscripcionDTO inscripcionDTO) {
+        try {
+            inscripcionService.crearInscripcion(inscripcionDTO);
+            return ResponseEntity.ok("Metodo verificado, inscripción creada exitosamente");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al crear la inscripción: " + e.getMessage());
+        }
+    }
 
     @GetMapping("/evento/{eventoId}/usuario/{usuarioId}")
     public ResponseEntity<String> verificarInscripcion(@PathVariable Integer eventoId, @PathVariable Integer usuarioId) {
@@ -30,9 +43,9 @@ public class InscripcionController {
 
         try {
             inscripcionService.cancelarInscripcion(eventoId, usuarioId);
-            return ResponseEntity.ok("Evento cancelado.");
+            return ResponseEntity.ok("Inscripción cancelada.");
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al cancelar la inscripción: " + e.getMessage());
         }
     }
 }
