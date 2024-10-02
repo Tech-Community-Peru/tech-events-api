@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-@RequiredArgsConstructor // Esta anotación genera el constructor automáticamente.
+@RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -38,4 +38,10 @@ public class UserServiceImpl implements UserService {
     public Optional<Usuario> findByCorreoElectronico(String correoElectronico) {
         return userRepository.findByCorreoElectronico(correoElectronico);
     }
+    @Override
+    public Optional<Usuario> findById(Integer userId) {
+        return userRepository.findById(userId);
+    }
+
 }
+
