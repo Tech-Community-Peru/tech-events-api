@@ -1,4 +1,5 @@
 package com.techcommunityperu.techcommunityperu.service.impl;
+
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.repository.InscriptionRepository;
 import com.techcommunityperu.techcommunityperu.service.InscripcionService;

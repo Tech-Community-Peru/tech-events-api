@@ -1,4 +1,5 @@
 package com.techcommunityperu.techcommunityperu.api;
+
 import com.techcommunityperu.techcommunityperu.service.InscripcionService;
 import lombok.RequiredArgsConstructor;
 import java.util.Optional;
