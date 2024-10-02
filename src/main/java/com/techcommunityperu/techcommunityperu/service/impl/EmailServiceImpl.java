@@ -23,7 +23,7 @@ public class EmailServiceImpl implements EmailService {
         System.out.println("Resumen de compra: " +inscripcion.getInscripcionStatus()+"\n"
                 +"ID Evento: "+inscripcion.getEvento().getId()+"\n"
                 +"Nombre de Evento: "+inscripcion.getEvento().getNombre()+"\n"
-                +"ID Usuario :"+inscripcion.getUsuario().getId()+"\n"
+                +"ID Usuario :"+inscripcion.getId()+"\n"
                 +"Tipo de pago: "+inscripcion.getTipoPago()+"\n"
                 +"Monto pagado: "+inscripcion.getMonto());
     }
