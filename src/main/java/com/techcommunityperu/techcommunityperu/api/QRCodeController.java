@@ -1,6 +1,8 @@
 package com.techcommunityperu.techcommunityperu.api;
 
 import com.google.zxing.WriterException;
+import com.techcommunityperu.techcommunityperu.model.entity.Evento;
+import com.techcommunityperu.techcommunityperu.repository.EventRepository;
 import com.techcommunityperu.techcommunityperu.service.QRCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -16,19 +18,33 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/qrcode")
 public class QRCodeController {
-
     @Autowired
     private QRCodeService qrCodeService;
 
-    // Endpoint para generar el QR de un participante específico de un evento
-    @GetMapping("/generate/{eventoId}/{usuarioId}")
-    public ResponseEntity<byte[]> generateQRCode(@PathVariable Integer eventoId, @PathVariable Integer usuarioId) {
-        String qrContent = "Evento ID: " + eventoId + " | Usuario ID: " + usuarioId;
+    @Autowired
+    private EventRepository eventRepository; // Repositorio para acceder a los datos del evento
+
+    // Endpoint para generar el QR de un participante y mostrar detalles del evento
+    @GetMapping("/generate/{eventId}/{participantId}")
+    public ResponseEntity<byte[]> generateQRCode(@PathVariable Integer eventId, @PathVariable Integer participantId) {
+        // Obtener los detalles del evento desde la base de datos
+        Evento evento = eventRepository.findById(eventId).orElse(null);
+
+        if (evento == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Si el evento no existe
+        }
+
+        // Contenido del QR: incluye los detalles del evento
+        String qrContent = "Evento: " + evento.getNombre() + "\n" +
+                "Descripción: " + evento.getDescripcion() + "\n" +
+                "Ubicación: " + evento.getUbicacion().getNombreLugar() + "\n" +
+                "Participante ID: " + participantId;
+
         byte[] qrCodeImage = new byte[0];
 
         try {
-            // Genera el código QR
-            qrCodeImage = qrCodeService.generateQRCodeImage(qrContent, 350, 350);
+            // Genera el código QR con los detalles del evento y el participante
+            qrCodeImage = qrCodeService.generateQRCodeImage(qrContent, 250, 250);
         } catch (WriterException | IOException e) {
             // Retorna un mensaje de error en caso de falla
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
