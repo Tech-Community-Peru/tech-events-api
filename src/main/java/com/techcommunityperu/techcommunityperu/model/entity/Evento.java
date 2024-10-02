@@ -47,6 +47,9 @@ public class Evento {
     private Ubicacion ubicacion;
 
 
+    @OneToMany(mappedBy = "evento")
+    private List<Asistencia> asistencias;
+
 //     Relación con Comentarios
 //    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Comentario> comentarios;
