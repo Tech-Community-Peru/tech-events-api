@@ -21,9 +21,10 @@ public interface InscripcionRepository extends JpaRepository<Inscripcion, Intege
     void deleteByEventoAndUsuario(@Param("eventoId") Integer eventoId, @Param("usuarioId") Integer usuarioId);
 
     @Query("SELECT i FROM Inscripcion i WHERE i.evento.id = :eventoId AND i.usuario.id = :usuarioId")
-    Inscripcion findByEventoAndUsuario(@Param("eventoId") Integer eventoId, @Param("usuarioId") Integer usuarioId);
+    Optional<Inscripcion> findByEventoAndUsuario(@Param("eventoId") Integer eventoId, @Param("usuarioId") Integer usuarioId);
 
     List<Inscripcion> findByUsuario(Usuario usuario);
 
     List<Inscripcion> findByEvento(Evento evento);
 }
+

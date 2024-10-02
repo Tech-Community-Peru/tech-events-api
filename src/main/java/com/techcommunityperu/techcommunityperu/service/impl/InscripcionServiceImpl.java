@@ -1,6 +1,8 @@
 package com.techcommunityperu.techcommunityperu.service.impl;
 
 import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
+import com.techcommunityperu.techcommunityperu.exception.InscripcionNotFoundException;
+import com.techcommunityperu.techcommunityperu.mapper.InscripcionMapper;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.model.entity.Usuario;
 import com.techcommunityperu.techcommunityperu.repository.InscripcionRepository;
@@ -18,10 +20,13 @@ import java.util.Optional;
 public class InscripcionServiceImpl implements InscripcionService {
 
     @Autowired
-    private InscripcionRepository inscriptionRepository;
+    private final InscripcionRepository inscriptionRepository;
 
     @Autowired
-    private UsuarioRepository usuarioRepository; // Asegúrate de tener esto inyectado
+    private final UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private final InscripcionMapper inscripcionMapper;
 
     @Override
     public Optional<Inscripcion> verificarInscripcion(Integer usuarioId, Integer eventoId) {
@@ -31,37 +36,31 @@ public class InscripcionServiceImpl implements InscripcionService {
     @Transactional
     @Override
     public void cancelarInscripcion(Integer eventoId, Integer usuarioId) {
-        // Verificar si existe la inscripción antes de intentar eliminarla
-        Inscripcion inscripcion = inscriptionRepository.findByEventoAndUsuario(eventoId, usuarioId);
+        Inscripcion inscripcion = inscriptionRepository.findByEventoAndUsuario(eventoId, usuarioId)
+                .orElseThrow(() -> new InscripcionNotFoundException("No se encontró inscripción para cancelar."));
 
-        if (inscripcion != null) {
-            // Eliminar la inscripción si existe
-            inscriptionRepository.deleteByEventoAndUsuario(eventoId, usuarioId);
-        } else {
-            throw new RuntimeException("No se encontró la inscripción para cancelar.");
-        }
+        inscriptionRepository.deleteByEventoAndUsuario(eventoId, usuarioId);
     }
 
-    // Método para obtener una inscripción específica basada en eventoId y usuarioId
     @Override
     public Inscripcion obtenerInscripcionPorEventoYUsuario(Integer eventoId, Integer usuarioId) {
-        return inscriptionRepository.findByEventoAndUsuario(eventoId, usuarioId);
+        return inscriptionRepository.findByEventoAndUsuario(eventoId, usuarioId)
+                .orElseThrow(() -> new InscripcionNotFoundException("No se encontró inscripción para el evento y usuario especificado."));
     }
 
-    @Transactional // Asegúrate de que el método sea transaccional
+
+    @Transactional
     @Override
     public void crearInscripcion(InscripcionDTO inscripcionDTO) {
-        // Buscar al usuario por ID
+        // Validar si el usuario existe
         Optional<Usuario> usuarioOpt = usuarioRepository.findById(inscripcionDTO.getUsuario());
         if (usuarioOpt.isEmpty()) {
-            throw new RuntimeException("Usuario no encontrado");
+            throw new InscripcionNotFoundException("Usuario no encontrado");
         }
 
-        Usuario usuario = usuarioOpt.get();
-
-        // Crear la inscripción y guardar en la base de datos
+        // Crear la entidad de Inscripción y mapear los campos desde el DTO
         Inscripcion nuevaInscripcion = new Inscripcion();
-        nuevaInscripcion.setUsuario(usuario);
+        nuevaInscripcion.setUsuario(usuarioOpt.get());
         nuevaInscripcion.setMonto(inscripcionDTO.getMontoPago());
         nuevaInscripcion.setTipoPago(inscripcionDTO.getTipoPago());
         nuevaInscripcion.setInscripcionStatus(inscripcionDTO.getStatus());

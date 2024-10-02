@@ -1,14 +1,23 @@
 package com.techcommunityperu.techcommunityperu.dto;
 
-import com.techcommunityperu.techcommunityperu.model.entity.Usuario;
 import com.techcommunityperu.techcommunityperu.model.enums.paymentType;
 import com.techcommunityperu.techcommunityperu.model.enums.statusInscription;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class InscripcionDTO {
-    private int usuario;
+
+    @NotNull(message = "El tipo de pago es obligatorio")
     private paymentType tipoPago;
-    private double montoPago;
+
+    @NotNull(message = "El monto es obligatorio")
+    private Double montoPago;
+
+    @NotNull(message = "El estado del pago es obligatorio")
     private statusInscription status;
+
+    @NotNull(message = "El usuario es obligatorio")
+    private Integer usuario;
 }
+

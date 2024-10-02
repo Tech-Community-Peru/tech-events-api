@@ -8,5 +8,5 @@ public interface InscripcionService {
     void cancelarInscripcion(Integer eventoId, Integer usuarioId);
     Inscripcion obtenerInscripcionPorEventoYUsuario(Integer eventoId, Integer usuarioId);
     Optional<Inscripcion> verificarInscripcion(Integer usuarioId, Integer eventoId);
-    void crearInscripcion(InscripcionDTO inscripcionDTO); // Agregar esta línea
+    void crearInscripcion(InscripcionDTO inscripcionDTO);
 }
