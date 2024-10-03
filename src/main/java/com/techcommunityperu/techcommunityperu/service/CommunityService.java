@@ -9,6 +9,7 @@ public interface CommunityService {
     CommunityDTO updateCommunity(CommunityDTO communityDTO, Long communityId);
     void deleteCommunity(Long communityId);
     List<CommunityDTO> getAllCommunities();
+
+    // Nuevo método para obtener una comunidad por ID
+    CommunityDTO getCommunityById(Long communityId);
 }
-
-

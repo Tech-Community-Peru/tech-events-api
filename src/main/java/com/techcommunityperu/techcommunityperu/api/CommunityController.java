@@ -10,8 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -21,7 +21,6 @@ public class CommunityController {
 
     @PostMapping
     public ResponseEntity<?> createCommunity(@Valid @RequestBody CommunityDTO communityDTO, BindingResult result) {
-        // Verifica si hay errores en la validación
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             result.getFieldErrors().forEach(error -> {
@@ -29,12 +28,12 @@ public class CommunityController {
             });
             return ResponseEntity.badRequest().body(errors);
         }
-        // Aquí la lógica para guardar la comunidad
-        return ResponseEntity.ok("Comunidad creada correctamente");
+        CommunityDTO createdCommunity = communityService.createCommunity(communityDTO, 1L); // Reemplaza 1L con el userId adecuado
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdCommunity);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CommunityDTO> updateCommunity(@PathVariable Long id, @RequestBody CommunityDTO communityDTO) {
+    public ResponseEntity<CommunityDTO> updateCommunity(@PathVariable Long id, @Valid @RequestBody CommunityDTO communityDTO) {
         CommunityDTO updatedCommunity = communityService.updateCommunity(communityDTO, id);
         return new ResponseEntity<>(updatedCommunity, HttpStatus.OK);
     }
@@ -50,6 +49,13 @@ public class CommunityController {
         List<CommunityDTO> communities = communityService.getAllCommunities();
         return ResponseEntity.ok(communities);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getCommunityById(@PathVariable Long id) {
+        CommunityDTO communityDTO = communityService.getCommunityById(id);
+        return ResponseEntity.ok(communityDTO);
+    }
 }
+
 
 

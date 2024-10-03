@@ -48,5 +48,12 @@ public class CommunityServiceImpl implements CommunityService {
                 .map(communityMapper::toDto)
                 .collect(Collectors.toList());
     }
-}
 
+    // Nuevo método para obtener una comunidad por ID
+    @Override
+    public CommunityDTO getCommunityById(Long communityId) {
+        Comunidad comunidad = communityRepository.findById(communityId)
+                .orElseThrow(() -> new RuntimeException("Comunidad no encontrada"));
+        return communityMapper.toDto(comunidad);
+    }
+}
