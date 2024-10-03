@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface InscripcionService {
     void cancelarInscripcion(Integer eventoId, Integer usuarioId);
-    Inscripcion obtenerInscripcionPorEventoYUsuario(Integer eventoId, Integer usuarioId);
+    Inscripcion obtenerInscripcionPorEventoYParticipante(Integer eventoId, Integer participanteId);
     Optional<Inscripcion> verificarInscripcion(Integer usuarioId, Integer eventoId);
 
     //CRUD

@@ -1,5 +1,7 @@
 package com.techcommunityperu.techcommunityperu.api;
 
+import com.techcommunityperu.techcommunityperu.model.entity.Evento;
+import com.techcommunityperu.techcommunityperu.model.entity.Participante;
 import com.techcommunityperu.techcommunityperu.service.EmailService;
 import com.techcommunityperu.techcommunityperu.service.impl.FavoritosServiceImpl;
 import lombok.AllArgsConstructor;
@@ -29,4 +31,11 @@ public class EmailController {
         return ResponseEntity.ok(favoritosService.favoritosEnviar(correoElectronico));
     }
 
+    @PostMapping("/invitacion/evento/{participanteid}/{eventoid}")
+    public ResponseEntity<String> sendInvitacionEvento(@PathVariable("participanteid") Participante participanteid, @PathVariable("eventoid") Evento eventoid) {
+        //System.out.println(usuarioid.);
+        System.out.println(participanteid);
+        System.out.println(eventoid);
+        return ResponseEntity.ok(favoritosService.invitacionEventoCorreo(participanteid,eventoid ));
+    }
 }

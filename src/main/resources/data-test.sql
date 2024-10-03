@@ -105,7 +105,7 @@ INSERT INTO Usuario_Comunidad (usuario_id, comunidad_id, fecha_unido) VALUES
 
 
 
-INSERT INTO inscripcion (monto_pago, tipo_pago, estado_inscripcion, usuario_id, evento_id) VALUES
+INSERT INTO inscripcion (monto_pago, tipo_pago, estado_inscripcion, participante_id, evento_id) VALUES
                                                                                                (100.00, 'CREDIT_CARD', 'PAID', 1, 1),
                                                                                                (150.00, 'DEBIT_CARD', 'PAID', 2, 2),
                                                                                                (200.00, 'CREDIT_CARD', 'PENDING', 3, 3),
@@ -133,8 +133,6 @@ INSERT INTO ganador ( sorteo_id, inscripcion_id) VALUES
                                                       (5,5),
                                                       (6,6),
                                                       (7,7);
-                                                      (7,7),
-                                                      (8,8);
 
 INSERT INTO asistencia (participante_id, evento_id, asistio, fecha_asistencia)
 VALUES

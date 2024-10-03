@@ -21,12 +21,12 @@ public class ActivityUserController {
     @Autowired
     private InscripcionService inscripcionService;
 
-    @GetMapping("/eventos/{id_participante}")
+    @GetMapping("/evento/{id_participante}")
     public List<EventoDTO> listarEventosPorParticipante(@PathVariable Integer id_participante) {
        List<Inscripcion> listInscripcion = inscripcionService.findByParticipanteId(id_participante);
        List<EventoDTO> listEventosDTO = new ArrayList<EventoDTO>();
        for(Inscripcion inscripcion : listInscripcion) {
-           listEventosDTO.add(new EventoDTO(inscripcion.getEvento().getId(),inscripcion.getEvento().getNombre(),inscripcion.getEvento().getCosto(),inscripcion.getEvento().getDescripcion()));
+           listEventosDTO.add(new EventoDTO(inscripcion.getEvento().getId(),inscripcion.getEvento().getNombre(),inscripcion.getEvento().getCosto(),inscripcion.getEvento().getDescripcion(),inscripcion.getEvento().getEventoCategoria().name(),inscripcion.getEvento().getTipoEvento().name(),inscripcion.getEvento().getUbicacion().getNombreLugar()));
        }
        return listEventosDTO;
     }

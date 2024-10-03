@@ -1,11 +1,11 @@
 package com.techcommunityperu.techcommunityperu.service.impl;
 import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
-import com.techcommunityperu.techcommunityperu.api.AdminCategoryController;
-import com.techcommunityperu.techcommunityperu.exception.ResourceNotFoundException;
+import com.techcommunityperu.techcommunityperu.exceptions.ResourceNotFoundException;
 import com.techcommunityperu.techcommunityperu.mapper.InscripcionMapper;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
-import com.techcommunityperu.techcommunityperu.model.entity.Usuario;
-import com.techcommunityperu.techcommunityperu.repository.InscripcionRepository;
+import com.techcommunityperu.techcommunityperu.model.entity.Participante;
+import com.techcommunityperu.techcommunityperu.repository.InscriptionRepository;
+import com.techcommunityperu.techcommunityperu.repository.ParticipantRepository;
 import com.techcommunityperu.techcommunityperu.repository.UsuarioRepository;
 import com.techcommunityperu.techcommunityperu.service.InscripcionService;
 import jakarta.transaction.Transactional;
@@ -16,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 
@@ -28,13 +27,15 @@ public class InscripcionServiceImpl implements InscripcionService {
     //@Autowired: Crea constructor no es necesario poner private final
 
     @Autowired
-    private final InscripcionRepository inscriptionRepository;
+    private final InscriptionRepository inscriptionRepository;
 
     @Autowired
     private final UsuarioRepository usuarioRepository;
 
     @Autowired
     private final InscripcionMapper inscripcionMapper;
+    @Autowired
+    private ParticipantRepository participantRepository;
 
 
     @Override
@@ -44,28 +45,28 @@ public class InscripcionServiceImpl implements InscripcionService {
 
     @Transactional
     @Override
-    public void cancelarInscripcion(Integer eventoId, Integer usuarioId) {
-        Inscripcion inscripcion = inscriptionRepository.findByEventoAndUsuario(eventoId, usuarioId);
+    public void cancelarInscripcion(Integer eventoId, Integer participanteId) {
+        Inscripcion inscripcion = inscriptionRepository.findByEventoIdAndParticipanteId(eventoId, participanteId);
 
         if (inscripcion != null) {
-            inscriptionRepository.deleteByEventoAndUsuario(eventoId, usuarioId);
+            inscriptionRepository.deleteByEventoAndParticipante(eventoId, participanteId);
         } else {
             throw new ResourceNotFoundException("No se encontró la inscripción para cancelar.");
         }
     }
 
     @Override
-    public Inscripcion obtenerInscripcionPorEventoYUsuario(Integer eventoId, Integer usuarioId) {
-        return inscriptionRepository.findByEventoAndUsuario(eventoId, usuarioId);
+    public Inscripcion obtenerInscripcionPorEventoYParticipante(Integer eventoId, Integer participanteId) {
+        return inscriptionRepository.findByEventoIdAndParticipanteId(eventoId, participanteId);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
     public List<Inscripcion> getAll() {
         return List.of();
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
     public Page<Inscripcion> paginate(Pageable pageable) {
         return inscriptionRepository.findAll(pageable);
@@ -95,13 +96,13 @@ public class InscripcionServiceImpl implements InscripcionService {
         inscriptionRepository.delete(inscripcion);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
     public Inscripcion findById(Integer id) {
         return inscriptionRepository.findById(id).orElseThrow(() -> new RuntimeException("Inscripcion no funciona"));
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
     public List<Inscripcion> findByParticipanteId(Integer participanteId){
     List<Inscripcion> inscripcion = inscriptionRepository.findByParticipanteId(participanteId);
@@ -109,11 +110,11 @@ public class InscripcionServiceImpl implements InscripcionService {
     }
   
      public void crearInscripcion(InscripcionDTO inscripcionDTO) {
-        Usuario usuario = usuarioRepository.findById(inscripcionDTO.getUsuario())
+        Participante participante = participantRepository.findById(inscripcionDTO.getUsuario())
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
 
         Inscripcion nuevaInscripcion = inscripcionMapper.toEntity(inscripcionDTO);
-        nuevaInscripcion.setUsuario(usuario);
+        nuevaInscripcion.setParticipante(participante);
 
         inscriptionRepository.save(nuevaInscripcion);
     }

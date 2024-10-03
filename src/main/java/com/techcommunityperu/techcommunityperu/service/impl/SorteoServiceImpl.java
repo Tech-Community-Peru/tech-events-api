@@ -102,7 +102,7 @@ public class SorteoServiceImpl implements SorteoService {
         ganadorRepository.save(nuevoGanador);
 
         // Obtener el correo electrónico del ganador
-        String correoGanador = inscripcionGanadora.getUsuario().getCorreoElectronico();
+        String correoGanador = inscripcionGanadora.getParticipante().getUsuarioId().getCorreoElectronico();
 
         // Retornar un mensaje informativo con el correo del ganador
         return "El ganador del sorteo del evento '" + sorteo.getEvento().getNombre() + "' es: " + correoGanador;

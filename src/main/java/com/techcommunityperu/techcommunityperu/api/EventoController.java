@@ -28,17 +28,15 @@ import java.util.List;
 public class EventoController {
 
 
-    private EventServiceImpl eventService;
-    
-    @Autowired
-    private EventService eventService;
+    private  final EventServiceImpl eventService;
+
 
     @PostMapping("/filtrar")
     public ResponseEntity<?> filtrarEventos(@Valid @RequestBody EventoFiltroDTO filtroDTO) {
         // Este punto solo se ejecuta si las validaciones son correctas
         List<EventoDTO> eventos = eventService.filtrarEventosPorFechaYUbicacion(filtroDTO.getFechaInicio(), filtroDTO.getUbicacionId());
         return ResponseEntity.ok(eventos);
-      
+    }
     @GetMapping("/filtrarCategoria")
     public ResponseEntity<List<Evento>> filtrarEventosPorTipo(@RequestParam categoryEvent tipoEvento) {
         List<Evento> eventos = eventService.obtenerEventosPorTipo(tipoEvento);
