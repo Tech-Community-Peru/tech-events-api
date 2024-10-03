@@ -6,17 +6,20 @@ import com.techcommunityperu.techcommunityperu.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
     private final UserService userService;
+
+    // Simulando una "sesión" en memoria
+    private Map<String, Integer> session = new HashMap<>(); // Almacena el ID del usuario por correo electrónico
 
     @PostMapping("/register")
     public ResponseEntity<UsuarioDTO> register(@RequestBody Usuario usuario) {
@@ -27,12 +30,20 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestParam String correo_electronico, @RequestParam String contrasenia) {
-        boolean esValido = userService.validarCredenciales(correo_electronico, contrasenia);
+        // Busca el usuario por correo
+        Optional<Usuario> usuarioOptional = userService.findByCorreoElectronico(correo_electronico);
 
-        if (esValido) {
+        if (usuarioOptional.isPresent() && usuarioOptional.get().getContrasenia().equals(contrasenia)) {
+            // Almacena el ID del usuario en el "mapa de sesión"
+            session.put(correo_electronico, usuarioOptional.get().getId());
             return ResponseEntity.ok("Inicio de sesión exitoso. Redirigiendo a la página principal...");
         } else {
             return ResponseEntity.status(401).body("El correo electrónico y/o la contraseña son incorrectas.");
         }
+    }
+
+    // Método para obtener el ID del usuario de la sesión simulada
+    public Integer getUserIdFromSession(String correo_electronico) {
+        return session.get(correo_electronico);
     }
 }

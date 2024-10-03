@@ -1,11 +1,14 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
+import com.google.zxing.WriterException;
 import com.techcommunityperu.techcommunityperu.model.enums.paymentStatus;
 import com.techcommunityperu.techcommunityperu.model.enums.statusInscription;
 import com.techcommunityperu.techcommunityperu.model.enums.paymentType;
+import com.techcommunityperu.techcommunityperu.service.QRCodeService;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
 @Data
@@ -29,11 +32,13 @@ public class Inscripcion {
 
     // Relación con Usuario
     @ManyToOne
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private Usuario usuario;
+    @JoinColumn(name = "participante_id", referencedColumnName = "id")
+    private Participante participante;
 
     // Relación con Evento
     @ManyToOne
     @JoinColumn(name = "evento_id", referencedColumnName = "id")
     private Evento evento;
+
+
 }
