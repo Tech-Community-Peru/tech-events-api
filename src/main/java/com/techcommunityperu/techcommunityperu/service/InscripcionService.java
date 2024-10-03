@@ -1,10 +1,12 @@
 package com.techcommunityperu.techcommunityperu.service;
+
+import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 import java.util.Optional;
+import java.util.List;
+
 
 public interface InscripcionService {
     void cancelarInscripcion(Integer eventoId, Integer usuarioId);
@@ -24,4 +26,5 @@ public interface InscripcionService {
     Inscripcion findById(Integer id);
     //Listar eventos por id de participante
     List<Inscripcion> findByParticipanteId(Integer participanteId);
+    void crearInscripcion(InscripcionDTO inscripcionDTO);
 }

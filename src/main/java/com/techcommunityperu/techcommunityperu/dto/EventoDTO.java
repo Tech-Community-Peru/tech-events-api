@@ -1,5 +1,7 @@
 package com.techcommunityperu.techcommunityperu.dto;
 
+import lombok.Data;
+@Data
 public class EventoDTO {
     private int id;
     private String nombre;
@@ -44,4 +46,5 @@ public class EventoDTO {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
 }
