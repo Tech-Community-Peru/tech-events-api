@@ -56,7 +56,7 @@ INSERT INTO ubicacion (nombre_lugar, direccion, ciudad, pais, descripcion) VALUE
 
 -- Datos de prueba para la tabla evento
 INSERT INTO evento (nombre, costo, descripcion, categoria_evento, tipo_evento, ponente_id, comunidad_id, ubicacion_id) VALUES
-                                                                                                                           ('Evento Ciberseguridad', 100.00, 'Evento sobre seguridad informática', 'CIBERSEGURIDAD', 'PRESENCIAL', 1, 1, 1),
+                                                                                                                           ('Evento Ciberseguridad', 0.00, 'Evento sobre seguridad informática', 'CIBERSEGURIDAD', 'PRESENCIAL', 1, 1, 1),
                                                                                                                            ('Evento Big Data', 150.00, 'Análisis de datos masivos', 'BIG_DATA', 'VIRTUAL', 2, 2, 2),
                                                                                                                            ('Evento Blockchain', 200.00, 'Tecnología blockchain aplicada', 'BLOCKCHAIN', 'PRESENCIAL', 3, 3, 3),
                                                                                                                            ('Evento IA', 120.00, 'Inteligencia artificial en el futuro', 'INTELIGENCIA_ARTIFICIAL', 'VIRTUAL', 1, 4, 4),
@@ -122,15 +122,13 @@ INSERT INTO sorteo (evento_id, descripcion, fecha_sorteo) VALUES
                                                               (4, 'Sorteo de una suscripción a un curso de IA', '2024-01-27'),
                                                               (5, 'Sorteo de una entrada al evento de Cloud Computing', '2024-02-01'),
                                                               (6, 'Sorteo de un paquete de herramientas DevOps', '2024-02-07'),
-                                                              (7, 'Sorteo de un curso de innovación tecnológica', '2024-02-12'),
-                                                              (8, 'Sorteo de un curso avanzado de Machine Learning', '2024-02-17');
+                                                              (7, 'Sorteo de un curso de innovación tecnológica', '2024-02-12');
 
-INSERT INTO ganador ( sorteo_id, participante_id) VALUES
+INSERT INTO ganador ( sorteo_id, inscripcion_id) VALUES
                                                       (1,1),
                                                       (2,2),
                                                       (3,3),
                                                       (4,4),
                                                       (5,5),
                                                       (6,6),
-                                                      (7,7),
-                                                      (8,8);
+                                                      (7,7);
