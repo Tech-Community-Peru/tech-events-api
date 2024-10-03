@@ -32,8 +32,8 @@ public class Inscripcion {
 
     // Relación con Usuario
     @ManyToOne
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private Usuario usuario;
+    @JoinColumn(name = "participante_id", referencedColumnName = "id")
+    private Participante participante;
 
     // Relación con Evento
     @ManyToOne

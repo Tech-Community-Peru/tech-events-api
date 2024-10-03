@@ -53,7 +53,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         inscripcion.setTipoPago(tipoPago);
         inscripcion.setMonto(evento.getCosto());
         inscripcion.setEvento(evento);
-        inscripcion.setUsuario(usuario); // Asociar el usuario encontrado
+       // inscripcion.setParticipante(usuario); // Asociar el usuario encontrado
 
         if (statusPago == paymentStatus.PAID) {
             inscripcion.setInscripcionStatus(statusInscription.PAID);

@@ -14,16 +14,15 @@ import java.util.Optional;
 
 @Repository
 public interface InscriptionRepository extends JpaRepository<Inscripcion, Integer> {
-
     Optional<Inscripcion> findByUsuarioIdAndEventoId(Integer usuarioId, Integer eventoId);
-
+    Optional<Inscripcion> findByParticipanteIdAndEventoId(Integer usuarioId, Integer eventoId);
     @Modifying
-    @Query("DELETE FROM Inscripcion i WHERE i.evento.id = :eventoId AND i.usuario.id = :usuarioId")
+    @Query("DELETE FROM Inscripcion i WHERE i.evento.id = :eventoId AND i.participante.id = :usuarioId")
     void deleteByEventoAndUsuario(@Param("eventoId") Integer eventoId, @Param("usuarioId") Integer usuarioId);
 
-    @Query("SELECT i FROM Inscripcion i WHERE i.evento.id = :eventoId AND i.usuario.id = :usuarioId")
+    @Query("SELECT i FROM Inscripcion i WHERE i.evento.id = :eventoId AND i.participante.id = :usuarioId")
     Inscripcion findByEventoAndUsuario(@Param("eventoId") Integer eventoId, @Param("usuarioId") Integer usuarioId);
 
-    List<Inscripcion> findByUsuario(Usuario usuario);
+    List<Inscripcion> findByParticipanteId(Integer participanteId);
     List<Inscripcion> findByEvento(Evento evento);
 }
