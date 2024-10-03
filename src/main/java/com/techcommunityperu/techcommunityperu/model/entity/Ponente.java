@@ -1,5 +1,6 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.List;
@@ -28,6 +29,7 @@ public class Ponente {
     private String especialidad;
 
     // Relación uno a muchos con Evento
+    @JsonIgnore
     @OneToMany(mappedBy = "ponente", cascade = CascadeType.ALL)
     private List<Evento> evento;
 }

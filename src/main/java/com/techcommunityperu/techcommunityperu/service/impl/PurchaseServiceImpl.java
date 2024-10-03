@@ -37,6 +37,13 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 
     @Override
+    public double getCostoEvento(Integer eventoId) {
+        Evento evento = eventoRepository.findById(eventoId)
+                .orElseThrow(() -> new NoSuchElementException("Evento no encontrado"));
+        return evento.getCosto();
+    }
+
+    @Override
     public String purchaseTicket(Integer eventoId, Integer usuarioId, paymentType tipoPago) {
         // Buscar el evento
         Evento evento = eventoRepository.findById(eventoId)
@@ -46,14 +53,28 @@ public class PurchaseServiceImpl implements PurchaseService {
         Usuario usuario = userRepository.findById(usuarioId)
                 .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado"));
 
-        double monto = evento.getCosto();
-        paymentStatus statusPago = paymentService.processPayment(tipoPago, monto);
+        // Validar si el costo del evento es mayor a 0 y el tipo de pago es FREE
+        if (evento.getCosto() > 0 && tipoPago == paymentType.FREE) {
+            return "Error: No puedes usar el tipo de pago FREE para eventos con costo mayor a 0.";
+        }
 
         Inscripcion inscripcion = new Inscripcion();
         inscripcion.setTipoPago(tipoPago);
         inscripcion.setMonto(evento.getCosto());
         inscripcion.setEvento(evento);
-        inscripcion.setUsuario(usuario); // Asociar el usuario encontrado
+       // inscripcion.setParticipante(usuario); // Asociar el usuario encontrado
+
+        // Verificar si el costo del evento es 0
+        if (evento.getCosto() == 0) {
+            inscripcion.setInscripcionStatus(statusInscription.PAID); // Establecer el estado como PAID
+            inscriptionRepository.save(inscripcion); // Guardar la inscripción
+            emailService.sendConfirmationEmail(inscripcion, 0); // Enviar correo sin monto
+            return "Compra exitosa. Recibirás un correo con tu entrada gratuita.";
+        }
+
+        // Procesar pago para otros tipos
+        double monto = evento.getCosto();
+        paymentStatus statusPago = paymentService.processPayment(tipoPago, monto);
 
         if (statusPago == paymentStatus.PAID) {
             inscripcion.setInscripcionStatus(statusInscription.PAID);
