@@ -134,3 +134,16 @@ INSERT INTO ganador ( sorteo_id, participante_id) VALUES
                                                       (6,6),
                                                       (7,7),
                                                       (8,8);
+
+INSERT INTO asistencia (participante_id, evento_id, asistio, fecha_asistencia)
+VALUES
+    (1, 1, true, '2024-10-01'),
+    (2, 1, false, '2024-10-01'),
+    (3, 2, true, '2024-10-02'),
+    (4, 2, true, '2024-10-02'),
+    (5, 3, false, '2024-10-03'),
+    (6, 3, true, '2024-10-03'),
+    (1, 2, true, '2024-10-04'),
+    (2, 2, true, '2024-10-04'),
+    (3, 1, false, '2024-10-05'),
+    (4, 1, true, '2024-10-05');
