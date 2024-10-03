@@ -1,5 +1,6 @@
 package com.techcommunityperu.techcommunityperu.service.impl;
 
+import com.techcommunityperu.techcommunityperu.exception.ResourceNotFoundException;
 import com.techcommunityperu.techcommunityperu.model.entity.Evento;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.model.entity.Participante;
@@ -23,7 +24,8 @@ public class FavoritosServiceImpl {
 
     public String favoritosEnviar(String correoElectronico) {
         if (userRepository.existsByCorreoElectronico(correoElectronico)) {
-            Usuario usuario = userRepository.findByEmailQuery(correoElectronico);
+             Usuario usuario = userRepository.findByEmailQuery(correoElectronico)
+                     .orElseThrow(()-> new ResourceNotFoundException("El correo :" + correoElectronico + " no existe en el sistema"));
             try {
                 String titleEmail = "¡Somos Techcommunity Peru!";
                 String messageEmail = "\n\nHola, solicitaste subscribirte al apartado de favoritos "+ correoElectronico +", \nA partir de ahora te llegarán notificaciones relevantes sobre los gustos que elegiste.";
