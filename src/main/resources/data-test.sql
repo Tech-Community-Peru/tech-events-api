@@ -5,8 +5,8 @@ INSERT INTO ponente (nombre, apellido, cargo, pais_origen, especialidad) VALUES
 
 
 INSERT INTO roles (nombre, rol) VALUES
-                                                ('Member', 'miembro'),
-                                                ('Admin', 'administrador');
+                                    ('Member', 'miembro'),
+                                    ('Admin', 'administrador');
 
 INSERT INTO usuario (correo_electronico, contrasenia,roles_id) VALUES
                                                                    ('jose.ramirez@gmail.com', 'password123',1),
@@ -22,14 +22,14 @@ INSERT INTO usuario (correo_electronico, contrasenia,roles_id) VALUES
 
 
 INSERT INTO participante (nombre, apellido, habilidades, linkedin, informacion_adicional, ubicacion, pais_origen, edad, usuario_id) VALUES
-                                                                                                                                       ('José', 'Ramírez', 'Ciberseguridad', 'linkedin.com/jose-ramirez', 'Ingeniero en seguridad informática', 'Lima, Perú', 'Perú', 30, 1),
-                                                                                                                                       ('Claudia', 'Vásquez', 'Big Data', 'linkedin.com/claudia-vasquez', 'Especialista en análisis de datos', 'CDMX, México', 'México', 28, 2),
-                                                                                                                                       ('Luis', 'Martínez', 'Machine Learning', 'linkedin.com/luis-martinez', 'Desarrollador de IA', 'Madrid, España', 'España', 35, 3),
-                                                                                                                                       ('María', 'Gómez', 'Blockchain', 'linkedin.com/maria-gomez', 'Consultora de blockchain', 'Buenos Aires, Argentina', 'Argentina', 32, 4),
-                                                                                                                                       ('Pedro', 'Salazar', 'DevOps', 'linkedin.com/pedro-salazar', 'Arquitecto de sistemas', 'Santiago, Chile', 'Chile', 40, 5),
-                                                                                                                                       ('Lucía', 'Fernández', 'Inteligencia Artificial', 'linkedin.com/lucia-fernandez', 'Desarrolladora IA', 'Bogotá, Colombia', 'Colombia', 29, 6),
-                                                                                                                                       ('Andrés', 'López', 'Innovación Tecnológica', 'linkedin.com/andres-lopez', 'Especialista en innovación', 'Quito, Ecuador', 'Ecuador', 38, 7),
-                                                                                                                                       ('Sofía', 'Rojas', 'Cloud Computing', 'linkedin.com/sofia-rojas', 'Experta en tecnologías Cloud', 'Montevideo, Uruguay', 'Uruguay', 33, 8);
+                                                                                                                                        ('José', 'Ramírez', 'Ciberseguridad', 'linkedin.com/jose-ramirez', 'Ingeniero en seguridad informática', 'Lima, Perú', 'Perú', 30, 1),
+                                                                                                                                        ('Claudia', 'Vásquez', 'Big Data', 'linkedin.com/claudia-vasquez', 'Especialista en análisis de datos', 'CDMX, México', 'México', 28, 2),
+                                                                                                                                        ('Luis', 'Martínez', 'Machine Learning', 'linkedin.com/luis-martinez', 'Desarrollador de IA', 'Madrid, España', 'España', 35, 3),
+                                                                                                                                        ('María', 'Gómez', 'Blockchain', 'linkedin.com/maria-gomez', 'Consultora de blockchain', 'Buenos Aires, Argentina', 'Argentina', 32, 4),
+                                                                                                                                        ('Pedro', 'Salazar', 'DevOps', 'linkedin.com/pedro-salazar', 'Arquitecto de sistemas', 'Santiago, Chile', 'Chile', 40, 5),
+                                                                                                                                        ('Lucía', 'Fernández', 'Inteligencia Artificial', 'linkedin.com/lucia-fernandez', 'Desarrolladora IA', 'Bogotá, Colombia', 'Colombia', 29, 6),
+                                                                                                                                        ('Andrés', 'López', 'Innovación Tecnológica', 'linkedin.com/andres-lopez', 'Especialista en innovación', 'Quito, Ecuador', 'Ecuador', 38, 7),
+                                                                                                                                        ('Sofía', 'Rojas', 'Cloud Computing', 'linkedin.com/sofia-rojas', 'Experta en tecnologías Cloud', 'Montevideo, Uruguay', 'Uruguay', 33, 8);
 
 
 INSERT INTO comunidad (nombre, descripcion, fecha_creacion, cantidad_miembros, tematica_principal) VALUES
@@ -44,14 +44,14 @@ INSERT INTO comunidad (nombre, descripcion, fecha_creacion, cantidad_miembros, t
 
 
 INSERT INTO ubicacion (nombre_lugar, direccion, ciudad, pais, descripcion) VALUES
-                                                                              ('Auditorio Lima', 'Av. Principal 123', 'Lima', 'Perú', 'Auditorio principal del evento'),
-                                                                              ('Centro de Convenciones CDMX', 'Calle 456', 'Ciudad de México', 'México', 'Centro de convenciones internacional'),
-                                                                              ('Auditorio Madrid', 'Plaza Mayor 789', 'Madrid', 'España', 'Auditorio para grandes eventos'),
-                                                                              ('Hotel Hilton Buenos Aires', 'Calle Corrientes 111', 'Buenos Aires', 'Argentina', 'Salón de eventos del hotel'),
-                                                                              ('Centro de Innovación Santiago', 'Calle Innovación 222', 'Santiago', 'Chile', 'Centro de innovación tecnológica'),
-                                                                              ('Conferencia Bogotá', 'Av. Las Américas 333', 'Bogotá', 'Colombia', 'Centro de eventos empresariales'),
-                                                                              ('Centro Quito', 'Calle Libertad 444', 'Quito', 'Ecuador', 'Centro empresarial para conferencias'),
-                                                                              ('Auditorio Montevideo', 'Calle Central 555', 'Montevideo', 'Uruguay', 'Auditorio para eventos corporativos');
+                                                                               ('Auditorio Lima', 'Av. Principal 123', 'Lima', 'Perú', 'Auditorio principal del evento'),
+                                                                               ('Centro de Convenciones CDMX', 'Calle 456', 'Ciudad de México', 'México', 'Centro de convenciones internacional'),
+                                                                               ('Auditorio Madrid', 'Plaza Mayor 789', 'Madrid', 'España', 'Auditorio para grandes eventos'),
+                                                                               ('Hotel Hilton Buenos Aires', 'Calle Corrientes 111', 'Buenos Aires', 'Argentina', 'Salón de eventos del hotel'),
+                                                                               ('Centro de Innovación Santiago', 'Calle Innovación 222', 'Santiago', 'Chile', 'Centro de innovación tecnológica'),
+                                                                               ('Conferencia Bogotá', 'Av. Las Américas 333', 'Bogotá', 'Colombia', 'Centro de eventos empresariales'),
+                                                                               ('Centro Quito', 'Calle Libertad 444', 'Quito', 'Ecuador', 'Centro empresarial para conferencias'),
+                                                                               ('Auditorio Montevideo', 'Calle Central 555', 'Montevideo', 'Uruguay', 'Auditorio para eventos corporativos');
 
 
 -- Datos de prueba para la tabla evento
@@ -82,14 +82,14 @@ INSERT INTO comentario (fecha_publicacion, comentario, evento_id, usuario_id, co
 
 
 INSERT INTO cronograma (fecha_inicio, fecha_fin, evento_id) VALUES
-                                                              ('2024-01-10 09:00:00', '2024-01-10 18:00:00', 1),
-                                                              ('2024-01-15 09:00:00', '2024-01-15 18:00:00', 2),
-                                                              ('2024-01-20 09:00:00', '2024-01-20 18:00:00', 3),
-                                                              ('2024-01-25 09:00:00', '2024-01-25 18:00:00', 4),
-                                                              ('2024-01-30 09:00:00', '2024-01-30 18:00:00', 5),
-                                                              ('2024-02-05 09:00:00', '2024-02-05 18:00:00', 6),
-                                                              ('2024-02-10 09:00:00', '2024-02-10 18:00:00', 7),
-                                                              ('2024-02-15 09:00:00', '2024-02-15 18:00:00', 8);
+                                                                ('2024-01-10 09:00:00', '2024-01-10 18:00:00', 1),
+                                                                ('2024-01-15 09:00:00', '2024-01-15 18:00:00', 2),
+                                                                ('2024-01-20 09:00:00', '2024-01-20 18:00:00', 3),
+                                                                ('2024-01-25 09:00:00', '2024-01-25 18:00:00', 4),
+                                                                ('2024-01-30 09:00:00', '2024-01-30 18:00:00', 5),
+                                                                ('2024-02-05 09:00:00', '2024-02-05 18:00:00', 6),
+                                                                ('2024-02-10 09:00:00', '2024-02-10 18:00:00', 7),
+                                                                ('2024-02-15 09:00:00', '2024-02-15 18:00:00', 8);
 
 
 
@@ -105,32 +105,32 @@ INSERT INTO Usuario_Comunidad (usuario_id, comunidad_id, fecha_unido) VALUES
 
 
 INSERT INTO inscripcion (monto_pago, tipo_pago, estado_inscripcion, usuario_id, evento_id) VALUES
-                                                                                         (100.00, 'CREDIT_CARD', 'PAID', 1, 1),
-                                                                                         (150.00, 'DEBIT_CARD', 'PAID', 2, 2),
-                                                                                         (200.00, 'CREDIT_CARD', 'PENDING', 3, 3),
-                                                                                         (120.00, 'DEBIT_CARD', 'PAID', 4, 4),
-                                                                                         (130.00, 'CREDIT_CARD', 'PAID', 5, 5),
-                                                                                         (110.00, 'DEBIT_CARD', 'PAID', 6, 6),
-                                                                                         (180.00, 'CREDIT_CARD', 'PAID', 7, 7),
-                                                                                         (140.00, 'CREDIT_CARD', 'PENDING', 8, 8);
+                                                                                               (100.00, 'CREDIT_CARD', 'PAID', 1, 1),
+                                                                                               (150.00, 'DEBIT_CARD', 'PAID', 2, 2),
+                                                                                               (200.00, 'CREDIT_CARD', 'PENDING', 3, 3),
+                                                                                               (120.00, 'DEBIT_CARD', 'PAID', 4, 4),
+                                                                                               (130.00, 'CREDIT_CARD', 'PAID', 5, 5),
+                                                                                               (110.00, 'DEBIT_CARD', 'PAID', 6, 6),
+                                                                                               (180.00, 'CREDIT_CARD', 'PAID', 7, 7),
+                                                                                               (140.00, 'CREDIT_CARD', 'PENDING', 8, 8);
 
 
 INSERT INTO sorteo (evento_id, descripcion, fecha_sorteo) VALUES
-                                                                          (1, 'Sorteo de 1 entrada para el próximo evento de ciberseguridad', '2024-01-12'),
-                                                                          (2, 'Sorteo de un curso de Big Data', '2024-01-17'),
-                                                                          (3, 'Sorteo de un libro sobre Blockchain', '2024-01-22'),
-                                                                          (4, 'Sorteo de una suscripción a un curso de IA', '2024-01-27'),
-                                                                          (5, 'Sorteo de una entrada al evento de Cloud Computing', '2024-02-01'),
-                                                                          (6, 'Sorteo de un paquete de herramientas DevOps', '2024-02-07'),
-                                                                          (7, 'Sorteo de un curso de innovación tecnológica', '2024-02-12'),
-                                                                          (8, 'Sorteo de un curso avanzado de Machine Learning', '2024-02-17');
+                                                              (1, 'Sorteo de 1 entrada para el próximo evento de ciberseguridad', '2024-01-12'),
+                                                              (2, 'Sorteo de un curso de Big Data', '2024-01-17'),
+                                                              (3, 'Sorteo de un libro sobre Blockchain', '2024-01-22'),
+                                                              (4, 'Sorteo de una suscripción a un curso de IA', '2024-01-27'),
+                                                              (5, 'Sorteo de una entrada al evento de Cloud Computing', '2024-02-01'),
+                                                              (6, 'Sorteo de un paquete de herramientas DevOps', '2024-02-07'),
+                                                              (7, 'Sorteo de un curso de innovación tecnológica', '2024-02-12'),
+                                                              (8, 'Sorteo de un curso avanzado de Machine Learning', '2024-02-17');
 
 INSERT INTO ganador ( sorteo_id, participante_id) VALUES
-                                                              (1,1),
-                                                              (2,2),
-                                                              (3,3),
-                                                              (4,4),
-                                                              (5,5),
-                                                              (6,6),
-                                                              (7,7),
-                                                              (8,8);
+                                                      (1,1),
+                                                      (2,2),
+                                                      (3,3),
+                                                      (4,4),
+                                                      (5,5),
+                                                      (6,6),
+                                                      (7,7),
+                                                      (8,8);

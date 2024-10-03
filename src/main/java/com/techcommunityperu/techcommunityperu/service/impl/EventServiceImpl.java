@@ -8,18 +8,23 @@ import com.techcommunityperu.techcommunityperu.repository.EventRepository;
 import com.techcommunityperu.techcommunityperu.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import com.techcommunityperu.techcommunityperu.model.enums.categoryEvent;
+import lombok.AllArgsConstructor;
 @Service
+@AllArgsConstructor
 public class EventServiceImpl implements EventService {
-
     @Autowired
     private CronogramaRepository cronogramaRepository;
+    @Autowired
+    private EventRepository eventRepository;
 
-    @Override
+    public List<Evento> obtenerEventosPorTipo(categoryEvent tipoEvento) {
+        return eventRepository.findByTipoEvento(tipoEvento);
+    }
+     @Override
     public List<EventoDTO> filtrarEventosPorFechaYUbicacion(LocalDateTime fechaInicio, Integer ubicacionId) {
         // Usar el nuevo método para filtrar por fecha de inicio y ubicación
         List<Cronograma> cronogramas = cronogramaRepository.findByFechaInicioAndUbicacionId(fechaInicio, ubicacionId);
