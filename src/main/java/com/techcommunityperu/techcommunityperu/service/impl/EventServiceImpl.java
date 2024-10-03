@@ -17,14 +17,12 @@ import java.util.stream.Collectors;
 public class EventServiceImpl implements EventService {
 
     @Autowired
-    private EventRepository eventRepository;
-
-    @Autowired
     private CronogramaRepository cronogramaRepository;
 
     @Override
-    public List<EventoDTO> filtrarEventosPorFechaYUbicacion(LocalDateTime fechaInicio, LocalDateTime fechaFin, Integer ubicacionId) {
-        List<Cronograma> cronogramas = cronogramaRepository.findByFechaInicioBetweenAndUbicacionId(fechaInicio, fechaFin, ubicacionId);
+    public List<EventoDTO> filtrarEventosPorFechaYUbicacion(LocalDateTime fechaInicio, Integer ubicacionId) {
+        // Usar el nuevo método para filtrar por fecha de inicio y ubicación
+        List<Cronograma> cronogramas = cronogramaRepository.findByFechaInicioAndUbicacionId(fechaInicio, ubicacionId);
 
         List<Evento> eventos = cronogramas.stream()
                 .map(Cronograma::getEvento)
@@ -32,7 +30,7 @@ public class EventServiceImpl implements EventService {
                 .collect(Collectors.toList());
 
         return eventos.stream()
-                .map(this::convertirADTO) // Suponiendo que tienes un método para convertir a DTO
+                .map(this::convertirADTO)
                 .collect(Collectors.toList());
     }
 
@@ -44,7 +42,7 @@ public class EventServiceImpl implements EventService {
         dto.setDescripcion(evento.getDescripcion());
         dto.setEventoCategoria(evento.getEventoCategoria().name());
         dto.setTipoEvento(evento.getTipoEvento().name());
-        dto.setNombreUbicacion(evento.getUbicacion().getNombreLugar()); // Suponiendo que quieres el nombre de la ubicación
+        dto.setNombreUbicacion(evento.getUbicacion().getNombreLugar());
         return dto;
     }
 }

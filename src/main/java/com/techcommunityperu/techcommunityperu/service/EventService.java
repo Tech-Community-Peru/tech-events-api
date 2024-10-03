@@ -6,5 +6,5 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface EventService {
-    List<EventoDTO> filtrarEventosPorFechaYUbicacion(LocalDateTime fechaInicio, LocalDateTime fechaFin, Integer ubicacionId);
+    List<EventoDTO> filtrarEventosPorFechaYUbicacion(LocalDateTime fechaInicio,  Integer ubicacionId);
 }

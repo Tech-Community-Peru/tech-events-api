@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface CronogramaRepository extends JpaRepository<Cronograma, Integer> {
 
-    @Query("SELECT c FROM Cronograma c WHERE c.fechaInicio BETWEEN :fechaInicio AND :fechaFin AND c.evento.ubicacion.id = :ubicacionId")
-    List<Cronograma> findByFechaInicioBetweenAndUbicacionId(
+    // Solo filtrar por fecha de inicio y ubicación
+    @Query("SELECT c FROM Cronograma c WHERE c.fechaInicio >= :fechaInicio AND c.evento.ubicacion.id = :ubicacionId")
+    List<Cronograma> findByFechaInicioAndUbicacionId(
             @Param("fechaInicio") LocalDateTime fechaInicio,
-            @Param("fechaFin") LocalDateTime fechaFin,
             @Param("ubicacionId") Integer ubicacionId);
 }
