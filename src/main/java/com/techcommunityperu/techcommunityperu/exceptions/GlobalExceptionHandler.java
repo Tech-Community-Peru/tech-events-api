@@ -9,14 +9,12 @@ import org.springframework.web.server.ResponseStatusException;
 @ControllerAdvice
 public class GlobalExceptionHandler extends RuntimeException{
 
-  @ExceptionHandler(ResponseStatusException.class)
-  public ResponseEntity<String> handleResponseStatusException(ResponseStatusException ex) {
-    // Retorna solo el mensaje de error con el status adecuado
-    return new ResponseEntity<>(ex.getReason(), ex.getStatusCode());
-  }
-  @ExceptionHandler(Exception.class)
-  public ResponseEntity<String> handleGeneralException(Exception ex) {
-    // Retorna un mensaje genérico para otras excepciones
-    return new ResponseEntity<>("Ocurrió un error inesperado.", HttpStatus.INTERNAL_SERVER_ERROR);
-  }
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<String> handleResponseStatusException(ResponseStatusException ex) {
+        return new ResponseEntity<>(ex.getReason(), ex.getStatusCode());
+    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleGeneralException(Exception ex) {
+        return new ResponseEntity<>("Ocurrió un error inesperado.", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

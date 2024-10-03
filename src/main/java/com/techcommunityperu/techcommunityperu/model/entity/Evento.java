@@ -46,6 +46,10 @@ public class Evento {
     @JoinColumn(name = "ubicacion_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_evento_ubicacion"))
     private Ubicacion ubicacion;
 
+    //Relación con Cronograma
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cronograma> cronograma;
+
 
     @OneToMany(mappedBy = "evento")
     private List<Asistencia> asistencias;

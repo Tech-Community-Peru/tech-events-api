@@ -1,8 +1,8 @@
 package com.techcommunityperu.techcommunityperu.repository;
 
+import com.techcommunityperu.techcommunityperu.model.entity.Evento;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.model.entity.Usuario;
-import com.techcommunityperu.techcommunityperu.model.entity.Evento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,8 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface InscriptionRepository extends JpaRepository<Inscripcion, Integer> {
-
+public interface InscripcionRepository extends JpaRepository<Inscripcion, Integer> {
     Optional<Inscripcion> findByUsuarioIdAndEventoId(Integer usuarioId, Integer eventoId);
 
     @Modifying
@@ -25,5 +24,8 @@ public interface InscriptionRepository extends JpaRepository<Inscripcion, Intege
     Inscripcion findByEventoAndUsuario(@Param("eventoId") Integer eventoId, @Param("usuarioId") Integer usuarioId);
 
     List<Inscripcion> findByUsuario(Usuario usuario);
+
     List<Inscripcion> findByEvento(Evento evento);
 }
+
+
