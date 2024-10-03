@@ -21,6 +21,7 @@ public interface InscriptionRepository extends JpaRepository<Inscripcion, Intege
     @Query("SELECT i FROM Inscripcion i WHERE i.evento.id = :eventoId AND i.usuario.id = :usuarioId")
     Inscripcion findByEventoAndUsuario(@Param("eventoId") Integer eventoId, @Param("usuarioId") Integer usuarioId);
 
+    Inscripcion findByUsuarioAndEvento(Usuario usuario, Evento evento);
     List<Inscripcion> findByUsuario(Usuario usuario);
     List<Inscripcion> findByEvento(Evento evento);
 }

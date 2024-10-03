@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import com.techcommunityperu.techcommunityperu.model.enums.categoryEvent;
 import com.techcommunityperu.techcommunityperu.model.enums.typeEvent;
+import lombok.ToString;
+
 import java.util.List;
 
 @Data
@@ -34,16 +36,19 @@ public class Evento {
     // Relación con Ponente
     @ManyToOne
     @JoinColumn(name = "ponente_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_evento_ponente"))
+    @ToString.Exclude
     private Ponente ponente;
 
     // Relación con Comunidad
     @ManyToOne
     @JoinColumn(name = "comunidad_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_evento_comunidad"))
+    @ToString.Exclude
     private Comunidad comunidad;
 
     // Relación con Ubicacion
     @ManyToOne
     @JoinColumn(name = "ubicacion_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_evento_ubicacion"))
+    @ToString.Exclude
     private Ubicacion ubicacion;
 
 

@@ -58,7 +58,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         if (statusPago == paymentStatus.PAID) {
             inscripcion.setInscripcionStatus(statusInscription.PAID);
             inscriptionRepository.save(inscripcion);
-            emailService.sendConfirmationEmail(inscripcion, monto);
+           // emailService.sendConfirmationEmail(inscripcion, monto);
             return "Compra exitosa. Recibirás un correo con tu entrada.";
         } else {
             inscripcion.setInscripcionStatus(statusInscription.PENDING);

@@ -2,6 +2,7 @@ package com.techcommunityperu.techcommunityperu.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 
 @Data
@@ -21,6 +22,7 @@ public class Usuario {
 
     @ManyToOne
     @JoinColumn(name = "roles_id", referencedColumnName = "id")
+    @ToString.Exclude
     private Roles roles;
 
 }
