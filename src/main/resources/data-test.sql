@@ -5,8 +5,8 @@ INSERT INTO ponente (nombre, apellido, cargo, pais_origen, especialidad) VALUES
 
 
 INSERT INTO roles (nombre, rol) VALUES
-                                    ('Member', 'miembro'),
-                                    ('Admin', 'administrador');
+                                                ('User', 'USUARIO'),
+                                                ('Admin', 'ADMINISTRADOR');
 
 INSERT INTO usuario (correo_electronico, contrasenia,roles_id) VALUES
                                                                    ('jose.ramirez@gmail.com', 'password123',1),
