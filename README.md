@@ -13,6 +13,7 @@ El proyecto está diseñado para promover el aprendizaje colaborativo y fomentar
 | Leonardo Sanchez Romero   | Miembro del Proyecto | [LinkedIn](https://www.linkedin.com/in/leonardo-sanchez-607883218/)              |<img src="https://media.licdn.com/dms/image/v2/D4E35AQHKHteEmC3OrA/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1726350962776?e=1726963200&v=beta&t=izRICBiidkfqLVpzhDi0OBLg-Wq_CAV0WqgAY-v_iks" width="100" height="100" />|
 | Charlie Morales Benites   | Miembro del Proyecto | [LinkedIn](https://www.linkedin.com/in/charlie-morales-benites-69553b2a6/)       |<img src="https://media.licdn.com/dms/image/v2/D4E35AQHJheob8SYbkQ/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1726350402772?e=1726963200&v=beta&t=BUwICWxj1WDq3tbgGU4C5kXtQLcTCbDNbAleuKz6PRA" width="100" height="100" />|
 | Rumay Yglesias Eduardo    | Miembro del Proyecto | [LinkedIn](https://www.linkedin.com/in/eduardo-daniel-rumay-yglesias-97b106329/) |<img src="https://github.com/user-attachments/assets/23d8e13f-eca0-400e-ab89-0e7c27c99627" width="100" height="100" alt="rumay-foto" />|
+| Padilla Rios Orlando  | Miembro del Proyecto | [LinkedIn](https://www.linkedin.com/in/orlando-padilla-702306331/) |<img src="https://media.licdn.com/dms/image/v2/D4D35AQFUI7vCHQif-w/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1723740630748?e=1726959600&v=beta&t=l8LD97EMGErB5mprBrDZq4Rb9w0nlYqYevx79MLRn_s" width="100" height="100" />| 
 
 
 ### Progreso del Proyecto Tech Comunity Peru
