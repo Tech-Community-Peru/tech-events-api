@@ -1,5 +1,6 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import com.techcommunityperu.techcommunityperu.model.enums.categoryEvent;
@@ -47,6 +48,7 @@ public class Evento {
     private Ubicacion ubicacion;
 
     //Relación con Cronograma
+    @JsonIgnore
     @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cronograma> cronograma;
 
