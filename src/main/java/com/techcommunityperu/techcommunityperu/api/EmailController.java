@@ -31,8 +31,8 @@ public class EmailController {
         return ResponseEntity.ok(favoritosService.favoritosEnviar(correoElectronico));
     }
 
-    @PostMapping("/invitacion/evento/{participanteid}/{eventoid}")
-    public ResponseEntity<String> sendInvitacionEvento(@PathVariable("participanteid") Participante participanteid, @PathVariable("eventoid") Evento eventoid) {
+    @PostMapping("/invitacion/{participanteid}/{eventoid}")
+    public ResponseEntity<String> sendInvitacionEvento(@PathVariable("participanteid") Integer participanteid, @PathVariable("eventoid") Integer eventoid) {
         //System.out.println(usuarioid.);
         System.out.println(participanteid);
         System.out.println(eventoid);

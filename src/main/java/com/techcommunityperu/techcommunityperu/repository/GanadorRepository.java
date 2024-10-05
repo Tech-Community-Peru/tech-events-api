@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GanadorRepository extends JpaRepository<Ganador, Integer> {
     // Puedes agregar métodos personalizados si es necesario
+    void deleteByInscripcionId(Integer id);
+
 }

@@ -19,6 +19,9 @@ public class InscripcionDTO {
 
     @NotNull(message = "El usuario es obligatorio")
     private Integer usuario;
+
+    @NotNull(message = "El evento es obligatorio")
+    private Integer eventp;
 }
 
 

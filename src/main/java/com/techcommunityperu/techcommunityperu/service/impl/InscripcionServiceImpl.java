@@ -4,6 +4,7 @@ import com.techcommunityperu.techcommunityperu.exceptions.ResourceNotFoundExcept
 import com.techcommunityperu.techcommunityperu.mapper.InscripcionMapper;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.model.entity.Participante;
+import com.techcommunityperu.techcommunityperu.repository.GanadorRepository;
 import com.techcommunityperu.techcommunityperu.repository.InscriptionRepository;
 import com.techcommunityperu.techcommunityperu.repository.ParticipantRepository;
 import com.techcommunityperu.techcommunityperu.repository.UsuarioRepository;
@@ -36,6 +37,8 @@ public class InscripcionServiceImpl implements InscripcionService {
     private final InscripcionMapper inscripcionMapper;
     @Autowired
     private ParticipantRepository participantRepository;
+    @Autowired
+    private GanadorRepository ganadorRepository;
 
 
     @Override
@@ -49,7 +52,9 @@ public class InscripcionServiceImpl implements InscripcionService {
         Inscripcion inscripcion = inscriptionRepository.findByEventoIdAndParticipanteId(eventoId, participanteId);
 
         if (inscripcion != null) {
-            inscriptionRepository.deleteByEventoAndParticipante(eventoId, participanteId);
+            ganadorRepository.deleteByInscripcionId(inscripcion.getId());
+            inscriptionRepository.deleteById(inscripcion.getId());
+            //inscriptionRepository.deleteByEventoAndParticipante(eventoId, participanteId);
         } else {
             throw new ResourceNotFoundException("No se encontró la inscripción para cancelar.");
         }

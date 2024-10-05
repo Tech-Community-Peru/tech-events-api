@@ -1,8 +1,6 @@
 package com.techcommunityperu.techcommunityperu.service.impl;
 
-import com.techcommunityperu.techcommunityperu.model.entity.Evento;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
-import com.techcommunityperu.techcommunityperu.model.entity.Participante;
 import com.techcommunityperu.techcommunityperu.model.entity.Usuario;
 import com.techcommunityperu.techcommunityperu.repository.InscriptionRepository;
 import com.techcommunityperu.techcommunityperu.repository.UserRepository;
@@ -38,14 +36,14 @@ public class FavoritosServiceImpl {
         return "Token no encontrado";
     }
 
-    public String invitacionEventoCorreo(Participante participanteid,Evento eventoid ) {
-        Inscripcion inscripcion = inscriptionRepository.findByEventoAndParticipante( eventoid, participanteid );
+    public String invitacionEventoCorreo(Integer participanteid,Integer eventoid ) {
+        Inscripcion inscripcion = inscriptionRepository.findByEventoIdAndParticipanteId( eventoid, participanteid );
         try {
             String titleEmail = "¡Somos Techcommunity Peru!";
-            String messageEmail = "\n\nHola, : "+ participanteid.getNombre()+", \nAcabas de inscribite al evento:\n"+eventoid.getNombre()+"\n:Tipo de evento:\n"+eventoid.getTipoEvento()+"\nDescripcion:\n"+eventoid.getDescripcion();
+            String messageEmail = "\n\nHola, "+ inscripcion.getParticipante().getNombre()+" "+inscripcion.getParticipante().getApellido() + "\nde ID:"+ inscripcion.getParticipante().getId()+"Te notificamos que te inscribiste a nuestros evemtps de Tech Community Peru\n" +"Nombre : "+inscripcion.getEvento().getNombre()+"\n"+"Estado: "+inscripcion.getInscripcionStatus()+"\n"+"Tipo de evento: "+inscripcion.getEvento().getTipoEvento()+"\nDescripcion: "+inscripcion.getEvento().getDescripcion();
             String resetLink = titleEmail + messageEmail;
-            emailService.sendEmail(inscripcion.getParticipante().getUsuarioId().getCorreoElectronico(),"Inscripcion a evento de id:"+eventoid.getId()+" -> "+eventoid.getNombre(),resetLink);
-            return "Correo enviado exitosamente";
+            emailService.sendEmail(inscripcion.getParticipante().getUsuarioId().getCorreoElectronico(),"Inscripcion a evento de id:"+inscripcion.getEvento().getId()+" -> "+inscripcion.getEvento().getNombre(),resetLink);
+                return "Correo enviado exitosamente";
         } catch (Exception e) {
             e.printStackTrace();
             return "Error, no enviado "+e.getMessage();
