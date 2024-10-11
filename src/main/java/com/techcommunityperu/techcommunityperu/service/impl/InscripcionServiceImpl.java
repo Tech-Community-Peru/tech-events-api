@@ -2,12 +2,10 @@ package com.techcommunityperu.techcommunityperu.service.impl;
 import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
 import com.techcommunityperu.techcommunityperu.exceptions.ResourceNotFoundException;
 import com.techcommunityperu.techcommunityperu.mapper.InscripcionMapper;
+import com.techcommunityperu.techcommunityperu.model.entity.Evento;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.model.entity.Participante;
-import com.techcommunityperu.techcommunityperu.repository.GanadorRepository;
-import com.techcommunityperu.techcommunityperu.repository.InscriptionRepository;
-import com.techcommunityperu.techcommunityperu.repository.ParticipantRepository;
-import com.techcommunityperu.techcommunityperu.repository.UsuarioRepository;
+import com.techcommunityperu.techcommunityperu.repository.*;
 import com.techcommunityperu.techcommunityperu.service.InscripcionService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -39,11 +37,13 @@ public class InscripcionServiceImpl implements InscripcionService {
     private ParticipantRepository participantRepository;
     @Autowired
     private GanadorRepository ganadorRepository;
+    @Autowired
+    private EventoRepository eventoRepository;
 
 
     @Override
-    public Optional<Inscripcion> verificarInscripcion(Integer usuarioId, Integer eventoId) {
-        return inscriptionRepository.findByParticipanteIdAndEventoId(usuarioId, eventoId);
+    public Optional<Inscripcion> verificarInscripcion(Integer participanteId, Integer eventoId) {
+        return inscriptionRepository.findByParticipanteIdAndEventoId(participanteId, eventoId);
     }
 
     @Transactional
@@ -115,11 +115,15 @@ public class InscripcionServiceImpl implements InscripcionService {
     }
   
      public void crearInscripcion(InscripcionDTO inscripcionDTO) {
-        Participante participante = participantRepository.findById(inscripcionDTO.getUsuario())
-                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+        Participante participante = participantRepository.findById(inscripcionDTO.getParticipante())
+                .orElseThrow(() -> new ResourceNotFoundException("Participante no encontrado"));
+
+        Evento evento = eventoRepository.findById(inscripcionDTO.getEvento())
+                .orElseThrow(() -> new ResourceNotFoundException("Evento no encontrado"));
 
         Inscripcion nuevaInscripcion = inscripcionMapper.toEntity(inscripcionDTO);
         nuevaInscripcion.setParticipante(participante);
+         nuevaInscripcion.setEvento(evento);
 
         inscriptionRepository.save(nuevaInscripcion);
     }
