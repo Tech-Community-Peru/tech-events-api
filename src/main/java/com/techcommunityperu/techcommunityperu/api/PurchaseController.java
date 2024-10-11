@@ -15,7 +15,7 @@ public class PurchaseController {
 
     @PostMapping("/purchase")
     public String purchaseTicket(@RequestParam Integer eventoId,
-                                 @RequestParam Integer usuarioId,
+                                 @RequestParam Integer participanteId,
                                  @RequestParam paymentType tipoPago) {
         // Validar si el evento tiene un costo mayor a 0 y el tipo de pago es FREE
         if (tipoPago == paymentType.FREE && eventoId != null) {
@@ -25,6 +25,6 @@ public class PurchaseController {
                 throw new InvalidPaymentTypeException("Error: No puedes usar el tipo de pago FREE para eventos con costo mayor a 0.");
             }
         }
-        return purchaseService.purchaseTicket(eventoId, usuarioId, tipoPago);
+        return purchaseService.purchaseTicket(eventoId, participanteId, tipoPago);
     }
 }

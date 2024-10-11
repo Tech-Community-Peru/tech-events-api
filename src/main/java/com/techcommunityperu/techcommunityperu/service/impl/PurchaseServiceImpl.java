@@ -2,20 +2,20 @@ package com.techcommunityperu.techcommunityperu.service.impl;
 
 import com.techcommunityperu.techcommunityperu.model.entity.Evento;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
-import com.techcommunityperu.techcommunityperu.model.entity.Usuario;
+import com.techcommunityperu.techcommunityperu.model.entity.Participante;
 import com.techcommunityperu.techcommunityperu.model.enums.paymentStatus;
 import com.techcommunityperu.techcommunityperu.model.enums.paymentType;
 import com.techcommunityperu.techcommunityperu.model.enums.statusInscription;
 import com.techcommunityperu.techcommunityperu.repository.EventRepository;
 import com.techcommunityperu.techcommunityperu.repository.InscriptionRepository;
-import com.techcommunityperu.techcommunityperu.repository.UserRepository; // Asegúrate de importar el repositorio de Usuario
+import com.techcommunityperu.techcommunityperu.repository.ParticipantRepository;
 import com.techcommunityperu.techcommunityperu.service.PaymentService;
 import com.techcommunityperu.techcommunityperu.service.PurchaseService;
 import com.techcommunityperu.techcommunityperu.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException; // Importar NoSuchElementException
+import java.util.NoSuchElementException;
 
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
@@ -27,7 +27,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     private InscriptionRepository inscriptionRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private ParticipantRepository participantRepository;
 
     @Autowired
     private PaymentService paymentService;
@@ -44,13 +44,13 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public String purchaseTicket(Integer eventoId, Integer usuarioId, paymentType tipoPago) {
+    public String purchaseTicket(Integer eventoId, Integer partipanteId, paymentType tipoPago) {
         // Buscar el evento
         Evento evento = eventoRepository.findById(eventoId)
                 .orElseThrow(() -> new NoSuchElementException("Evento no encontrado"));
 
         // Buscar el usuario
-        Usuario usuario = userRepository.findById(usuarioId)
+        Participante participante = participantRepository.findById(partipanteId)
                 .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado"));
 
         // Validar si el costo del evento es mayor a 0 y el tipo de pago es FREE
@@ -62,7 +62,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         inscripcion.setTipoPago(tipoPago);
         inscripcion.setMonto(evento.getCosto());
         inscripcion.setEvento(evento);
-       // inscripcion.setParticipante(usuario); // Asociar el usuario encontrado
+        inscripcion.setParticipante(participante); // Asociar el usuario encontrado
 
         // Verificar si el costo del evento es 0
         if (evento.getCosto() == 0) {
