@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Repository
 public interface InscriptionRepository extends JpaRepository<Inscripcion, Integer> {
-    Optional<Inscripcion> findByParticipanteIdAndEventoId(Integer usuarioId, Integer eventoId);
+    Optional<Inscripcion> findByParticipanteIdAndEventoId(Integer participanteId, Integer eventoId);
     @Modifying
     @Query("DELETE FROM Inscripcion i WHERE i.evento.id = :eventoId AND i.participante.id = :participanteId")
     void deleteByEventoAndParticipante(@Param("eventoId") Integer eventoId, @Param("participanteId") Integer participanteId);

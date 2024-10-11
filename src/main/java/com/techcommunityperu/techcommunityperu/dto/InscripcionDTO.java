@@ -17,11 +17,11 @@ public class InscripcionDTO {
     @NotNull(message = "El estado del pago es obligatorio")
     private statusInscription status;
 
-    @NotNull(message = "El usuario es obligatorio")
-    private Integer usuario;
+    @NotNull(message = "El participante es obligatorio")
+    private Integer participante;
 
     @NotNull(message = "El evento es obligatorio")
-    private Integer eventp;
+    private Integer evento;
 }
 
 
