@@ -53,8 +53,8 @@ public class Evento {
     private List<Cronograma> cronograma;
 
 
-    @OneToMany(mappedBy = "evento")
-    private List<Asistencia> asistencias;
+    //@OneToMany(mappedBy = "evento")
+    //private List<Asistencia> asistencias;
 
 //     Relación con Comentarios
 //    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)

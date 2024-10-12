@@ -10,6 +10,7 @@ import lombok.Data;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Entity
@@ -40,5 +41,7 @@ public class Inscripcion {
     @JoinColumn(name = "evento_id", referencedColumnName = "id")
     private Evento evento;
 
-
+    // Relación con Ganador, con eliminación en cascada
+    @OneToMany(mappedBy = "inscripcion", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Ganador> ganadores;
 }

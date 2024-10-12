@@ -1,5 +1,7 @@
 package com.techcommunityperu.techcommunityperu.service.impl;
 import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
+import com.techcommunityperu.techcommunityperu.exceptions.BadRequestException;
+import com.techcommunityperu.techcommunityperu.exceptions.InscriptionException;
 import com.techcommunityperu.techcommunityperu.exceptions.ResourceNotFoundException;
 import com.techcommunityperu.techcommunityperu.mapper.InscripcionMapper;
 import com.techcommunityperu.techcommunityperu.model.entity.Evento;
@@ -27,9 +29,6 @@ public class InscripcionServiceImpl implements InscripcionService {
 
     @Autowired
     private final InscriptionRepository inscriptionRepository;
-
-    @Autowired
-    private final UsuarioRepository usuarioRepository;
 
     @Autowired
     private final InscripcionMapper inscripcionMapper;
@@ -65,66 +64,74 @@ public class InscripcionServiceImpl implements InscripcionService {
         return inscriptionRepository.findByEventoIdAndParticipanteId(eventoId, participanteId);
     }
 
+    //CRUD INSCRIPCION
     @Transactional
     @Override
-    public List<Inscripcion> getAll() {
-        return List.of();
+    public List<InscripcionDTO> getAll() {
+        List<Inscripcion> inscripcionList = inscriptionRepository.findAll();
+        return inscripcionList.stream()
+                .map(inscripcionMapper::toDto)
+                .toList();
     }
 
     @Transactional
     @Override
-    public Page<Inscripcion> paginate(Pageable pageable) {
-        return inscriptionRepository.findAll(pageable);
+    public Page<InscripcionDTO> paginate(Pageable pageable) {
+        Page<Inscripcion> inscripcionPage = inscriptionRepository.findAll(pageable);
+        return inscripcionPage.map(inscripcionMapper::toDto);
     }
 
     @Transactional
     @Override
-    public Inscripcion create(Inscripcion inscripcion) {
-        return inscriptionRepository.save(inscripcion);
+    public InscripcionDTO findById(Integer id) {
+        Inscripcion inscripcion = inscriptionRepository.findById(id).orElseThrow(() -> new RuntimeException("La Inscripcion con ID:" + id + " no encontrado"));
+        return inscripcionMapper.toDto(inscripcion);
     }
 
     @Transactional
     @Override
-    public Inscripcion update(Integer id, Inscripcion inscripcion) {
-        Inscripcion inscripcionFromDb = findById(id);
-        inscripcionFromDb.setInscripcionStatus(inscripcion.getInscripcionStatus());
-        inscripcionFromDb.setEvento(inscripcion.getEvento());
-        inscripcionFromDb.setMonto(inscripcion.getMonto());
-        inscripcionFromDb.setTipoPago(inscripcion.getTipoPago());
-        inscripcionFromDb.setEvento(inscripcion.getEvento());
-        return inscriptionRepository.save(inscripcionFromDb);
+    public InscripcionDTO create(InscripcionDTO inscripcionDTO) {
+        inscriptionRepository.findByParticipanteIdAndEventoId(inscripcionDTO.getParticipante().getId(), inscripcionDTO.getEvento().getId())
+                .ifPresent(existingInscripcion -> {
+                    throw new BadRequestException("No se puede crear la inscripción, debido a que ya hay una existente con el id de participante: "+
+                            inscripcionDTO.getParticipante().getId()
+                            +" y con el id de evento: "+inscripcionDTO.getEvento().getId());
+                });
+        Inscripcion inscripcion = inscripcionMapper.toEntity(inscripcionDTO);
+        inscripcion = inscriptionRepository.save(inscripcion);
+        return inscripcionMapper.toDto(inscripcion);
     }
 
+    @Transactional
+    @Override
+    public InscripcionDTO update(Integer id, InscripcionDTO updatedInscripcionDTO) {
+        Inscripcion inscripcionFromDb = inscriptionRepository.findById(id).orElseThrow(() -> new RuntimeException("La Inscripcion con ID:" + id + " no encontrado"));
+        inscriptionRepository.findByParticipanteIdAndEventoId(updatedInscripcionDTO.getParticipante().getId(), updatedInscripcionDTO.getEvento().getId())
+                .filter(existingInscripcion -> !existingInscripcion.getId().equals(id))
+                .ifPresent(existingInscripcion -> {
+                    throw new RuntimeException("La inscripcion ya existe");
+                });
+        //Actualizar
+        inscripcionFromDb.setInscripcionStatus(updatedInscripcionDTO.getStatus());
+        inscripcionFromDb.setEvento(updatedInscripcionDTO.getEvento());
+        inscripcionFromDb.setMonto(updatedInscripcionDTO.getMonto());
+        inscripcionFromDb.setTipoPago(updatedInscripcionDTO.getTipoPago());
+        inscripcionFromDb.setEvento(updatedInscripcionDTO.getEvento());
+        inscripcionFromDb = inscriptionRepository.save(inscripcionFromDb);
+        return inscripcionMapper.toDto(inscripcionFromDb);
+    }
+
+    @Transactional
     @Override
     public void delete(Integer id) {
-        Inscripcion inscripcion = findById(id);
+        Inscripcion inscripcion = inscriptionRepository.findById(id).orElseThrow(() -> new RuntimeException("La Inscripcion con ID:" + id + " no encontrado"));
         inscriptionRepository.delete(inscripcion);
     }
 
     @Transactional
     @Override
-    public Inscripcion findById(Integer id) {
-        return inscriptionRepository.findById(id).orElseThrow(() -> new RuntimeException("Inscripcion no funciona"));
-    }
-
-    @Transactional
-    @Override
-    public List<Inscripcion> findByParticipanteId(Integer participanteId){
-    List<Inscripcion> inscripcion = inscriptionRepository.findByParticipanteId(participanteId);
-    return inscripcion;
-    }
-  
-     public void crearInscripcion(InscripcionDTO inscripcionDTO) {
-        Participante participante = participantRepository.findById(inscripcionDTO.getParticipante())
-                .orElseThrow(() -> new ResourceNotFoundException("Participante no encontrado"));
-
-        Evento evento = eventoRepository.findById(inscripcionDTO.getEvento())
-                .orElseThrow(() -> new ResourceNotFoundException("Evento no encontrado"));
-
-        Inscripcion nuevaInscripcion = inscripcionMapper.toEntity(inscripcionDTO);
-        nuevaInscripcion.setParticipante(participante);
-         nuevaInscripcion.setEvento(evento);
-
-        inscriptionRepository.save(nuevaInscripcion);
+    public List<Inscripcion> findByParticipanteId(Integer participanteId) {
+        List<Inscripcion> inscripcion = inscriptionRepository.findByParticipanteId(participanteId);
+        return inscripcion;
     }
 }

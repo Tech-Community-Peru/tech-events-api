@@ -3,13 +3,16 @@ package com.techcommunityperu.techcommunityperu.api;
 import com.techcommunityperu.techcommunityperu.service.InscripcionService;
 import jakarta.validation.Valid;
 import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
-import com.techcommunityperu.techcommunityperu.mapper.InscripcionMapper;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -18,16 +21,36 @@ import java.util.Optional;
 public class InscripcionController {
 
     private final InscripcionService inscripcionService;
-    private final InscripcionMapper inscripcionMapper;
+
+    @GetMapping
+    public ResponseEntity<List<InscripcionDTO>> getAllCategories(){
+        List<InscripcionDTO> inscripcionList = inscripcionService.getAll();
+        return new ResponseEntity<>(inscripcionList,HttpStatus.OK);
+    }
 
     @PostMapping
-    public ResponseEntity<String> crearInscripcion(@Valid @RequestBody InscripcionDTO inscripcionDTO) {
-        try {
-            inscripcionService.crearInscripcion(inscripcionDTO);
-            return ResponseEntity.ok("Inscripción creada exitosamente");
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al crear la inscripción: " + e.getMessage());
-        }
+    public ResponseEntity<InscripcionDTO> create(@Valid @RequestBody InscripcionDTO inscripcionDTO) {
+        InscripcionDTO createdInscripcionDTO = inscripcionService.create(inscripcionDTO);
+        return new ResponseEntity<>(createdInscripcionDTO, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<InscripcionDTO>> paginate(@PageableDefault(size = 5, sort = "firstName")
+                                                         Pageable pageable) {
+        Page<InscripcionDTO> page = inscripcionService.paginate(pageable);
+         return new ResponseEntity<>(page, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<InscripcionDTO> getById(@PathVariable Integer id) {
+        InscripcionDTO inscripcionDTO = inscripcionService.findById(id);
+        return new ResponseEntity<>(inscripcionDTO, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<InscripcionDTO> update(@PathVariable Integer id,@Valid @RequestBody InscripcionDTO inscripcionDTO) {
+        InscripcionDTO updatedInscripcion = inscripcionService.update(id, inscripcionDTO);
+        return new ResponseEntity<>(updatedInscripcion, HttpStatus.OK);
     }
 
     @GetMapping("/evento/{eventoId}/usuario/{usuarioId}")
@@ -50,5 +73,11 @@ public class InscripcionController {
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al cancelar la inscripción: " + e.getMessage());
         }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        inscripcionService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

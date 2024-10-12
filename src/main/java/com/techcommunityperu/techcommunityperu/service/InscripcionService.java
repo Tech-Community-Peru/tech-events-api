@@ -14,17 +14,18 @@ public interface InscripcionService {
     Optional<Inscripcion> verificarInscripcion(Integer usuarioId, Integer eventoId);
 
     //CRUD
-    List<Inscripcion> getAll();
-    Page<Inscripcion> paginate(Pageable pageable);
+    List<InscripcionDTO> getAll();
+    Page<InscripcionDTO> paginate(Pageable pageable);
     //Creacion de un objeto Inscripcion
-    Inscripcion create(Inscripcion inscripcion);
+    InscripcionDTO create(InscripcionDTO inscripcionDTO);
     //Actualizacion de la informacion de Inscripcion, primero buscarlos por Id para luego reemplazarlos por el objeto Inscripcion
-    Inscripcion update(Integer id, Inscripcion inscripcion);
+    InscripcionDTO update(Integer id, InscripcionDTO inscripcionDTO);
     //Eliminar
     void delete(Integer id);
     //Obtener por id
-    Inscripcion findById(Integer id);
+    InscripcionDTO findById(Integer id);
+
     //Listar eventos por id de participante
     List<Inscripcion> findByParticipanteId(Integer participanteId);
-    void crearInscripcion(InscripcionDTO inscripcionDTO);
+
 }
