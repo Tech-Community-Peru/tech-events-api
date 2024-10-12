@@ -1,5 +1,6 @@
 package com.techcommunityperu.techcommunityperu.service.impl;
 
+import com.techcommunityperu.techcommunityperu.exceptions.InscriptionException;
 import com.techcommunityperu.techcommunityperu.model.entity.Evento;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.model.entity.Participante;
@@ -14,8 +15,6 @@ import com.techcommunityperu.techcommunityperu.service.PurchaseService;
 import com.techcommunityperu.techcommunityperu.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.NoSuchElementException;
 
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
@@ -35,23 +34,32 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Autowired
     private EmailService emailService;
 
+    // Metodo para validar si el tipo de pago es reconocido
+    private void validatePaymentType(paymentType tipoPago) {
+        if (tipoPago == null) {
+            throw new InscriptionException("Ese Tipo de Pago no es reconocido");
+        }
+    }
 
     @Override
     public double getCostoEvento(Integer eventoId) {
         Evento evento = eventoRepository.findById(eventoId)
-                .orElseThrow(() -> new NoSuchElementException("Evento no encontrado"));
+                .orElseThrow(() -> new InscriptionException("Evento no encontrado"));
         return evento.getCosto();
     }
 
     @Override
     public String purchaseTicket(Integer eventoId, Integer partipanteId, paymentType tipoPago) {
+        // Validar el tipo de pago
+        validatePaymentType(tipoPago);
+
         // Buscar el evento
         Evento evento = eventoRepository.findById(eventoId)
-                .orElseThrow(() -> new NoSuchElementException("Evento no encontrado"));
+                .orElseThrow(() -> new InscriptionException("Evento no encontrado"));
 
-        // Buscar el usuario
+        // Buscar el participante
         Participante participante = participantRepository.findById(partipanteId)
-                .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado"));
+                .orElseThrow(() -> new InscriptionException("Participante no encontrado"));
 
         // Validar si el costo del evento es mayor a 0 y el tipo de pago es FREE
         if (evento.getCosto() > 0 && tipoPago == paymentType.FREE) {
@@ -62,7 +70,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         inscripcion.setTipoPago(tipoPago);
         inscripcion.setMonto(evento.getCosto());
         inscripcion.setEvento(evento);
-        inscripcion.setParticipante(participante); // Asociar el usuario encontrado
+        inscripcion.setParticipante(participante); // Asociar el participante encontrado
 
         // Verificar si el costo del evento es 0
         if (evento.getCosto() == 0) {

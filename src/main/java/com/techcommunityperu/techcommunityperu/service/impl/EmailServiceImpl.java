@@ -18,14 +18,28 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendConfirmationEmail(Inscripcion inscripcion, double monto) {
-        // En una implementacion real, aquí iría la lógica de envío de correos electrónicos
-        System.out.println("Enviando correo de confirmación para la inscripción ID: " + inscripcion.getId());
-        System.out.println("Resumen de compra: " +inscripcion.getInscripcionStatus()+"\n"
-                +"ID Evento: "+inscripcion.getEvento().getId()+"\n"
-                +"Nombre de Evento: "+inscripcion.getEvento().getNombre()+"\n"
-                +"ID Usuario :"+inscripcion.getId()+"\n"
-                +"Tipo de pago: "+inscripcion.getTipoPago()+"\n"
-                +"Monto pagado: "+inscripcion.getMonto());
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("techcommunityperu@gmail.com"); // El correo que configurarás
+            message.setTo(inscripcion.getParticipante().getUsuarioId().getCorreoElectronico()); // Obtener el correo del usuario asociado al participante
+            message.setSubject("Confirmación de inscripción al evento " + inscripcion.getEvento().getNombre());
+
+            // Construir el contenido del correo
+            String messageBody = "Hola " + inscripcion.getParticipante().getNombre() + ",\n\n"
+                    + "Te has inscrito exitosamente al evento " + inscripcion.getEvento().getNombre() + ".\n"
+                    + "Estado de inscripción: " + inscripcion.getInscripcionStatus() + "\n"
+                    + "Monto pagado: " + monto + " " + inscripcion.getTipoPago() + "\n\n"
+                    + "Gracias por participar.\n\n"
+                    + "Saludos,\nTechCommunityPeru";
+
+            message.setText(messageBody);
+
+            mailSender.send(message); // Envía el correo
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Manejo de errores
+            throw new RuntimeException("Error al enviar el correo: " + e.getMessage());
+        }
     }
 
     private JavaMailSender mailSender;
