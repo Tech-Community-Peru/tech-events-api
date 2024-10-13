@@ -56,7 +56,7 @@ INSERT INTO ubicacion (nombre_lugar, direccion, ciudad, pais, descripcion) VALUE
 
 -- Datos de prueba para la tabla evento
 INSERT INTO evento (nombre, costo, descripcion, categoria_evento, tipo_evento, ponente_id, comunidad_id, ubicacion_id) VALUES
-                                                                                                                           ('Evento Ciberseguridad', 0.00, 'Evento sobre seguridad informática', 'CIBERSEGURIDAD', 'PRESENCIAL', 1, 1, 1),
+                                                                                                                           ('Evento Ciberseguridad', 50.00, 'Evento sobre seguridad informática', 'CIBERSEGURIDAD', 'PRESENCIAL', 1, 1, 1),
                                                                                                                            ('Evento Big Data', 150.00, 'Análisis de datos masivos', 'BIG_DATA', 'VIRTUAL', 2, 2, 2),
                                                                                                                            ('Evento Blockchain', 200.00, 'Tecnología blockchain aplicada', 'BLOCKCHAIN', 'PRESENCIAL', 3, 3, 3),
                                                                                                                            ('Evento IA', 120.00, 'Inteligencia artificial en el futuro', 'INTELIGENCIA_ARTIFICIAL', 'VIRTUAL', 1, 4, 4),

@@ -1,27 +1,18 @@
 package com.techcommunityperu.techcommunityperu.dto;
 
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UsuarioDTO {
+    @NotNull(message = "El id de pago es obligatorio")
     private Integer id;
-    private String nombre;
-
-    public UsuarioDTO(Integer id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    @NotNull(message = "El correoElectronico  es obligatorio")
+    private String correoElectronico;
 }
