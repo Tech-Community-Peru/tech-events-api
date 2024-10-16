@@ -9,4 +9,5 @@ public interface ParticipantRepository extends JpaRepository<Participante, Integ
     // Aquí puedes agregar métodos adicionales de búsqueda si es necesario
     Participante findByNombre(String nombre);
     Participante findByApellido(String apellido);
+    Participante findByNombreAndApellido(String nombre, String apellido);
 }
