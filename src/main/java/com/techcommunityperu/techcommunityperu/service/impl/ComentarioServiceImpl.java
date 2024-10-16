@@ -21,13 +21,13 @@ public class ComentarioServiceImpl implements ComentarioService {
     }
 
     @Override
-    public Comentario obtenerComentariosPorEvento(Integer eventoId) {
+    public List<Comentario> obtenerComentariosPorEvento(Integer eventoId) {
         return comentarioRepository.findByEventoId(eventoId);
     }
 
     @Override
-    public Comentario obtenerComentariosPorUsuario(Integer usuarioId) {
-        return comentarioRepository.findByUsuarioId(usuarioId);
+    public List<Comentario> obtenerComentariosPorUsuario(Integer usuarioId) {
+        return comentarioRepository.findByUsuarioId(usuarioId); // Cambiado a List<Comentario>
     }
 
     @Override

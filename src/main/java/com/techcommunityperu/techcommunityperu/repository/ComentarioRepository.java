@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ComentarioRepository extends JpaRepository<Comentario, Integer> {
-    Comentario findByEventoId(Integer eventoId);
-    Comentario findByUsuarioId(Integer usuarioId);
+    List<Comentario> findByEventoId(Integer eventoId);
+    List<Comentario> findByUsuarioId(Integer usuarioId);
 }

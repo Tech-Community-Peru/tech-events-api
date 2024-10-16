@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/comentarios")
@@ -19,23 +20,27 @@ public class ComentarioController {
     private final ComentarioService comentarioService;
 
     @GetMapping("/evento/{eventoId}")
-    public ResponseEntity<ComentarioDTO> obtenerComentariosPorEvento(@PathVariable Integer eventoId) {
-        Comentario comentarios = comentarioService.obtenerComentariosPorEvento(eventoId);
-        ComentarioDTO comentarioDTO = new ComentarioDTO(comentarios.getId(),comentarios.getComentario());
-        return ResponseEntity.ok(comentarioDTO);
+    public ResponseEntity<List<ComentarioDTO>> obtenerComentariosPorEvento(@PathVariable Integer eventoId) {
+        List<Comentario> comentarios = comentarioService.obtenerComentariosPorEvento(eventoId);
+        List<ComentarioDTO> comentariosDTO = comentarios.stream()
+                .map(c -> new ComentarioDTO(c.getId(), c.getComentario()))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(comentariosDTO);
     }
 
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<ComentarioDTO> obtenerComentariosPorUsuario(@PathVariable Integer usuarioId) {
-        Comentario comentarios = comentarioService.obtenerComentariosPorUsuario(usuarioId);
-        ComentarioDTO comentarioDTO = new ComentarioDTO(comentarios.getId(),comentarios.getComentario());
-        return ResponseEntity.ok(comentarioDTO);
+    public ResponseEntity<List<ComentarioDTO>> obtenerComentariosPorUsuario(@PathVariable Integer usuarioId) {
+        List<Comentario> comentarios = comentarioService.obtenerComentariosPorUsuario(usuarioId);
+        List<ComentarioDTO> comentariosDTO = comentarios.stream()
+                .map(c -> new ComentarioDTO(c.getId(), c.getComentario()))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(comentariosDTO);
     }
 
     @PostMapping("/guardar")
     public ResponseEntity<ComentarioDTO> guardarComentario(@RequestBody Comentario comentario) {
         Comentario nuevoComentario = comentarioService.guardarComentario(comentario);
-        ComentarioDTO comentarioDTO = new ComentarioDTO(nuevoComentario.getId(),nuevoComentario.getComentario());
+        ComentarioDTO comentarioDTO = new ComentarioDTO(nuevoComentario.getId(), nuevoComentario.getComentario());
         return ResponseEntity.status(HttpStatus.CREATED).body(comentarioDTO);
     }
 
@@ -50,5 +55,4 @@ public class ComentarioController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al eliminar el comentario.");
         }
     }
-
 }
