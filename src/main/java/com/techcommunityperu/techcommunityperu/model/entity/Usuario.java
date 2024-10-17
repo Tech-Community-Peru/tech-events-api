@@ -13,13 +13,16 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "correo_electronico", nullable = false)
+    @Column(name = "correo_electronico", nullable = false, unique = true)
     private String correoElectronico;
 
     @Column(name = "contrasenia", nullable = true)
     private String contrasenia;
 
-    @ManyToOne
+    @OneToOne(mappedBy = "usuarioId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Participante participante;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "roles_id", referencedColumnName = "id")
     private Roles roles;
 
