@@ -2,12 +2,12 @@ package com.techcommunityperu.techcommunityperu.integration.payment.paypal.servi
 
 import com.techcommunityperu.techcommunityperu.exceptions.ResourceNotFoundException;
 import com.techcommunityperu.techcommunityperu.integration.payment.paypal.dto.*;
+import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
+import com.techcommunityperu.techcommunityperu.repository.InscriptionRepository;
 import jakarta.annotation.PostConstruct;
-import jakarta.annotation.Resource;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClient;
 
 import java.util.Base64;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
@@ -31,7 +30,7 @@ public class PayPalService {
     private String apiBase;
 
     @NotNull
-    private PurchaseRepository purchaseRepository;
+    private final InscriptionRepository inscriptionRepository;
     private RestClient paypalClient;
 
     @PostConstruct
@@ -44,34 +43,36 @@ public class PayPalService {
         body.add("grant_type", "client_credentials");
 
         return Objects.requireNonNull(
-                paypalClient.post().uri("/v1/ouath2/token").contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .header(HttpHeaders.AUTHORIZATION, "Basic"+ Base64.getEncoder()
-                                .encodeToString((clientId+":"+clientSecret).getBytes()))
+                paypalClient.post().uri("/v1/oauth2/token")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .header(HttpHeaders.AUTHORIZATION, "Basic " + Base64.getEncoder()
+                                .encodeToString((clientId + ":" + clientSecret).getBytes()))
                         .body(body)
                         .retrieve()
                         .toEntity(TokenResponse.class).getBody()).getAccessToken();
     }
 
-    public OrderResponse createOrder(Integer purchaseId, String returnUrl, String cancelUrl) {
-        Purchase purchase = purchaseRepository.findById(purchaseId).orElseThrow(ResourceNotFoundException::new);
+    public OrderResponse createOrder(Integer inscriptionId, String returnUrl, String cancelUrl) {
+        Inscripcion inscription = inscriptionRepository.findById(inscriptionId)
+                .orElseThrow(ResourceNotFoundException::new);
 
         OrderRequest orderRequest = new OrderRequest();
         orderRequest.setIntent("CAPTURE");
 
         Amount amount = new Amount();
         amount.setCurrencyCode("USD");
-        amount.setValue(purchase.getTotal().toString());
+        amount.setValue(String.valueOf(inscription.getMonto()));
 
         PurchaseUnit purchaseUnit = new PurchaseUnit();
-        purchaseUnit.setReferenceId(purchase.getId().toString());
+        purchaseUnit.setReferenceId(inscription.getId().toString());
         purchaseUnit.setAmount(amount);
 
         orderRequest.setPurchaseUnits(Collections.singletonList(purchaseUnit));
 
-        ApplicationContext applicationContext = new ApplicationContext.builder()
+        ApplicationContext applicationContext = ApplicationContext.builder()
                 .brandName("Tech-Community")
-                .returnUrl(returnUrl)
-                .cancelUrl(cancelUrl)
+                .returnURL(returnUrl)
+                .cancelURL(cancelUrl)
                 .build();
 
         orderRequest.setApplicationContext(applicationContext);
@@ -79,18 +80,18 @@ public class PayPalService {
         return paypalClient.post()
                 .uri("/v2/checkout/orders")
                 .contentType(MediaType.APPLICATION_JSON)
-                .header(HttpHeaders.AUTHORIZATION, "Bearer" + getAccessToken())
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + getAccessToken())
                 .body(orderRequest)
                 .retrieve()
                 .toEntity(OrderResponse.class)
                 .getBody();
     }
 
-    public OrderCaptureResponse captureOrder (String orderId) {
+    public OrderCaptureResponse captureOrder(String orderId) {
         return paypalClient.post()
                 .uri("/v2/checkout/orders/{order_id}/capture", orderId)
                 .contentType(MediaType.APPLICATION_JSON)
-                .header(HttpHeaders.AUTHORIZATION, "Bearer" + getAccessToken())
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + getAccessToken())
                 .retrieve()
                 .toEntity(OrderCaptureResponse.class)
                 .getBody();

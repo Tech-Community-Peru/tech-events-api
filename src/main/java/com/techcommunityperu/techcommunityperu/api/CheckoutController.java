@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/checkout")
-@PreAuthorize("hasRole('CUSTOMER')")
+//@PreAuthorize("hasRole('USUARIO')")
+//Debemos hacer primero la autorizacion por tokens
 
 public class CheckoutController {
 

@@ -1,5 +1,6 @@
 package com.techcommunityperu.techcommunityperu.service.impl;
 
+import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
 import com.techcommunityperu.techcommunityperu.dto.PaymentCaptureResponse;
 import com.techcommunityperu.techcommunityperu.dto.PaymentOrderResponse;
 import com.techcommunityperu.techcommunityperu.integration.payment.paypal.dto.OrderCaptureResponse;
@@ -42,8 +43,10 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         if (completed) {
             String purchaseIdStr = orderCaptureResponse.getPurchaseUnits().get(0).getReferenceId();
-            PurchaseDto purchaseDTO = purchaseService.confirmPurchase(Integer.parseInt(purchaseIdStr));
-            paypalCaptureResponse.setPurchaseId(purchaseDTO.getId());
+
+            InscripcionDTO inscripcionDTO = purchaseService.confirmInscription(Integer.parseInt(purchaseIdStr));
+
+            paypalCaptureResponse.setPurchaseId(inscripcionDTO.getParticipante().getId());
         }
 
         return paypalCaptureResponse;
