@@ -22,6 +22,9 @@ public class Usuario {
     @OneToOne(mappedBy = "usuarioId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Participante participante;
 
+    @OneToOne(mappedBy = "usuarioId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Ponente ponente;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "roles_id", referencedColumnName = "id")
     private Roles roles;

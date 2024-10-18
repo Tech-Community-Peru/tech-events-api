@@ -1,14 +1,8 @@
-INSERT INTO ponente (nombre, apellido, cargo, pais_origen, especialidad) VALUES
-                                                                             ('Juan', 'Pérez', 'Ingeniero de Software', 'Perú', 'Desarrollo de Backend'),
-                                                                             ('María', 'García', 'Arquitecta de Sistemas', 'Chile', 'Arquitectura de Software'),
-                                                                             ('Carlos', 'López', 'Analista de Datos', 'Argentina', 'Análisis de Datos');
-
-
 INSERT INTO roles (nombre, rol) VALUES
                                                 ('User', 'USUARIO'),
                                                 ('Admin', 'ADMINISTRADOR');
 
-INSERT INTO usuario (correo_electronico, contrasenia,roles_id) VALUES
+INSERT INTO usuario (correo_electronico, contrasenia, roles_id) VALUES
                                                                    ('jose.ramirez@gmail.com', 'password123',1),
                                                                    ('claudia.vasquez@gmail.com', 'password456',2),
                                                                    ('luis.martinez@gmail.com', 'password789',1),
@@ -16,7 +10,10 @@ INSERT INTO usuario (correo_electronico, contrasenia,roles_id) VALUES
                                                                    ('pedro.salazar@gmail.com', 'passworddef',2),
                                                                    ('lucia.fernandez@gmail.com', 'passwordghi',2),
                                                                    ('andres.lopez@gmail.com', 'passwordjkl',1),
-                                                                   ('sofia.rojas@gmail.com', 'passwordmno',1);
+                                                                   ('sofia.rojas@gmail.com', 'passwordmno',1),
+                                                                   ('juan.perez@gmail.com', 'passwordjkl',2),
+                                                                   ('maria.garcia@gmail.com', 'passwordjkl',2),
+                                                                   ('carlos.lopez@gmail.com', 'passwordjkl',2);
 
 
 
@@ -30,6 +27,11 @@ INSERT INTO participante (nombre, apellido, habilidades, linkedin, informacion_a
                                                                                                                                         ('Lucía', 'Fernández', 'Inteligencia Artificial', 'linkedin.com/lucia-fernandez', 'Desarrolladora IA', 'Bogotá, Colombia', 'Colombia', 29, 6),
                                                                                                                                         ('Andrés', 'López', 'Innovación Tecnológica', 'linkedin.com/andres-lopez', 'Especialista en innovación', 'Quito, Ecuador', 'Ecuador', 38, 7),
                                                                                                                                         ('Sofía', 'Rojas', 'Cloud Computing', 'linkedin.com/sofia-rojas', 'Experta en tecnologías Cloud', 'Montevideo, Uruguay', 'Uruguay', 33, 8);
+
+INSERT INTO ponente (nombre, apellido, cargo, pais_origen, especialidad, usuario_id) VALUES
+                                                                                         ('Juan', 'Pérez', 'Ingeniero de Software', 'Perú', 'Desarrollo de Backend',9),
+                                                                                         ('María', 'García', 'Arquitecta de Sistemas', 'Chile', 'Arquitectura de Software',10),
+                                                                                         ('Carlos', 'López', 'Analista de Datos', 'Argentina', 'Análisis de Datos',11);
 
 
 INSERT INTO comunidad (nombre, descripcion, fecha_creacion, cantidad_miembros, tematica_principal) VALUES

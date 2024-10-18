@@ -28,6 +28,11 @@ public class Ponente {
     @Column(name = "especialidad", nullable = false, length = 50)
     private String especialidad;
 
+    // Relación OneToOne con Usuario
+    @OneToOne
+    @JoinColumn(name = "usuario_id", nullable = true)
+    private Usuario usuarioId;
+
     // Relación uno a muchos con Evento
     @JsonIgnore
     @OneToMany(mappedBy = "ponente", cascade = CascadeType.ALL)
