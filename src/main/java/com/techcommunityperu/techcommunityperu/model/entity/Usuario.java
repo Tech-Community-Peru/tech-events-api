@@ -3,6 +3,8 @@ package com.techcommunityperu.techcommunityperu.model.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 
 @Data
 @Entity

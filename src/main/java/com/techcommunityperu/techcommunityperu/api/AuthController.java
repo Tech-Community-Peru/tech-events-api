@@ -2,7 +2,7 @@ package com.techcommunityperu.techcommunityperu.api;
 
 import com.techcommunityperu.techcommunityperu.dto.UsuarioDTO;
 import com.techcommunityperu.techcommunityperu.model.entity.Usuario;
-import com.techcommunityperu.techcommunityperu.service.UserService;
+import com.techcommunityperu.techcommunityperu.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,16 +16,17 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-    private final UserService userService;
+    private final CustomerService userService;
 
     // Simulando una "sesión" en memoria
     private Map<String, Integer> session = new HashMap<>(); // Almacena el ID del usuario por correo electrónico
 
     @PostMapping("/register")
     public ResponseEntity<UsuarioDTO> register(@RequestBody Usuario usuario) {
-        Usuario newUser = userService.registrarUsuario(usuario);
-        UsuarioDTO usuarioDTO = new UsuarioDTO(newUser.getId(), newUser.getCorreoElectronico());
-        return new ResponseEntity<>(usuarioDTO, HttpStatus.CREATED);
+//        Usuario newUser = userService.registrarUsuario(usuario);
+//        UsuarioDTO usuarioDTO = new UsuarioDTO(newUser.getId(), newUser.getCorreoElectronico());
+//        return new ResponseEntity<>(usuarioDTO, HttpStatus.CREATED);
+        return null;
     }
 
     @PostMapping("/login")

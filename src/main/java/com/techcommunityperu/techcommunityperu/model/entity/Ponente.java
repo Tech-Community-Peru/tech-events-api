@@ -3,6 +3,8 @@ package com.techcommunityperu.techcommunityperu.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -27,6 +29,12 @@ public class Ponente {
 
     @Column(name = "especialidad", nullable = false, length = 50)
     private String especialidad;
+
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     // Relación OneToOne con Usuario
     @OneToOne

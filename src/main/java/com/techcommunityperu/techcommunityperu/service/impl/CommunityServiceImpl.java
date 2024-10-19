@@ -5,7 +5,7 @@ import com.techcommunityperu.techcommunityperu.mapper.CommunityMapper;
 import com.techcommunityperu.techcommunityperu.model.entity.Comunidad;
 import com.techcommunityperu.techcommunityperu.repository.CommunityRepository;
 import com.techcommunityperu.techcommunityperu.service.CommunityService;
-import com.techcommunityperu.techcommunityperu.service.UserService;
+import com.techcommunityperu.techcommunityperu.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class CommunityServiceImpl implements CommunityService {
     private final CommunityRepository communityRepository;
-    private final UserService userService;
+    private final CustomerService userService;
     private final CommunityMapper communityMapper;
 
     @Override

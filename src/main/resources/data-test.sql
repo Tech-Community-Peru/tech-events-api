@@ -18,20 +18,20 @@ INSERT INTO usuario (correo_electronico, contrasenia, roles_id) VALUES
 
 
 
-INSERT INTO participante (nombre, apellido, habilidades, linkedin, informacion_adicional, ubicacion, pais_origen, edad, usuario_id) VALUES
-                                                                                                                                        ('José', 'Ramírez', 'Ciberseguridad', 'linkedin.com/jose-ramirez', 'Ingeniero en seguridad informática', 'Lima, Perú', 'Perú', 30, 1),
-                                                                                                                                        ('Claudia', 'Vásquez', 'Big Data', 'linkedin.com/claudia-vasquez', 'Especialista en análisis de datos', 'CDMX, México', 'México', 28, 2),
-                                                                                                                                        ('Luis', 'Martínez', 'Machine Learning', 'linkedin.com/luis-martinez', 'Desarrollador de IA', 'Madrid, España', 'España', 35, 3),
-                                                                                                                                        ('María', 'Gómez', 'Blockchain', 'linkedin.com/maria-gomez', 'Consultora de blockchain', 'Buenos Aires, Argentina', 'Argentina', 32, 4),
-                                                                                                                                        ('Pedro', 'Salazar', 'DevOps', 'linkedin.com/pedro-salazar', 'Arquitecto de sistemas', 'Santiago, Chile', 'Chile', 40, 5),
-                                                                                                                                        ('Lucía', 'Fernández', 'Inteligencia Artificial', 'linkedin.com/lucia-fernandez', 'Desarrolladora IA', 'Bogotá, Colombia', 'Colombia', 29, 6),
-                                                                                                                                        ('Andrés', 'López', 'Innovación Tecnológica', 'linkedin.com/andres-lopez', 'Especialista en innovación', 'Quito, Ecuador', 'Ecuador', 38, 7),
-                                                                                                                                        ('Sofía', 'Rojas', 'Cloud Computing', 'linkedin.com/sofia-rojas', 'Experta en tecnologías Cloud', 'Montevideo, Uruguay', 'Uruguay', 33, 8);
+INSERT INTO participante (nombre, apellido, habilidades, linkedin, informacion_adicional, ubicacion, pais_origen, edad, usuario_id, created_at, updated_at) VALUES
+                                                                                                                                        ('José', 'Ramírez', 'Ciberseguridad', 'linkedin.com/jose-ramirez', 'Ingeniero en seguridad informática', 'Lima, Perú', 'Perú', 30, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                                                                                                                                        ('Claudia', 'Vásquez', 'Big Data', 'linkedin.com/claudia-vasquez', 'Especialista en análisis de datos', 'CDMX, México', 'México', 28, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                                                                                                                                        ('Luis', 'Martínez', 'Machine Learning', 'linkedin.com/luis-martinez', 'Desarrollador de IA', 'Madrid, España', 'España', 35, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                                                                                                                                        ('María', 'Gómez', 'Blockchain', 'linkedin.com/maria-gomez', 'Consultora de blockchain', 'Buenos Aires, Argentina', 'Argentina', 32, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                                                                                                                                        ('Pedro', 'Salazar', 'DevOps', 'linkedin.com/pedro-salazar', 'Arquitecto de sistemas', 'Santiago, Chile', 'Chile', 40, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                                                                                                                                        ('Lucía', 'Fernández', 'Inteligencia Artificial', 'linkedin.com/lucia-fernandez', 'Desarrolladora IA', 'Bogotá, Colombia', 'Colombia', 29, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                                                                                                                                        ('Andrés', 'López', 'Innovación Tecnológica', 'linkedin.com/andres-lopez', 'Especialista en innovación', 'Quito, Ecuador', 'Ecuador', 38, 7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                                                                                                                                        ('Sofía', 'Rojas', 'Cloud Computing', 'linkedin.com/sofia-rojas', 'Experta en tecnologías Cloud', 'Montevideo, Uruguay', 'Uruguay', 33, 8, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
-INSERT INTO ponente (nombre, apellido, cargo, pais_origen, especialidad, usuario_id) VALUES
-                                                                                         ('Juan', 'Pérez', 'Ingeniero de Software', 'Perú', 'Desarrollo de Backend',9),
-                                                                                         ('María', 'García', 'Arquitecta de Sistemas', 'Chile', 'Arquitectura de Software',10),
-                                                                                         ('Carlos', 'López', 'Analista de Datos', 'Argentina', 'Análisis de Datos',11);
+INSERT INTO ponente (nombre, apellido, cargo, pais_origen, especialidad, usuario_id,created_at, updated_at) VALUES
+                                                                                         ('Juan', 'Pérez', 'Ingeniero de Software', 'Perú', 'Desarrollo de Backend',9, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                                                                                         ('María', 'García', 'Arquitecta de Sistemas', 'Chile', 'Arquitectura de Software',10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                                                                                         ('Carlos', 'López', 'Analista de Datos', 'Argentina', 'Análisis de Datos',11, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 
 INSERT INTO comunidad (nombre, descripcion, fecha_creacion, cantidad_miembros, tematica_principal) VALUES
