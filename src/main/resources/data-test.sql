@@ -1,6 +1,8 @@
 INSERT INTO roles (nombre, rol) VALUES
                                                 ('User', 'USUARIO'),
-                                                ('Admin', 'ADMINISTRADOR');
+                                                ('Admin', 'ADMINISTRADOR'),
+                                                ('Participante','PARTICIPANTE'),
+                                                ('Ponente','PONENTE');
 
 INSERT INTO usuario (correo_electronico, contrasenia, roles_id) VALUES
                                                                    ('jose.ramirez@gmail.com', 'password123',1),
