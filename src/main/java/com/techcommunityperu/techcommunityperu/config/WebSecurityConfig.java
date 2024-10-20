@@ -1,9 +1,9 @@
 package com.techcommunityperu.techcommunityperu.config;
 
-import com.techcommunityperu.techcommunityperu.api.security.JWTConfigurer;
-import com.techcommunityperu.techcommunityperu.api.security.JWTFilter;
-import com.techcommunityperu.techcommunityperu.api.security.JwtAuthenticationEntryPoint;
-import com.techcommunityperu.techcommunityperu.api.security.TokenProvider;
+import com.techcommunityperu.techcommunityperu.security.JWTConfigurer;
+import com.techcommunityperu.techcommunityperu.security.JWTFilter;
+import com.techcommunityperu.techcommunityperu.security.JwtAuthenticationEntryPoint;
+import com.techcommunityperu.techcommunityperu.security.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

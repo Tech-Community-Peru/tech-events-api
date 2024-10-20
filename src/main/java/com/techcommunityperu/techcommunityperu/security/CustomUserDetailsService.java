@@ -1,4 +1,4 @@
-package com.techcommunityperu.techcommunityperu.api.security;
+package com.techcommunityperu.techcommunityperu.security;
 
 import com.techcommunityperu.techcommunityperu.model.entity.Usuario;
 import com.techcommunityperu.techcommunityperu.repository.UserRepository;

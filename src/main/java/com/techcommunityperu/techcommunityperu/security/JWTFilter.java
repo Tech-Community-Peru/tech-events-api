@@ -1,4 +1,4 @@
-package com.techcommunityperu.techcommunityperu.api.security;
+package com.techcommunityperu.techcommunityperu.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

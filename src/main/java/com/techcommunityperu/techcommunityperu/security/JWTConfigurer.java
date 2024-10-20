@@ -1,4 +1,4 @@
-package com.techcommunityperu.techcommunityperu.api.security;
+package com.techcommunityperu.techcommunityperu.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;

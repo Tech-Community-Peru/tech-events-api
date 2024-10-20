@@ -1,4 +1,4 @@
-package com.techcommunityperu.techcommunityperu.api.security;
+package com.techcommunityperu.techcommunityperu.security;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

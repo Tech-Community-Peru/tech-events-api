@@ -1,4 +1,4 @@
-package com.techcommunityperu.techcommunityperu.api.security;
+package com.techcommunityperu.techcommunityperu.security;
 import com.techcommunityperu.techcommunityperu.exceptions.RoleNotFoundException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
