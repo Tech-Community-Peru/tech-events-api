@@ -1,13 +1,11 @@
 package com.techcommunityperu.techcommunityperu.api.security;
 import com.techcommunityperu.techcommunityperu.exceptions.RoleNotFoundException;
-import com.techcommunityperu.techcommunityperu.model.entity.Usuario;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,8 +22,10 @@ import java.util.List;
 @Component
 public class TokenProvider {
 
+    @Value("${jwt.secret}")
     private String jwtSecret;
 
+    @Value("${jwt.validity-in-seconds}")
     private long jwtValidityInSeconds;
 
     private Key key;
