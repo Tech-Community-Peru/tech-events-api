@@ -7,8 +7,8 @@ import lombok.Data;
 public class UsuarioPerfilDTO {
     //Obligatorio
     private Integer id;
-    private String email;
-    private Roles role;
+    private String correoElectronico;
+    private Roles roles;
 
     private String nombre;
     private String apellido;
@@ -16,7 +16,7 @@ public class UsuarioPerfilDTO {
     // Depende del tipo de usuario se intente registrar
     // Sea ponente
     private String cargo;
-
+    private String especialidad;
     //Sea participante
     private String paisOrigen;
 }

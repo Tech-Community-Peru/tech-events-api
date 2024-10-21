@@ -24,7 +24,7 @@ public class Ponente {
     @Column(name = "cargo", nullable = false, length = 50)
     private String cargo;
 
-    @Column(name = "pais_origen", nullable = false, length = 50)
+    @Column(name = "pais_origen", length = 50)
     private String paisOrigen;
 
     @Column(name = "especialidad", nullable = false, length = 50)

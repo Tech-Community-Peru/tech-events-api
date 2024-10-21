@@ -17,7 +17,7 @@ public class UsuarioRegistroDTO {
 
     @Email(message = "El correo no es valido")
     @NotBlank(message = "El correo electronico es obligatorio")
-    private String correo;
+    private String correoElectronico;
 
     @NotNull(message = "La contraseña es obligatoria")
     @Size(min = 4, message = "La contraseña debe tener minimo 4 caracteres")
@@ -26,4 +26,5 @@ public class UsuarioRegistroDTO {
 
     private String cargo;
     private String paisOrigen;
+    private String especialidad;
 }

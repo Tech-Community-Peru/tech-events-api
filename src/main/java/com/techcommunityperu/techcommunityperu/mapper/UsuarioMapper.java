@@ -30,6 +30,7 @@ public class UsuarioMapper {
             usuarioPerfilDTO.setNombre(usuario.getPonente().getNombre());
             usuarioPerfilDTO.setApellido(usuario.getPonente().getApellido());
             usuarioPerfilDTO.setCargo(usuario.getPonente().getCargo());
+            usuarioPerfilDTO.setEspecialidad(usuario.getPonente().getEspecialidad());
         }
         return usuarioPerfilDTO;
     }
