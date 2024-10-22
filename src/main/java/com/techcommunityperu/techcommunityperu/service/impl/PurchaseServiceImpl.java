@@ -1,6 +1,8 @@
 package com.techcommunityperu.techcommunityperu.service.impl;
 
+import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
 import com.techcommunityperu.techcommunityperu.exceptions.InscriptionException;
+import com.techcommunityperu.techcommunityperu.exceptions.ResourceNotFoundException;
 import com.techcommunityperu.techcommunityperu.model.entity.Evento;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.model.entity.Participante;
@@ -46,6 +48,22 @@ public class PurchaseServiceImpl implements PurchaseService {
         Evento evento = eventoRepository.findById(eventoId)
                 .orElseThrow(() -> new InscriptionException("Evento no encontrado"));
         return evento.getCosto();
+    }
+
+    @Override
+    public InscripcionDTO confirmInscription(int inscriptionId) {
+        Inscripcion inscripcion = inscriptionRepository.findById(inscriptionId)
+                .orElseThrow(() -> new ResourceNotFoundException("Inscripción no encontrada"));
+
+        // Aquí puedes construir el InscripcionDTO
+        InscripcionDTO inscripcionDTO = new InscripcionDTO();
+        inscripcionDTO.setTipoPago(inscripcion.getTipoPago());
+        inscripcionDTO.setMonto(inscripcion.getMonto());
+        inscripcionDTO.setStatus(inscripcion.getInscripcionStatus());
+        inscripcionDTO.setParticipante(inscripcion.getParticipante());
+        inscripcionDTO.setEvento(inscripcion.getEvento());
+
+        return inscripcionDTO;
     }
 
     @Override
