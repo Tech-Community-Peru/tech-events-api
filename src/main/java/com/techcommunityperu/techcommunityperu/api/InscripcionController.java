@@ -53,9 +53,9 @@ public class InscripcionController {
         return new ResponseEntity<>(updatedInscripcion, HttpStatus.OK);
     }
 
-    @GetMapping("/evento/{eventoId}/usuario/{usuarioId}")
-    public ResponseEntity<String> verificarInscripcion(@PathVariable Integer eventoId, @PathVariable Integer usuarioId) {
-        Optional<Inscripcion> inscripcion = inscripcionService.verificarInscripcion(usuarioId, eventoId);
+    @GetMapping("/evento/{eventoId}/participante/{participanteId}")
+    public ResponseEntity<String> verificarInscripcion(@PathVariable Integer eventoId, @PathVariable Integer participanteId) {
+        Optional<Inscripcion> inscripcion = inscripcionService.verificarInscripcion(participanteId, eventoId);
         if (inscripcion.isPresent()) {
             return ResponseEntity.ok("El usuario está inscrito en el evento.");
         } else {

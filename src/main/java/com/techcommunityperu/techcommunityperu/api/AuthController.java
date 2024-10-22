@@ -1,8 +1,10 @@
 package com.techcommunityperu.techcommunityperu.api;
 
-import com.techcommunityperu.techcommunityperu.dto.UsuarioDTO;
+import com.techcommunityperu.techcommunityperu.dto.UsuarioPerfilDTO;
+import com.techcommunityperu.techcommunityperu.dto.UsuarioRegistroDTO;
 import com.techcommunityperu.techcommunityperu.model.entity.Usuario;
-import com.techcommunityperu.techcommunityperu.service.UserService;
+import com.techcommunityperu.techcommunityperu.service.CustomerService;
+import com.techcommunityperu.techcommunityperu.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,22 +18,37 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-    private final UserService userService;
+    private final CustomerService customerService;
+    private final UsuarioService usuarioService;
+
+//    @PostMapping("/register")
+//    public ResponseEntity<UsuarioDTO> register(@RequestBody Usuario usuario) {
+//        Usuario newUser = customerService.registrarUsuario(usuario);
+//        UsuarioDTO usuarioDTO = new UsuarioDTO(newUser.getId(), newUser.getCorreoElectronico());
+//        return new ResponseEntity<>(usuarioDTO, HttpStatus.CREATED);
+//        return null;
+//    }
+
+    @PostMapping("/register/participante")
+    public ResponseEntity<UsuarioPerfilDTO> registerParticipante(@RequestBody UsuarioRegistroDTO usuarioRegistroDTO) {
+        UsuarioPerfilDTO usuarioPerfil =  usuarioService.registroParticipante(usuarioRegistroDTO);
+        return new ResponseEntity<>(usuarioPerfil, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/register/ponente")
+    public ResponseEntity<UsuarioPerfilDTO> registerPonente(@RequestBody UsuarioRegistroDTO usuarioRegistroDTO) {
+        UsuarioPerfilDTO usuarioPerfil =  usuarioService.registroPonente(usuarioRegistroDTO);
+        return new ResponseEntity<>(usuarioPerfil, HttpStatus.CREATED);
+    }
+
 
     // Simulando una "sesión" en memoria
     private Map<String, Integer> session = new HashMap<>(); // Almacena el ID del usuario por correo electrónico
 
-    @PostMapping("/register")
-    public ResponseEntity<UsuarioDTO> register(@RequestBody Usuario usuario) {
-        Usuario newUser = userService.registrarUsuario(usuario);
-        UsuarioDTO usuarioDTO = new UsuarioDTO(newUser.getId(), newUser.getCorreoElectronico());
-        return new ResponseEntity<>(usuarioDTO, HttpStatus.CREATED);
-    }
-
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestParam String correo_electronico, @RequestParam String contrasenia) {
         // Busca el usuario por correo
-        Optional<Usuario> usuarioOptional = userService.findByCorreoElectronico(correo_electronico);
+        Optional<Usuario> usuarioOptional = customerService.findByCorreoElectronico(correo_electronico);
 
         if (usuarioOptional.isPresent() && usuarioOptional.get().getContrasenia().equals(contrasenia)) {
             // Almacena el ID del usuario en el "mapa de sesión"

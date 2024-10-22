@@ -5,6 +5,8 @@ import com.techcommunityperu.techcommunityperu.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @Table(name = "participante")
@@ -38,6 +40,13 @@ public class Participante {
     @Column(name = "edad", nullable = true)
     private Integer edad;
 
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    //Relaciones
     @OneToOne
     @JoinColumn(name = "usuario_id", nullable = true)
     private Usuario usuarioId;

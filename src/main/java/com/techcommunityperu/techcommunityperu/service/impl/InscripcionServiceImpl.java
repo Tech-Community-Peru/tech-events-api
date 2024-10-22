@@ -1,8 +1,10 @@
 package com.techcommunityperu.techcommunityperu.service.impl;
+import com.techcommunityperu.techcommunityperu.dto.EventoDTO;
 import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
 import com.techcommunityperu.techcommunityperu.exceptions.BadRequestException;
 import com.techcommunityperu.techcommunityperu.exceptions.InscriptionException;
 import com.techcommunityperu.techcommunityperu.exceptions.ResourceNotFoundException;
+import com.techcommunityperu.techcommunityperu.mapper.EventoMapper;
 import com.techcommunityperu.techcommunityperu.mapper.InscripcionMapper;
 import com.techcommunityperu.techcommunityperu.model.entity.Evento;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
@@ -27,17 +29,12 @@ public class InscripcionServiceImpl implements InscripcionService {
     //RequiredArgsConstructor : Genera un constructor
     //@Autowired: Crea constructor no es necesario poner private final
 
-    @Autowired
     private final InscriptionRepository inscriptionRepository;
-
-    @Autowired
     private final InscripcionMapper inscripcionMapper;
-    @Autowired
-    private ParticipantRepository participantRepository;
-    @Autowired
-    private GanadorRepository ganadorRepository;
-    @Autowired
-    private EventoRepository eventoRepository;
+    private final ParticipantRepository participantRepository;
+    private final GanadorRepository ganadorRepository;
+    private final EventRepository eventoRepository;
+    private final EventoMapper eventoMapperMapper;
 
 
     @Override
@@ -112,11 +109,12 @@ public class InscripcionServiceImpl implements InscripcionService {
                     throw new RuntimeException("La inscripcion ya existe");
                 });
         //Actualizar
+
+        Evento eventoConv = eventoMapperMapper.toEntity(updatedInscripcionDTO.getEvento()); // Usamos el DTO correcto
         inscripcionFromDb.setInscripcionStatus(updatedInscripcionDTO.getStatus());
-        inscripcionFromDb.setEvento(updatedInscripcionDTO.getEvento());
+        inscripcionFromDb.setEvento(eventoConv);
         inscripcionFromDb.setMonto(updatedInscripcionDTO.getMonto());
         inscripcionFromDb.setTipoPago(updatedInscripcionDTO.getTipoPago());
-        inscripcionFromDb.setEvento(updatedInscripcionDTO.getEvento());
         inscripcionFromDb = inscriptionRepository.save(inscripcionFromDb);
         return inscripcionMapper.toDto(inscripcionFromDb);
     }

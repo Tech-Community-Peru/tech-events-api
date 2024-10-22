@@ -11,7 +11,7 @@ import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.model.entity.Sorteo;
 import com.techcommunityperu.techcommunityperu.repository.GanadorRepository;
 import com.techcommunityperu.techcommunityperu.repository.SorteoRepository;
-import com.techcommunityperu.techcommunityperu.repository.EventoRepository;
+import com.techcommunityperu.techcommunityperu.repository.EventRepository;
 import com.techcommunityperu.techcommunityperu.repository.InscriptionRepository;
 import com.techcommunityperu.techcommunityperu.service.SorteoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class SorteoServiceImpl implements SorteoService {
     private InscriptionRepository inscriptionRepository;
 
     @Autowired
-    private EventoRepository eventoRepository;
+    private EventRepository eventoRepository;
 
     @Override
     public String crearSorteo(CrearSorteoDTO crearSorteoDTO) {

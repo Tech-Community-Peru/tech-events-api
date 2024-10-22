@@ -1,7 +1,7 @@
 package com.techcommunityperu.techcommunityperu.dto;
 
 import com.techcommunityperu.techcommunityperu.model.entity.Evento;
-import com.techcommunityperu.techcommunityperu.model.entity.Participante;
+
 import com.techcommunityperu.techcommunityperu.model.enums.paymentType;
 import com.techcommunityperu.techcommunityperu.model.enums.statusInscription;
 import jakarta.validation.constraints.NotNull;
@@ -20,10 +20,10 @@ public class InscripcionDTO {
     private statusInscription status;
 
     @NotNull(message = "El participante es obligatorio")
-    private Participante participante;
+    private ParticipanteDTO participante;
 
     @NotNull(message = "El evento es obligatorio")
-    private Evento evento;
+    private EventoResDTO evento;
 }
 
 
