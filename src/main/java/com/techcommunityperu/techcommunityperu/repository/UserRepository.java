@@ -12,6 +12,8 @@ public interface UserRepository extends JpaRepository<Usuario, Integer> {
 
     Optional<Usuario> findByCorreoElectronico(String correoElectronico);
 
+    //Evitar duplicar o crear un usuario con el mismo correo
+//    boolean existsByCorreoElectronico(String correo);
 
     @Query("SELECT COUNT(u) > 0 FROM Usuario u WHERE u.correoElectronico = :correoElectronico")
     boolean existsByCorreoElectronico(@Param("correoElectronico") String correoElectronico);

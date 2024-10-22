@@ -33,7 +33,7 @@ public class InscripcionServiceImpl implements InscripcionService {
     private final InscripcionMapper inscripcionMapper;
     private final ParticipantRepository participantRepository;
     private final GanadorRepository ganadorRepository;
-    private final EventoRepository eventoRepository;
+    private final EventRepository eventoRepository;
     private final EventoMapper eventoMapperMapper;
 
 
