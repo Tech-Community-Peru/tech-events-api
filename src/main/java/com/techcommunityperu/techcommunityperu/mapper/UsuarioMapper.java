@@ -1,8 +1,6 @@
 package com.techcommunityperu.techcommunityperu.mapper;
 
-import com.techcommunityperu.techcommunityperu.dto.UsuarioDTO;
-import com.techcommunityperu.techcommunityperu.dto.UsuarioPerfilDTO;
-import com.techcommunityperu.techcommunityperu.dto.UsuarioRegistroDTO;
+import com.techcommunityperu.techcommunityperu.dto.*;
 import com.techcommunityperu.techcommunityperu.model.entity.Usuario;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -33,6 +31,39 @@ public class UsuarioMapper {
             usuarioPerfilDTO.setEspecialidad(usuario.getPonente().getEspecialidad());
         }
         return usuarioPerfilDTO;
+    }
+
+    // Convertir de LoginDTO a User (cuando procesas el login)
+    public Usuario toUserEntity(LoginDTO loginDTO) {
+        return modelMapper.map(loginDTO, Usuario.class);
+    }
+
+    // Convertir de User a AuthResponseDTO para la respuesta de autenticación
+    public AuthResponseDTO toAuthResponseDTO(Usuario usuario, String token) {
+        AuthResponseDTO authResponseDTO = new AuthResponseDTO();
+        authResponseDTO.setToken(token); // Asignar el token
+
+
+        // Si es Participante, asignar los datos de Participante
+        if (usuario.getParticipante() != null) {
+            authResponseDTO.setNombre(usuario.getParticipante().getNombre());
+            authResponseDTO.setApellido(usuario.getParticipante().getApellido());
+        }
+        // Si es Ponente, asignar los datos de Ponente
+        else if (usuario.getPonente() != null) {
+            authResponseDTO.setNombre(usuario.getPonente().getNombre());
+            authResponseDTO.setApellido(usuario.getPonente().getApellido());
+        }
+        // Para cualquier usuario que no sea cliente ni autor (ej. Admin)
+        else {
+            authResponseDTO.setNombre("Admin");
+            authResponseDTO.setApellido("User");
+        }
+
+        // Asignar el rol del usuario
+        authResponseDTO.setRol(usuario.getRoles().getNombre().toString());
+
+        return authResponseDTO;
     }
 
 }

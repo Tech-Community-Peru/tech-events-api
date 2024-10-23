@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserPrincipal implements UserDetails {
+    //Una vez que el usaurio se halla autenticado
     private Integer id;
     private String email;
     private String password;
