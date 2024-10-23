@@ -48,6 +48,6 @@ public class Participante {
 
     //Relaciones
     @OneToOne
-    @JoinColumn(name = "usuario_id", nullable = true)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuarioId;
 }

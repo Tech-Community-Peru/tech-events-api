@@ -16,7 +16,7 @@ import java.util.Collections;
 @RequiredArgsConstructor
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-
+    //Logica del  inicio de sesión
     private final UserRepository userRepository;
 
     @Override
@@ -24,7 +24,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         Usuario user = userRepository.findByCorreoElectronico(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con el email: " + email));
 
-        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRoles().getNombre());
+//        GrantedAuthority es la representacion de los roles
+        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRoles().getRol().name());
 
         return new UserPrincipal(
                 user.getId(),

@@ -1,14 +1,20 @@
 package com.techcommunityperu.techcommunityperu.config;
 
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Value;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.servers.Server;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import java.util.List;
 
+
+//http://localhost:8080/api/v1/swagger-ui/index.html
 @Configuration
 public class SwaggerApiConfig {
 
@@ -17,27 +23,47 @@ public class SwaggerApiConfig {
 
     @Bean
     public OpenAPI myOpenAPI() {
-        Server server = new Server();
-        server.setUrl(devUrl);
-        server.setDescription("Tech Community Peru API");
+        // Definir el servidor de desarrollo
+        Server devServer = new Server();
+        devServer.setUrl(devUrl);
+        devServer.setDescription("Server URL in Development environment");
 
-        //Informacion de contacto
+
+        // Información de contacto
         Contact contact = new Contact();
-        contact.setUrl("https://github.com/dsanchezchu");
-        contact.setName("Diego Sanchez");
         contact.setEmail("diego2702015@outlook.com");
+        contact.setName("Diego Sanchez Chuquimango");
+        contact.setUrl("https://github.com/dsanchezchu");
 
-        License mitLicense = new License().name("MIT License").url("https://opensource.org/licenses/MIT");
+        // Licencia
+        License mitLicense = new License().name("MIT License").url("https://choosealicense.com/licenses/mit/");
 
-        //Info general de api
+        // Información general de la API
         Info info = new Info()
-                .title("Tech Community Peru API")
+                .title("API de Eventos Tec - Tech Community Peru")
                 .version("1.0")
                 .contact(contact)
-                .license(mitLicense)
-                .description("Tech Community Peru API");
+                .description("Esta API expone endpoints")
+                .license(mitLicense);
+
+        // Configuración de seguridad JWT
+        SecurityScheme securityScheme = new SecurityScheme()
+                .type(SecurityScheme.Type.HTTP)
+                .scheme("bearer")
+                .bearerFormat("JWT")
+                .name("JWT Authentication");
+
+        Components components = new Components()
+                .addSecuritySchemes("bearerAuth", securityScheme);
+
+        // Requerimiento de seguridad para utilizar en las operaciones
+        SecurityRequirement securityRequirement = new SecurityRequirement().addList("bearerAuth");
+
+
         return new OpenAPI()
                 .info(info)
-                .addServersItem(server);
+                .servers(List.of(devServer))
+                .addSecurityItem(securityRequirement)
+                .components(components);
     }
 }

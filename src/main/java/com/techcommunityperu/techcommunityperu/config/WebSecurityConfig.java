@@ -46,14 +46,14 @@ public class WebSecurityConfig {
         http
                 .cors(Customizer.withDefaults()) // TODO: Permite solicitudes CORS desde otros dominios
                 .csrf(AbstractHttpConfigurer::disable) // TODO: Desactiva la protección CSRF, ya que en APIs REST no se usa (se autentica con tokens, no con cookies)
-
+                //Autorizaciones
                 .authorizeHttpRequests(authorize -> authorize
                         // TODO: Permitir acceso público a las rutas de login, registro y endpoints públicos como Swagger UI
                         .requestMatchers(antMatcher("/auth/login")).permitAll()
                         .requestMatchers(antMatcher("/auth/register/participante")).permitAll()
-                        .requestMatchers(antMatcher("/auth/register/ponente")).permitAll()
-                        .requestMatchers(antMatcher("/books/recent")).permitAll()
+//                        .requestMatchers(antMatcher("/auth/register/ponente")).permitAll()
                         .requestMatchers(antMatcher("/mail/**")).permitAll()
+                        .requestMatchers(antMatcher("/user/profile/**")).permitAll()
                         .requestMatchers("/api/v1/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/webjars/**").permitAll()
                         // TODO: Cualquier otra solicitud requiere autenticación (JWT u otra autenticación configurada)
                         .anyRequest().authenticated()
