@@ -1,7 +1,6 @@
 package com.techcommunityperu.techcommunityperu.api;
 
-import com.techcommunityperu.techcommunityperu.dto.AuthResponseDTO;
-import com.techcommunityperu.techcommunityperu.dto.LoginDTO;
+import com.techcommunityperu.techcommunityperu.dto.*;
 import com.techcommunityperu.techcommunityperu.dto.UsuarioPerfilDTO;
 import com.techcommunityperu.techcommunityperu.dto.UsuarioRegistroDTO;
 import com.techcommunityperu.techcommunityperu.model.entity.Usuario;

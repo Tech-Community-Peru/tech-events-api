@@ -6,6 +6,7 @@ import com.techcommunityperu.techcommunityperu.service.CheckoutService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/checkout")
-//@PreAuthorize("hasRole('USUARIO')")
+@PreAuthorize("hasRole('PARTICIPANTE')")
 //Debemos hacer primero la autorizacion por tokens
 
 public class CheckoutController {
@@ -23,12 +24,12 @@ public class CheckoutController {
 
     @PostMapping("/create")
     public ResponseEntity<PaymentOrderResponse> createPaymentOrder(
-            @RequestParam Integer purchaseId,
+            @RequestParam Integer inscriptionId,
             @RequestParam String returnUrl,
             @RequestParam String cancelUrl,
             @RequestParam(required = false, defaultValue = "paypal") String paymentProvider
     ){
-        PaymentOrderResponse response = checkoutService.createPaymentUrl(purchaseId, returnUrl, cancelUrl);
+        PaymentOrderResponse response = checkoutService.createPaymentUrl(inscriptionId, returnUrl, cancelUrl);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 

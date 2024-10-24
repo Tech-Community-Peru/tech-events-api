@@ -1,12 +1,14 @@
 package com.techcommunityperu.techcommunityperu.service.impl;
-
+import com.techcommunityperu.techcommunityperu.mapper.InscripcionMapper;
 import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
 import com.techcommunityperu.techcommunityperu.dto.PaymentCaptureResponse;
 import com.techcommunityperu.techcommunityperu.dto.PaymentOrderResponse;
 import com.techcommunityperu.techcommunityperu.integration.payment.paypal.dto.OrderCaptureResponse;
 import com.techcommunityperu.techcommunityperu.integration.payment.paypal.dto.OrderResponse;
 import com.techcommunityperu.techcommunityperu.integration.payment.paypal.service.PayPalService;
+import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.service.CheckoutService;
+import com.techcommunityperu.techcommunityperu.service.EmailService;
 import com.techcommunityperu.techcommunityperu.service.PurchaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ public class CheckoutServiceImpl implements CheckoutService {
 
     private final PayPalService payPalService;
     private final PurchaseService purchaseService;
+    private final EmailService emailService;
+    private final InscripcionMapper inscripcionMapper;
 
     @Override
     public PaymentOrderResponse createPaymentUrl(Integer purchaseId, String returnUrl, String cancelUrl) {
@@ -46,7 +50,12 @@ public class CheckoutServiceImpl implements CheckoutService {
 
             InscripcionDTO inscripcionDTO = purchaseService.confirmInscription(Integer.parseInt(purchaseIdStr));
 
-            paypalCaptureResponse.setPurchaseId(inscripcionDTO.getParticipante().getId());
+            Inscripcion inscripcion = inscripcionMapper.toEntity(inscripcionDTO);
+
+            // Llamar al metodo sendConfirmationEmail con la entidad convertida
+            emailService.sendConfirmationEmail(inscripcion, inscripcionDTO.getMonto());
+
+            paypalCaptureResponse.setInscriptionId(inscripcionDTO.getParticipante().getId());
         }
 
         return paypalCaptureResponse;

@@ -3,6 +3,8 @@ package com.techcommunityperu.techcommunityperu.service.impl;
 import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
 import com.techcommunityperu.techcommunityperu.exceptions.InscriptionException;
 import com.techcommunityperu.techcommunityperu.exceptions.ResourceNotFoundException;
+import com.techcommunityperu.techcommunityperu.mapper.EventoMapper;
+import com.techcommunityperu.techcommunityperu.mapper.ParticipanteMapper;
 import com.techcommunityperu.techcommunityperu.model.entity.Evento;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.model.entity.Participante;
@@ -36,6 +38,13 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private EventoMapper eventoMapper;
+
+    @Autowired
+    private ParticipanteMapper participanteMapper;
+
+
     // Metodo para validar si el tipo de pago es reconocido
     private void validatePaymentType(paymentType tipoPago) {
         if (tipoPago == null) {
@@ -60,8 +69,8 @@ public class PurchaseServiceImpl implements PurchaseService {
         inscripcionDTO.setTipoPago(inscripcion.getTipoPago());
         inscripcionDTO.setMonto(inscripcion.getMonto());
         inscripcionDTO.setStatus(inscripcion.getInscripcionStatus());
-        inscripcionDTO.setParticipante(inscripcion.getParticipante());
-        inscripcionDTO.setEvento(inscripcion.getEvento());
+        inscripcionDTO.setParticipante(participanteMapper.toDto(inscripcion.getParticipante()));
+        inscripcionDTO.setEvento(eventoMapper.toDto(inscripcion.getEvento()));
 
         return inscripcionDTO;
     }
