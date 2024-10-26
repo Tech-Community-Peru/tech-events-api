@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/comentarios")
-@PreAuthorize("hasAnyRole('PARTICIPANTE','PONENTE')")
+@PreAuthorize("hasAnyRole('PARTICIPANTE','PONENTE', 'ADMINISTRADOR')")
 @RequiredArgsConstructor
 public class ComentarioController {
 
@@ -29,6 +29,7 @@ public class ComentarioController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(comentariosDTO);
     }
+
 
     @GetMapping("/usuario/{usuarioId}")
     public ResponseEntity<List<ComentarioDTO>> obtenerComentariosPorUsuario(@PathVariable Integer usuarioId) {
