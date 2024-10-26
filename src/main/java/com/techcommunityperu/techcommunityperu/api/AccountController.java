@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/account")
-@PreAuthorize("hasAnyRole('PARTICIPANTE', 'PONENTE', 'ADMINISTRADOR')")
+@PreAuthorize("hasAnyRole('PARTICIPANTE')")
 public class AccountController {
 
     @Autowired
@@ -29,6 +29,7 @@ public class AccountController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Integer id) {
         try {

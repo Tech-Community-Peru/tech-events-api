@@ -1,0 +1,17 @@
+# Correo de prueba
+spring:
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    username: techcommunityperu@gmail.com
+    password: enpt jqop lhol dnqn
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    protocol: smtp
+    test-connection: false

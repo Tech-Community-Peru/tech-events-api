@@ -20,7 +20,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/auth")
-@PreAuthorize("hasAnyRole('ADMINISTRADOR')")
 public class AuthController {
     private final CustomerService customerService;
     private final UsuarioService usuarioService;
@@ -32,14 +31,12 @@ public class AuthController {
 //        return new ResponseEntity<>(usuarioDTO, HttpStatus.CREATED);
 //        return null;
 //    }
-    @PreAuthorize("hasAnyRole('PARTICIPANTE')")
     @PostMapping("/register/participante")
     public ResponseEntity<UsuarioPerfilDTO> registerParticipante(@Valid @RequestBody UsuarioRegistroDTO usuarioRegistroDTO) {
         UsuarioPerfilDTO usuarioPerfil =  usuarioService.registroParticipante(usuarioRegistroDTO);
         return new ResponseEntity<>(usuarioPerfil, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAnyRole('PONENTE')")
     @PostMapping("/register/ponente")
     public ResponseEntity<UsuarioPerfilDTO> registerPonente(@Valid @RequestBody UsuarioRegistroDTO usuarioRegistroDTO) {
         UsuarioPerfilDTO usuarioPerfil =  usuarioService.registroPonente(usuarioRegistroDTO);
@@ -50,7 +47,6 @@ public class AuthController {
     // Simulando una "sesión" en memoria
     private Map<String, Integer> session = new HashMap<>(); // Almacena el ID del usuario por correo electrónico
 
-    @PreAuthorize("hasAnyRole('PARTICIPANTE', 'PONENTE')")
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@Valid @RequestBody LoginDTO loginDTO) {
         AuthResponseDTO authResponseDTO = usuarioService.login(loginDTO);

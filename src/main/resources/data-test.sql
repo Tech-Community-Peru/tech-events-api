@@ -1,5 +1,4 @@
 INSERT INTO roles (nombre, rol) VALUES
-                                                ('User', 'USUARIO'),
                                                 ('Admin', 'ADMINISTRADOR'),
                                                 ('Participante','PARTICIPANTE'),
                                                 ('Ponente','PONENTE');

@@ -8,7 +8,7 @@ import com.techcommunityperu.techcommunityperu.integration.payment.paypal.dto.Or
 import com.techcommunityperu.techcommunityperu.integration.payment.paypal.service.PayPalService;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.service.CheckoutService;
-import com.techcommunityperu.techcommunityperu.service.EmailService;
+import com.techcommunityperu.techcommunityperu.integration.email.service.EmailService;
 import com.techcommunityperu.techcommunityperu.service.PurchaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -16,7 +16,7 @@ import com.techcommunityperu.techcommunityperu.repository.InscriptionRepository;
 import com.techcommunityperu.techcommunityperu.repository.ParticipantRepository;
 import com.techcommunityperu.techcommunityperu.service.PaymentService;
 import com.techcommunityperu.techcommunityperu.service.PurchaseService;
-import com.techcommunityperu.techcommunityperu.service.EmailService;
+import com.techcommunityperu.techcommunityperu.integration.email.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
