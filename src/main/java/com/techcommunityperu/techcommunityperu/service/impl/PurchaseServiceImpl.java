@@ -104,7 +104,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             inscripcion.setInscripcionStatus(statusInscription.PAID); // Establecer el estado como PAID
             inscriptionRepository.save(inscripcion); // Guardar la inscripción
             emailService.sendConfirmationEmail(inscripcion, 0); // Enviar correo sin monto
-            return "Compra exitosa. Recibirás un correo con tu entrada gratuita.";
+            return "Recibirás un correo con tu entrada gratuita.";
         }
 
         // Procesar pago para otros tipos
@@ -112,13 +112,10 @@ public class PurchaseServiceImpl implements PurchaseService {
         paymentStatus statusPago = paymentService.processPayment(tipoPago, monto);
 
         if (statusPago == paymentStatus.PAID) {
-            inscripcion.setInscripcionStatus(statusInscription.PAID);
-            inscriptionRepository.save(inscripcion);
-            emailService.sendConfirmationEmail(inscripcion, monto);
-            return "Compra exitosa. Recibirás un correo con tu entrada.";
-        } else {
             inscripcion.setInscripcionStatus(statusInscription.PENDING);
             inscriptionRepository.save(inscripcion);
+            return "Redigiriendo a Paypal.";
+        } else {
             return "Error en el pago. Por favor, inténtalo de nuevo.";
         }
     }
