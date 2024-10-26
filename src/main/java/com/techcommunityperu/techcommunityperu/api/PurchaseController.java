@@ -4,10 +4,12 @@ import com.techcommunityperu.techcommunityperu.exceptions.InvalidPaymentTypeExce
 import com.techcommunityperu.techcommunityperu.model.enums.paymentType;
 import com.techcommunityperu.techcommunityperu.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/ticket")
+@PreAuthorize("hasAnyRole('PARTICIPANTE', 'ADMINISTRADOR')")
 public class PurchaseController {
 
     @Autowired

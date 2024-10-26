@@ -5,11 +5,13 @@ import com.techcommunityperu.techcommunityperu.service.CronogramaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/cronograma")
 @RequiredArgsConstructor
+@PreAuthorize("hasAnyRole('ADMINISTRADOR')")
 public class CronogramaController {
 
     private final CronogramaService cronogramaService;

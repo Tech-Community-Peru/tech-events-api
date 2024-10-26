@@ -6,6 +6,7 @@ import com.techcommunityperu.techcommunityperu.dto.SorteoDTO;
 import com.techcommunityperu.techcommunityperu.service.SorteoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/sorteos")
+@PreAuthorize("hasAnyRole('ADMINISTRADOR')")
 public class SorteoController {
 
     @Autowired

@@ -17,7 +17,7 @@ import java.nio.file.Files;
 
 @RequiredArgsConstructor
 @RequestMapping("/media")
-@PreAuthorize("hasAnyRole('ADMIN','PARTICIPANTE')")
+@PreAuthorize("hasAnyRole('ADMINISTRADOR','PARTICIPANTE')")
 @RestController
 //@PreAuthorize("hasAnyRole('ADMIN', 'AUTHOR')")  // Permitir solo a CUSTOMER y AUTHOR
 public class MediaController {

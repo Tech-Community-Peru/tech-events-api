@@ -19,7 +19,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/inscripcion")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ADMIN')")
+@PreAuthorize("hasRole('ADMINISTRADOR')")
 public class InscripcionController {
 
     private final InscripcionService inscripcionService;
