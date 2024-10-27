@@ -63,7 +63,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 //        if(existParticipante || existPonente) {
 //            throw new BadRequestException("Ya existe un usuario con el mismo nombre y apellido");
 //        }
-
+        //System.out.println("usuarioPerfilDTO");
         // Actualizar los campos específicos del perfil
         if(usuario.getParticipante() !=null){
             usuario.getParticipante().setNombre(usuarioPerfilDTO.getNombre());

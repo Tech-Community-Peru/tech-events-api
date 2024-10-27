@@ -27,10 +27,10 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
 
-    @PostMapping("/favoritos/{idUsuario}")
-    public ResponseEntity<String> sendEmail(@PathVariable("idUsuario")Integer idUsuario) throws MessagingException {
-            System.out.println("El id de usuario a enviar es:" + idUsuario);
-            favoritosService.favoritosEnviar(idUsuario);
+    @PostMapping("/favoritos/{idInscripcion}")
+    public ResponseEntity<String> sendEmail(@PathVariable("idInscripcion")Integer idInscripcion) throws MessagingException {
+            System.out.println("El id de usuario a enviar es:" + idInscripcion);
+            favoritosService.favoritosEnviar(idInscripcion);
             return ResponseEntity.ok("Post Enviado");
     }
 

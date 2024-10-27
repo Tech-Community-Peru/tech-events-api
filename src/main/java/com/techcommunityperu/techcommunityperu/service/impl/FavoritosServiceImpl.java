@@ -32,37 +32,23 @@ public class FavoritosServiceImpl {
     @Value("${spring.mail.username}")
     private String mailFrom;
 
-    public void favoritosEnviar(Integer idUsuario) throws MessagingException {
-//        Usuario usuario = userRepository.findById(idUsuario).get();
-//        String emailDestino = usuario.getCorreoElectronico();
-////        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-////        String emailUser = authentication.getName();
-//
-//
-//        Map<String, Object> model = new HashMap<>();
-//        model.put("correoElectronico", emailDestino /*emailUser*/);
-//
-//        EmailDTO mail = emailService.createEmail(
-//                emailDestino /*emailUser*/,
-//                "Favoritos",
-//                model,
-//                mailFrom
-//        );
-//        emailService.sendEmail(mail,"favoritos-send");
-//        if (userRepository.existsByCorreoElectronico(correoElectronico)) {
-//            Usuario usuario = userRepository.findByEmailQuery(correoElectronico);
-//            try {
-//                String titleEmail = "¡Somos Techcommunity Peru!";
-//                String messageEmail = "\n\nHola, solicitaste subscribirte al apartado de favoritos "+ correoElectronico +", \nA partir de ahora te llegarán notificaciones relevantes sobre los gustos que elegiste.";
-//                String resetLink = titleEmail + messageEmail;
-//                emailService.sendEmail(usuario., "Subscripcion a TechCommunityPeru",resetLink);
-//                return "Correo enviado exitosamente";
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                return "Token no enviado "+e.getMessage();
-//            }
-//        }
-//        return "Token no encontrado";
+    public void favoritosEnviar(Integer idInscripcion) throws MessagingException {
+        Optional<Inscripcion> inscripcion = inscriptionRepository.findById(idInscripcion);
+        String emailDestino = inscripcion.get().getParticipante().getUsuarioId().getCorreoElectronico();
+        String nombreParticipante = inscripcion.get().getParticipante().getNombre();
+        String apellidoParticipante = inscripcion.get().getParticipante().getApellido();
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("correoElectronico", emailDestino);
+        model.put("nombre", nombreParticipante);
+        model.put("apellido", apellidoParticipante);
+        EmailDTO mail = emailService.createEmail(
+                emailDestino /*emailUser*/,
+                "Favoritos",
+                model,
+                mailFrom
+        );
+        emailService.sendEmail(mail, "favoritos-send");
     }
 
     public void invitacionEventoCorreo(Integer inscripcionId) throws MessagingException {
@@ -72,7 +58,9 @@ public class FavoritosServiceImpl {
         String nombreParticipante = inscripcion.get().getParticipante().getNombre();
         String apellidoParticipante = inscripcion.get().getParticipante().getApellido();
         String correoParticipante = inscripcion.get().getParticipante().getUsuarioId().getCorreoElectronico();
-
+        Double montoEvento= inscripcion.get().getMonto();
+        String tipoPago=  inscripcion.get().getTipoPago().toString();
+        String statusInscripcion = inscripcion.get().getInscripcionStatus().toString();
 //        Mapeo para el formato de html
         Map<String, Object> model = new HashMap<>();
         model.put("correoElectronico", correoParticipante);
@@ -80,6 +68,9 @@ public class FavoritosServiceImpl {
         model.put("apellidoParticipante", apellidoParticipante);
         model.put("nombreEvento", nombreEvento);
         model.put("descripcionEvento", descripcionEvento);
+        model.put("montoInscripcion", montoEvento);
+        model.put("tipoPago", tipoPago);
+        model.put("estadoInscripcion", statusInscripcion);
 
 //        Configuracion del mensje del email
         EmailDTO mail = emailService.createEmail(

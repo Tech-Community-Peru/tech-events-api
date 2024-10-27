@@ -52,18 +52,6 @@ public class AuthController {
         AuthResponseDTO authResponseDTO = usuarioService.login(loginDTO);
         return new ResponseEntity<>(authResponseDTO, HttpStatus.OK);
     }
-//    public ResponseEntity<String> login(@RequestParam String correo_electronico, @RequestParam String contrasenia) {
-//        // Busca el usuario por correo
-//        Optional<Usuario> usuarioOptional = customerService.findByCorreoElectronico(correo_electronico);
-//
-//        if (usuarioOptional.isPresent() && usuarioOptional.get().getContrasenia().equals(contrasenia)) {
-//            // Almacena el ID del usuario en el "mapa de sesión"
-//            session.put(correo_electronico, usuarioOptional.get().getId());
-//            return ResponseEntity.ok("Inicio de sesión exitoso. Redirigiendo a la página principal...");
-//        } else {
-//            return ResponseEntity.status(401).body("El correo electrónico y/o la contraseña son incorrectas.");
-//        }
-//    }
 
     // Método para obtener el ID del usuario de la sesión simulada
     public Integer getUserIdFromSession(String correo_electronico) {
