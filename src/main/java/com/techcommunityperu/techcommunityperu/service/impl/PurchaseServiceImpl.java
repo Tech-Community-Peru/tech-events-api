@@ -3,6 +3,7 @@ package com.techcommunityperu.techcommunityperu.service.impl;
 import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
 import com.techcommunityperu.techcommunityperu.exceptions.InscriptionException;
 import com.techcommunityperu.techcommunityperu.exceptions.ResourceNotFoundException;
+import com.techcommunityperu.techcommunityperu.integration.email.dto.EmailDTO;
 import com.techcommunityperu.techcommunityperu.mapper.EventoMapper;
 import com.techcommunityperu.techcommunityperu.mapper.ParticipanteMapper;
 import com.techcommunityperu.techcommunityperu.model.entity.Evento;
@@ -17,8 +18,13 @@ import com.techcommunityperu.techcommunityperu.repository.ParticipantRepository;
 import com.techcommunityperu.techcommunityperu.service.PaymentService;
 import com.techcommunityperu.techcommunityperu.service.PurchaseService;
 import com.techcommunityperu.techcommunityperu.integration.email.service.EmailService;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
@@ -44,6 +50,39 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Autowired
     private ParticipanteMapper participanteMapper;
 
+
+    @Value("${spring.mail.username}")
+    private String mailFrom;
+
+    public void checkoutEmail(Inscripcion inscripcionId) throws MessagingException {
+        String descripcionEvento= inscripcionId.getEvento().getDescripcion();
+        String nombreEvento = inscripcionId.getEvento().getNombre();
+        String nombreParticipante = inscripcionId.getParticipante().getNombre();
+        String apellidoParticipante = inscripcionId.getParticipante().getApellido();
+        String correoParticipante = inscripcionId.getParticipante().getUsuarioId().getCorreoElectronico();
+        Double montoInscripcion = inscripcionId.getMonto();
+        String estadoInscripcion = inscripcionId.getInscripcionStatus().name();
+        String tipoPago = inscripcionId.getTipoPago().name();
+//        Mapeo para el formato de html
+        Map<String, Object> model = new HashMap<>();
+        model.put("correoElectronico", correoParticipante);
+        model.put("nombreParticipante", nombreParticipante);
+        model.put("apellidoParticipante", apellidoParticipante);
+        model.put("nombreEvento", nombreEvento);
+        model.put("descripcionEvento", descripcionEvento);
+        model.put("estadoInscripcion", estadoInscripcion);
+        model.put("tipoPago", tipoPago);
+        model.put("montoInscripcion", montoInscripcion);
+
+//        Configuracion del mensje del email
+        EmailDTO mail = emailService.createEmail(
+                correoParticipante,
+                "Confirmacion de pago a evento",
+                model,
+                mailFrom
+        );
+        emailService.sendEmail(mail,"confirmation-template");
+    }
 
     // Metodo para validar si el tipo de pago es reconocido
     private void validatePaymentType(paymentType tipoPago) {
@@ -76,7 +115,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public String purchaseTicket(Integer eventoId, Integer partipanteId, paymentType tipoPago) {
+    public String purchaseTicket(Integer eventoId, Integer partipanteId, paymentType tipoPago) throws MessagingException{
         // Validar el tipo de pago
         validatePaymentType(tipoPago);
 
@@ -97,23 +136,20 @@ public class PurchaseServiceImpl implements PurchaseService {
         inscripcion.setTipoPago(tipoPago);
         inscripcion.setMonto(evento.getCosto());
         inscripcion.setEvento(evento);
+        inscripcion.setInscripcionStatus(statusInscription.PENDING);
         inscripcion.setParticipante(participante); // Asociar el participante encontrado
 
         // Verificar si el costo del evento es 0
         if (evento.getCosto() == 0) {
             inscripcion.setInscripcionStatus(statusInscription.PAID); // Establecer el estado como PAID
             inscriptionRepository.save(inscripcion); // Guardar la inscripción
-            emailService.sendConfirmationEmail(inscripcion, 0); // Enviar correo sin monto
+            checkoutEmail(inscripcion); // Enviar correo sin monto
             return "Recibirás un correo con tu entrada gratuita.";
         }
 
-        // Procesar pago para otros tipos
-        double monto = evento.getCosto();
-        paymentStatus statusPago = paymentService.processPayment(tipoPago, monto);
+        inscriptionRepository.save(inscripcion);
 
-        if (statusPago == paymentStatus.PAID) {
-            inscripcion.setInscripcionStatus(statusInscription.PENDING);
-            inscriptionRepository.save(inscripcion);
+        if (inscripcion.getInscripcionStatus()==statusInscription.PENDING) { //verifica si es que la inscripcion está en pendiente
             return "Redigiriendo a Paypal.";
         } else {
             return "Error en el pago. Por favor, inténtalo de nuevo.";

@@ -8,9 +8,11 @@ import com.techcommunityperu.techcommunityperu.integration.payment.paypal.dto.Or
 import com.techcommunityperu.techcommunityperu.integration.payment.paypal.dto.OrderResponse;
 import com.techcommunityperu.techcommunityperu.integration.payment.paypal.service.PayPalService;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
+import com.techcommunityperu.techcommunityperu.model.enums.statusInscription;
 import com.techcommunityperu.techcommunityperu.repository.InscriptionRepository;
 import com.techcommunityperu.techcommunityperu.service.CheckoutService;
 import com.techcommunityperu.techcommunityperu.integration.email.service.EmailService;
+import com.techcommunityperu.techcommunityperu.service.InscripcionService;
 import com.techcommunityperu.techcommunityperu.service.PurchaseService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +21,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -29,6 +30,7 @@ public class CheckoutServiceImpl implements CheckoutService {
     private final PurchaseService purchaseService;
     private final EmailService emailService;
     private final InscripcionMapper inscripcionMapper;
+    private final InscriptionRepository inscriptionRepository;
 
 
     @Value("${spring.mail.username}")
@@ -92,7 +94,18 @@ public class CheckoutServiceImpl implements CheckoutService {
 
             InscripcionDTO inscripcionDTO = purchaseService.confirmInscription(Integer.parseInt(purchaseIdStr));
 
+            Integer eventoId = inscripcionDTO.getEvento().getId();
+            Integer participanteId = inscripcionDTO.getParticipante().getId();
+
+            Inscripcion inscripcionState = inscriptionRepository.findByEventoIdAndParticipanteId(eventoId, participanteId);
+
+            inscripcionState.setInscripcionStatus(statusInscription.PAID);
+
+            inscriptionRepository.save(inscripcionState);
+
             Inscripcion inscripcion = inscripcionMapper.toEntity(inscripcionDTO);
+
+            inscripcion.setInscripcionStatus(statusInscription.PAID);
 
             paypalCaptureResponse.setInscriptionId(inscripcionDTO.getParticipante().getId());
 
