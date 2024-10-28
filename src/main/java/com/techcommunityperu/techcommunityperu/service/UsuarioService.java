@@ -21,4 +21,6 @@ public interface UsuarioService {
 
     // Get user profile by ID
     UsuarioPerfilDTO getUsuarioPerfil(Integer id);
+
+//    UsuarioPerfilDTO existsByNombreAndApellidoAndUsuarioIdNot(String nombre, String apellido, Integer id);
 }

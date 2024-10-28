@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+    <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Confirmación de Pago - TechCommunity Peru</title>
@@ -71,6 +71,8 @@
             <li><strong>Estado de Inscripción:</strong> <span th:text="${estadoInscripcion}">Estado</span></li>
             <li><strong>Tipo de Pago:</strong> <span th:text="${tipoPago}">Tarjeta de Crédito</span></li>
             <li><strong>Monto de Inscripción:</strong> <span th:text="${montoInscripcion}">0.00</span> USD</li>
+            <li><p>La fecha y hora de tu evento es: <span th:text="${#temporals.format(fechaInicio, 'dd/MM/yyyy HH:mm')}"></span></p></li>
+<!--            <li><strong>Fecha Inicio:</strong> <span th:text="${fechaInicio}"></span> </li>-->
         </ul>
 
         <p>Un correo de confirmación ha sido enviado a: <span th:text="${correoElectronico}">correo@ejemplo.com</span>.</p>
