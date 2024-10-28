@@ -9,6 +9,7 @@ import com.techcommunityperu.techcommunityperu.integration.payment.paypal.dto.Or
 import com.techcommunityperu.techcommunityperu.integration.payment.paypal.service.PayPalService;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.model.enums.statusInscription;
+import com.techcommunityperu.techcommunityperu.repository.CronogramaRepository;
 import com.techcommunityperu.techcommunityperu.repository.InscriptionRepository;
 import com.techcommunityperu.techcommunityperu.service.CheckoutService;
 import com.techcommunityperu.techcommunityperu.integration.email.service.EmailService;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +33,7 @@ public class CheckoutServiceImpl implements CheckoutService {
     private final EmailService emailService;
     private final InscripcionMapper inscripcionMapper;
     private final InscriptionRepository inscriptionRepository;
-
+    private final CronogramaRepository cronogramaRepository;
 
     @Value("${spring.mail.username}")
     private String mailFrom;
@@ -52,12 +54,14 @@ public class CheckoutServiceImpl implements CheckoutService {
     }
 
     public void checkoutEmail(Inscripcion inscripcionId) throws MessagingException {
+
         String descripcionEvento= inscripcionId.getEvento().getDescripcion();
         String nombreEvento = inscripcionId.getEvento().getNombre();
         String nombreParticipante = inscripcionId.getParticipante().getNombre();
         String apellidoParticipante = inscripcionId.getParticipante().getApellido();
         String correoParticipante = inscripcionId.getParticipante().getUsuarioId().getCorreoElectronico();
         Double montoInscripcion = inscripcionId.getMonto();
+        LocalDateTime fechaInicio = cronogramaRepository.findFirstByEventoIdOrderByFechaInicioAsc(inscripcionId.getEvento().getId()).getFechaInicio();
         String estadoInscripcion = inscripcionId.getInscripcionStatus().name();
         String tipoPago = inscripcionId.getTipoPago().name();
 //        Mapeo para el formato de html
@@ -70,7 +74,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         model.put("estadoInscripcion", estadoInscripcion);
         model.put("tipoPago", tipoPago);
         model.put("montoInscripcion", montoInscripcion);
-
+        model.put("fechaInicio", fechaInicio);
 //        Configuracion del mensje del email
         EmailDTO mail = emailService.createEmail(
                 correoParticipante,

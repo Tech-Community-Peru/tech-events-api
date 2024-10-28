@@ -19,4 +19,6 @@ public interface CronogramaService {
 
     // Listar todos los cronogramas (opcional, si quieres listar todos)
     public List<Cronograma> findAll();
+
+
 }
