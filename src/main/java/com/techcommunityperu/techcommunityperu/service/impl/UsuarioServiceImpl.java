@@ -57,13 +57,13 @@ public class UsuarioServiceImpl implements UsuarioService {
     public UsuarioPerfilDTO updateUsuarioPerfil(Integer id, UsuarioPerfilDTO usuarioPerfilDTO) {
         Usuario usuario = userRepository.findById(id).orElseThrow((()->  new RuntimeException("Usuario no encontrado")));
 
-//        boolean existParticipante = participantRepository.existsByNombreAndApellidoAndUsuarioIdNot(usuarioPerfilDTO.getNombre(), usuarioPerfilDTO.getApellido(), id);
-//        boolean existPonente = ponenteRepository.existsByNombreAndApellidoAndUsuarioIdNot(usuarioPerfilDTO.getNombre(), usuarioPerfilDTO.getApellido(), id);
-//        System.out.println("Usuario exists: " + existParticipante);
-//        if(existParticipante || existPonente) {
-//            throw new BadRequestException("Ya existe un usuario con el mismo nombre y apellido");
-//        }
-        //System.out.println("usuarioPerfilDTO");
+        boolean existParticipante = participantRepository.existsByNombreAndApellidoAndUsuarioIdNot(usuarioPerfilDTO.getNombre(), usuarioPerfilDTO.getApellido(), usuario);
+        boolean existPonente = ponenteRepository.existsByNombreAndApellidoAndUsuarioIdNot(usuarioPerfilDTO.getNombre(), usuarioPerfilDTO.getApellido(), usuario);
+        System.out.println("Usuario exists: " + existParticipante);
+        if(existParticipante || existPonente) {
+            throw new BadRequestException("Ya existe un usuario con el mismo nombre y apellido");
+        }
+        System.out.println("usuarioPerfilDTO");
         // Actualizar los campos específicos del perfil
         if(usuario.getParticipante() !=null){
             usuario.getParticipante().setNombre(usuarioPerfilDTO.getNombre());
