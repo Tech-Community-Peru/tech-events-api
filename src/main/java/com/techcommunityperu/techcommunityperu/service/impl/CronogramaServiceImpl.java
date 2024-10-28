@@ -46,6 +46,8 @@ public class CronogramaServiceImpl implements CronogramaService {
         }
     }
 
+
+
     // Listar todos los cronogramas (opcional, si quieres listar todos)
     public List<Cronograma> findAll() {
         return cronogramaRepository.findAll();

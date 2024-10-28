@@ -16,4 +16,6 @@ public interface CronogramaRepository extends JpaRepository<Cronograma, Integer>
     List<Cronograma> findByFechaInicioAndUbicacionId(
             @Param("fechaInicio") LocalDateTime fechaInicio,
             @Param("ubicacionId") Integer ubicacionId);
+
+    Cronograma findFirstByEventoIdOrderByFechaInicioAsc (Integer eventoId);
 }
