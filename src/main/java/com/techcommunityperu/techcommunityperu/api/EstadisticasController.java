@@ -1,5 +1,6 @@
 package com.techcommunityperu.techcommunityperu.api;
 
+import com.techcommunityperu.techcommunityperu.dto.RegistroEscaneoDTO;
 import com.techcommunityperu.techcommunityperu.model.entity.RegistroEscaneo;
 import com.techcommunityperu.techcommunityperu.service.EstadisticasService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class EstadisticasController {
     }
 
     @GetMapping("/eventos/{eventoId}/escaneos")
-    public ResponseEntity<List<RegistroEscaneo>> obtenerEscaneosPorEvento(@PathVariable Integer eventoId) {
-        List<RegistroEscaneo> escaneos = estadisticasService.obtenerEscaneosPorEvento(eventoId);
+    public ResponseEntity<List<RegistroEscaneoDTO>> obtenerEscaneosPorEvento(@PathVariable Integer eventoId) {
+        List<RegistroEscaneoDTO> escaneos = estadisticasService.obtenerEscaneosPorEvento(eventoId);
         return ResponseEntity.ok(escaneos);
     }
 }

@@ -23,5 +23,7 @@ public class RegistroEscaneo {
 
     @Column(name = "fecha_escaneo", nullable = false)
     private LocalDateTime fechaEscaneo;
+
+    private LocalDateTime fechaGeneracion; // Fecha y hora de generación del QR
 }
 
