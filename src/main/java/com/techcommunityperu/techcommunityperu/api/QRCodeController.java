@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -58,28 +59,41 @@ public class QRCodeController {
         }
 
         // Verificar si ya existe un registro de escaneo para este evento y participante
-        boolean yaRegistrado = registroEscaneoRepository.existsByEventoIdAndParticipanteId(evento.getId(), participante.getId());
-        if (yaRegistrado) {
-            return ResponseEntity.status(HttpStatus.OK)
-                    .contentType(MediaType.TEXT_PLAIN)
-                    .body("El participante ya está registrado para este evento.");
+        RegistroEscaneo ultimoRegistro = registroEscaneoRepository
+                .findTopByEventoAndParticipanteOrderByFechaGeneracionDesc(evento, participante)
+                .orElse(null);
+
+        if (ultimoRegistro != null) {
+            // Verificar si ya ha escaneado previamente dentro del tiempo límite
+            Duration duracion = Duration.between(ultimoRegistro.getFechaGeneracion(), LocalDateTime.now());
+            if (duracion.toMinutes() < 2) {
+                // Si el escaneo es reciente, retornar sin generar un nuevo QR ni contar el escaneo
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body("El tiempo límite para escanear el QR ha expirado.");
+            } else {
+                // Si el escaneo es antiguo, no generar un nuevo QR, pero permitir que pase el tiempo límite
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body("El participante ya está registrado para este evento.");
+            }
         }
 
-        // Generar el código QR
+        // Generar el contenido del código QR
         String qrContent = "Evento: " + evento.getNombre() + "\n" +
                 "Descripción: " + evento.getDescripcion() + "\n" +
                 "Ubicación: " + evento.getUbicacion().getNombreLugar() + "\n" +
                 "Participante ID: " + participante.getId() + "\n" +
                 "Nombre del Participante: " + participante.getNombre() + " " + participante.getApellido();
+
         byte[] qrCodeImage;
         try {
             qrCodeImage = qrCodeService.generateQRCodeImage(qrContent, 250, 250);
 
-            // Registrar el escaneo en la base de datos
+            // Registrar el nuevo escaneo en la base de datos con la fecha de generación
             RegistroEscaneo registroEscaneo = new RegistroEscaneo();
             registroEscaneo.setEvento(evento);
             registroEscaneo.setParticipante(participante);
             registroEscaneo.setFechaEscaneo(LocalDateTime.now());
+            registroEscaneo.setFechaGeneracion(LocalDateTime.now());
             registroEscaneoRepository.save(registroEscaneo);
 
             // Actualizar el estado de asistencia del participante
