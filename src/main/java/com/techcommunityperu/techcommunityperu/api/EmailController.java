@@ -1,17 +1,15 @@
 package com.techcommunityperu.techcommunityperu.api;
 
 import com.techcommunityperu.techcommunityperu.integration.email.service.EmailService;
+import com.techcommunityperu.techcommunityperu.service.PasswordResetTokenService;
 import com.techcommunityperu.techcommunityperu.service.impl.FavoritosServiceImpl;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -27,11 +25,33 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
 
+    private final PasswordResetTokenService passwordResetTokenService;
+
+    @PostMapping("/sendMail")
+    public ResponseEntity<Void> sendPasswordResetMail(@RequestBody String email) throws Exception {
+        passwordResetTokenService.createAndSendPasswordResetToken(email);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+//    Verificar si el token es valido
+    @GetMapping("/reset/check/{token}")
+    public ResponseEntity<Boolean> checkTokenValidity(@PathVariable("token") String token) {
+        boolean isValid = passwordResetTokenService.isValidToken(token);
+        return new ResponseEntity<>(isValid, HttpStatus.OK);
+    }
+
     @PostMapping("/favoritos/{idInscripcion}")
     public ResponseEntity<String> sendEmail(@PathVariable("idInscripcion")Integer idInscripcion) throws MessagingException {
             System.out.println("El id de usuario a enviar es:" + idInscripcion);
             favoritosService.favoritosEnviar(idInscripcion);
             return ResponseEntity.ok("Post Enviado");
+    }
+
+    // Restablecer la contraseña usando el token
+    @PostMapping("/reset/{token}")
+    public ResponseEntity<Void> resetPassword(@PathVariable("token") String token, @RequestBody String newPassword) {
+        passwordResetTokenService.resetPassword(token, newPassword);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/invitacion/{inscripcionId}")
