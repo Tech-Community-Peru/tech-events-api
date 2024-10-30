@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/cronograma")
 @RequiredArgsConstructor
-//@PreAuthorize("hasAnyRole('ADMINISTRADOR')")
+@PreAuthorize("hasAnyRole('ADMINISTRADOR')")
 public class CronogramaController {
 
     private final CronogramaService cronogramaService;
