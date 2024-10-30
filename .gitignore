@@ -31,3 +31,39 @@ build/
 
 ### VS Code ###
 .vscode/
+
+#### sensible####
+# Ignorar archivos de configuración sensibles
+application.properties
+application.yml
+application-*.yml
+
+# Ignorar archivos de configuración específicos de entorno
+*.env
+
+# Ignorar configuraciones locales e IDEs
+*.iml
+.idea/
+*.iws
+*.ipr
+.DS_Store
+.classpath
+.project
+.settings/
+
+# Ignorar archivos de compilación y binarios
+target/
+build/
+out/
+*.class
+
+# Ignorar archivos de logs y otros archivos generados
+*.log
+logs/
+tmp/
+*.tmp
+*.bak
+*.swp
+*.swo
+*.DS_Store
+
