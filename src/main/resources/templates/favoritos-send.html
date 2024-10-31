@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>¡Somos Techcommunity Peru!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333333;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      text-align: center;
+      font-size: 24px;
+      color: #007acc;
+    }
+    .content {
+      margin-top: 20px;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 14px;
+      text-align: center;
+      color: #666666;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>¡Somos Techcommunity Peru!</h1>
+  </div>
+  <div class="content">
+    <p>Hola, solicitaste suscribirte al apartado de favoritos :<strong th:text="${correoElectronico}"></strong>.</p>
+    <p>A si que estimado/a :<strong th:text="${nombre}"></strong>.<strong th:text="${apellido}"></strong></p>
+    <p>A partir de ahora, te llegarán notificaciones relevantes sobre los gustos que elegiste.</p>
+  </div>
+  <div class="footer">
+    <p>&copy; 2024 TechCommunity Peru</p>
+  </div>
+</div>
+</body>
+</html>

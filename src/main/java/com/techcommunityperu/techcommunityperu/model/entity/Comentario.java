@@ -2,14 +2,16 @@ package com.techcommunityperu.techcommunityperu.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
-@Data
 @Entity
 @Table(name = "comentario")
+@Data
+@NoArgsConstructor
 public class Comentario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,12 +22,20 @@ public class Comentario {
     @Column(name = "comentario", nullable = false)
     private String comentario;
 
-    // Relación con Evento
     @ManyToOne
-    @JoinColumn(name = "evento_id", referencedColumnName = "id")
+    @JoinColumn(name = "evento_id",  referencedColumnName = "id")
     private Evento evento;
-
-    @OneToOne
+  
+    @ManyToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "comunidad_id", referencedColumnName = "id")
+    private Comunidad comunidad;
+  
+    @PrePersist
+    public void prePersist() {
+        this.fechaPublicacion = LocalDateTime.now();
+    }
 }

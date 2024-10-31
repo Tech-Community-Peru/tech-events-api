@@ -1,16 +1,15 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
-import com.techcommunityperu.techcommunityperu.model.enums.paymentStatus;
+
 import com.techcommunityperu.techcommunityperu.model.enums.statusInscription;
 import com.techcommunityperu.techcommunityperu.model.enums.paymentType;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Entity
-@Table(name = "inscripción")
+@Table(name = "inscripcion")
 public class Inscripcion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +28,15 @@ public class Inscripcion {
 
     // Relación con Usuario
     @ManyToOne
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private Usuario usuario;
+    @JoinColumn(name = "participante_id", referencedColumnName = "id")
+    private Participante participante;
 
     // Relación con Evento
     @ManyToOne
     @JoinColumn(name = "evento_id", referencedColumnName = "id")
     private Evento evento;
+
+    // Relación con Ganador, con eliminación en cascada
+    @OneToMany(mappedBy = "inscripcion", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Ganador> ganadores;
 }

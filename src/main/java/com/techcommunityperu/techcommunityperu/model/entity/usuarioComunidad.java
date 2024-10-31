@@ -24,7 +24,4 @@ public class usuarioComunidad {
     @Column(name = "fecha_unido", nullable = false)
     private LocalDateTime fechaUnido;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "rol")
-    private Role role;
 }

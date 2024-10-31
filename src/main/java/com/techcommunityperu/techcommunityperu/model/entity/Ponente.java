@@ -1,7 +1,10 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -21,13 +24,25 @@ public class Ponente {
     @Column(name = "cargo", nullable = false, length = 50)
     private String cargo;
 
-    @Column(name = "pais_origen", nullable = false, length = 50)
+    @Column(name = "pais_origen", length = 50)
     private String paisOrigen;
 
     @Column(name = "especialidad", nullable = false, length = 50)
     private String especialidad;
 
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    // Relación OneToOne con Usuario
+    @OneToOne
+    @JoinColumn(name = "usuario_id", nullable = true)
+    private Usuario usuarioId;
+
     // Relación uno a muchos con Evento
+    @JsonIgnore
     @OneToMany(mappedBy = "ponente", cascade = CascadeType.ALL)
     private List<Evento> evento;
 }

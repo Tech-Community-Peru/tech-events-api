@@ -1,13 +1,9 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.*;
 import lombok.Data;
+import java.time.LocalDateTime;
 
-import java.util.List;
 
 @Data
 @Entity
@@ -16,37 +12,22 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "nombre", nullable = true)
-    private String nombre;
-
-    @Column(name = "apellido", nullable = true)
-    private String apellido;
-
-    @Column(name = "correo_electronico", nullable = true)
+    @Column(name = "correo_electronico", nullable = false, unique = true)
     private String correoElectronico;
 
-    @Column(name = "contrasenia",nullable = true)
+    @Column(name = "contrasenia", nullable = true)
     private String contrasenia;
 
-    @Column(name = "habilidades", nullable = false)
-    private String habilidades;
+    @OneToOne(mappedBy = "usuarioId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Participante participante;
 
-    @Column(name = "linkedin", nullable = false)
-    private String linkedin;
+    @OneToOne(mappedBy = "usuarioId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Ponente ponente;
 
-    @Column(name = "informacion_adicional", nullable = false)
-    private String informacionAdicional;
-
-    @Column(name = "ubicacion", nullable = true)
-    private String ubicacion;
-
-    @Column(name = "pais_origen", nullable = true)
-    private String paisOrigen;
-
-    @Column(name = "edad", nullable = true)
-    private Integer edad;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "roles_id", referencedColumnName = "id")
+    private Roles roles;
 
 }

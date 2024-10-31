@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmación de Pago - TechCommunity Peru</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 500px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            padding: 30px;
+            text-align: center;
+        }
+        .header {
+            font-size: 22px;
+            font-weight: bold;
+            color: #007acc;
+            margin-bottom: 15px;
+        }
+        .content p, .content ul {
+            margin: 10px 0;
+        }
+        .content ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .content li {
+            padding: 5px 0;
+        }
+        .content strong {
+            color: #007acc;
+        }
+        .footer {
+            margin-top: 25px;
+            font-size: 13px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        Confirmación de Pago
+    </div>
+
+    <div class="content">
+        <p>¡Gracias por tu inscripción, <span th:text="${nombreParticipante} + ' ' + ${apellidoParticipante}">Nombre Apellido</span>!</p>
+
+        <p><strong style="color: red">Hemos recibido tu pago para el evento</strong></p>
+        <ul>
+            <li><strong>Nombre del Evento:</strong> <span th:text="${nombreEvento}">Evento X</span></li>
+            <li><strong>Descripción del Evento:</strong> <span th:text="${descripcionEvento}">Descripción del evento...</span></li>
+        </ul>
+
+        <p><strong style="color: red">Detalles de la Inscripción</strong></p>
+        <ul>
+            <li><strong>Estado de Inscripción:</strong> <span th:text="${estadoInscripcion}">Estado</span></li>
+            <li><strong>Tipo de Pago:</strong> <span th:text="${tipoPago}">Tarjeta de Crédito</span></li>
+            <li><strong>Monto de Inscripción:</strong> <span th:text="${montoInscripcion}">0.00</span> USD</li>
+            <li><strong>Tu evento se realiza el:</strong> <span th:text="${#temporals.format(fechaInicio, 'dd/MM/yyyy HH:mm')}"></span></li>
+<!--            <li><strong>Fecha Inicio:</strong> <span th:text="${fechaInicio}"></span> </li>-->
+        </ul>
+
+        <p>Un correo de confirmación ha sido enviado a: <span th:text="${correoElectronico}">correo@ejemplo.com</span>.</p>
+        <p>¡Gracias por confiar en nosotros!</p>
+    </div>
+
+    <div class="footer">
+        <p>Si tienes alguna duda, no dudes en contactarnos.</p>
+        <p>&copy; 2024 TechCommunity Peru</p>
+    </div>
+</div>
+</body>
+</html>
