@@ -60,18 +60,18 @@
     <div class="content">
         <p>¡Gracias por tu inscripción, <span th:text="${nombreParticipante} + ' ' + ${apellidoParticipante}">Nombre Apellido</span>!</p>
 
-        <p>Hemos recibido tu pago para el evento:</p>
+        <p><strong style="color: red">Hemos recibido tu pago para el evento</strong></p>
         <ul>
             <li><strong>Nombre del Evento:</strong> <span th:text="${nombreEvento}">Evento X</span></li>
             <li><strong>Descripción del Evento:</strong> <span th:text="${descripcionEvento}">Descripción del evento...</span></li>
         </ul>
 
-        <p>Detalles de la Inscripción</p>
+        <p><strong style="color: red">Detalles de la Inscripción</strong></p>
         <ul>
             <li><strong>Estado de Inscripción:</strong> <span th:text="${estadoInscripcion}">Estado</span></li>
             <li><strong>Tipo de Pago:</strong> <span th:text="${tipoPago}">Tarjeta de Crédito</span></li>
             <li><strong>Monto de Inscripción:</strong> <span th:text="${montoInscripcion}">0.00</span> USD</li>
-            <li><p>La fecha y hora de tu evento es: <span th:text="${#temporals.format(fechaInicio, 'dd/MM/yyyy HH:mm')}"></span></p></li>
+            <li><strong>Tu evento se realiza el:</strong> <span th:text="${#temporals.format(fechaInicio, 'dd/MM/yyyy HH:mm')}"></span></li>
 <!--            <li><strong>Fecha Inicio:</strong> <span th:text="${fechaInicio}"></span> </li>-->
         </ul>
 

@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/actividad")
-@PreAuthorize("hasAnyRole('PARTICIPANTE', 'PONENTE', 'ADMINISTRADOR')")
+@PreAuthorize("hasAnyRole('PARTICIPANTE', 'ADMINISTRADOR')")
 public class ActivityUserController {
     @Autowired
     private InscripcionService inscripcionService;
