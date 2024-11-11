@@ -1,4 +1,4 @@
-package com.techcommunityperu.techcommunityperu.api;
+package com.techcommunityperu.techcommunityperu.api.purchase;
 
 import com.techcommunityperu.techcommunityperu.exceptions.InvalidPaymentTypeException; // Importar la excepción personalizada
 import com.techcommunityperu.techcommunityperu.model.enums.paymentType;

@@ -1,7 +1,6 @@
-package com.techcommunityperu.techcommunityperu.api;
+package com.techcommunityperu.techcommunityperu.api.report;
 
 import com.techcommunityperu.techcommunityperu.dto.RegistroEscaneoDTO;
-import com.techcommunityperu.techcommunityperu.model.entity.RegistroEscaneo;
 import com.techcommunityperu.techcommunityperu.service.EstadisticasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

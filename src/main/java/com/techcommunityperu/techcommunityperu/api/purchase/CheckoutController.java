@@ -1,4 +1,4 @@
-package com.techcommunityperu.techcommunityperu.api;
+package com.techcommunityperu.techcommunityperu.api.purchase;
 
 import com.techcommunityperu.techcommunityperu.dto.PaymentCaptureResponse;
 import com.techcommunityperu.techcommunityperu.dto.PaymentOrderResponse;

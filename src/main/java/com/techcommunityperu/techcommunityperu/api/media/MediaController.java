@@ -1,8 +1,7 @@
-package com.techcommunityperu.techcommunityperu.api;
+package com.techcommunityperu.techcommunityperu.api.media;
 
 import com.techcommunityperu.techcommunityperu.dto.UploadMediaDTO;
 import com.techcommunityperu.techcommunityperu.service.StorageService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;

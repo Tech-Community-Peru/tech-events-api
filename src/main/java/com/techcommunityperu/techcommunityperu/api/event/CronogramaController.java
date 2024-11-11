@@ -1,4 +1,4 @@
-package com.techcommunityperu.techcommunityperu.api;
+package com.techcommunityperu.techcommunityperu.api.event;
 
 import com.techcommunityperu.techcommunityperu.dto.CronogramaDTO;
 import com.techcommunityperu.techcommunityperu.model.entity.Cronograma;
