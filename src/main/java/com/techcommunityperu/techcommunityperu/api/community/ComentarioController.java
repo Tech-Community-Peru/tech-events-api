@@ -1,4 +1,4 @@
-package com.techcommunityperu.techcommunityperu.api;
+package com.techcommunityperu.techcommunityperu.api.community;
 
 import com.techcommunityperu.techcommunityperu.dto.ComentarioDTO;
 import com.techcommunityperu.techcommunityperu.model.entity.Comentario;

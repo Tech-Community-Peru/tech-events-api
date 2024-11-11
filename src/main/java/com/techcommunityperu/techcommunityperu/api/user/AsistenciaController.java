@@ -1,4 +1,4 @@
-package com.techcommunityperu.techcommunityperu.api;
+package com.techcommunityperu.techcommunityperu.api.user;
 
 import com.techcommunityperu.techcommunityperu.dto.ParticipanteActivoDTO;
 import com.techcommunityperu.techcommunityperu.model.entity.Asistencia;

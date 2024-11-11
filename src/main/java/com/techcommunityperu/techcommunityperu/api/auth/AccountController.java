@@ -1,4 +1,4 @@
-package com.techcommunityperu.techcommunityperu.api;
+package com.techcommunityperu.techcommunityperu.api.auth;
 
 import com.techcommunityperu.techcommunityperu.model.entity.Participante;
 import com.techcommunityperu.techcommunityperu.service.AccountParticipantService;

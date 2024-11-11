@@ -1,27 +1,25 @@
-package com.techcommunityperu.techcommunityperu.api;
+package com.techcommunityperu.techcommunityperu.api.event;
 
 import com.techcommunityperu.techcommunityperu.dto.EventoDTO;
 import com.techcommunityperu.techcommunityperu.dto.EventoFiltroDTO;
-import com.techcommunityperu.techcommunityperu.service.EventService;
+import com.techcommunityperu.techcommunityperu.dto.EventoResDTO;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import java.time.LocalDateTime;
+
 import java.util.List;
 import com.techcommunityperu.techcommunityperu.model.entity.Evento;
 import com.techcommunityperu.techcommunityperu.model.enums.categoryEvent;
 import com.techcommunityperu.techcommunityperu.service.impl.EventServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -41,13 +39,16 @@ public class EventoController {
         return ResponseEntity.ok(eventos);
     }
     @GetMapping("/filtrarCategoria")
-    public ResponseEntity<List<Evento>> filtrarEventosPorTipo(@RequestParam categoryEvent tipoEvento) {
+    public ResponseEntity<List<EventoResDTO>> filtrarEventosPorTipo(@RequestParam categoryEvent tipoEvento) {
         List<Evento> eventos = eventService.obtenerEventosPorTipo(tipoEvento);
 
         if (eventos.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         } else {
-            return ResponseEntity.ok(eventos);
+            List<EventoResDTO> evetosDTO = eventos.stream()
+                    .map(eventoResDTO -> new EventoResDTO(eventoResDTO.getId(),eventoResDTO.getNombre(),eventoResDTO.getCosto(),eventoResDTO.getDescripcion(),eventoResDTO.getEventoCategoria(),eventoResDTO.getTipoEvento()))
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(evetosDTO);
         }
     }
 }

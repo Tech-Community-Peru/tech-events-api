@@ -1,4 +1,4 @@
-package com.techcommunityperu.techcommunityperu.api;
+package com.techcommunityperu.techcommunityperu.api.user;
 
 import com.techcommunityperu.techcommunityperu.dto.CommunityDTO;
 import com.techcommunityperu.techcommunityperu.service.CommunityService;

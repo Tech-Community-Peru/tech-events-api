@@ -1,21 +1,18 @@
-package com.techcommunityperu.techcommunityperu.api;
+package com.techcommunityperu.techcommunityperu.api.auth;
 
 import com.techcommunityperu.techcommunityperu.dto.*;
 import com.techcommunityperu.techcommunityperu.dto.UsuarioPerfilDTO;
 import com.techcommunityperu.techcommunityperu.dto.UsuarioRegistroDTO;
-import com.techcommunityperu.techcommunityperu.model.entity.Usuario;
 import com.techcommunityperu.techcommunityperu.service.CustomerService;
 import com.techcommunityperu.techcommunityperu.service.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController

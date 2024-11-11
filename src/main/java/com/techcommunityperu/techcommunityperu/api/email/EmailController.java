@@ -1,4 +1,4 @@
-package com.techcommunityperu.techcommunityperu.api;
+package com.techcommunityperu.techcommunityperu.api.email;
 
 import com.techcommunityperu.techcommunityperu.integration.email.service.EmailService;
 import com.techcommunityperu.techcommunityperu.service.PasswordResetTokenService;
