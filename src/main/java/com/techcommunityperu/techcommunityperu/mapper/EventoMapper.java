@@ -19,8 +19,4 @@ public class EventoMapper {
     public EventoResDTO toDto(Evento entity) {
         return modelMapper.map(entity, EventoResDTO.class);
     }
-
-    public EventoDTO toDtoA(Evento entity) {
-        return modelMapper.map(entity, EventoDTO.class);
-    }
 }
