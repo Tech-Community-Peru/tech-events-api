@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.techcommunityperu</groupId>
-    <artifactId>techcommunityperu</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>techcommunityperu</name>
-    <description>techcommunityperu</description>
+    <artifactId>techcommunityperu-api</artifactId>
+    <version>0.1.1</version>
+    <name>techcommunityperu-api</name>
+    <description>techcommunityperu-api</description>
 
     <url/>
     <licenses>
