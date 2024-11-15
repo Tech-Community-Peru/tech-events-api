@@ -40,4 +40,5 @@ public interface InscriptionRepository extends JpaRepository<Inscripcion, Intege
     List<Inscripcion> findAllByEventoId(Integer id);
 
     void deleteById(Integer id);
+
 }

@@ -1,19 +1,16 @@
 package com.techcommunityperu.techcommunityperu.service.impl;
-import com.techcommunityperu.techcommunityperu.dto.EventoDTO;
+import com.techcommunityperu.techcommunityperu.dto.EventoResDTO;
 import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
 import com.techcommunityperu.techcommunityperu.exceptions.BadRequestException;
-import com.techcommunityperu.techcommunityperu.exceptions.InscriptionException;
 import com.techcommunityperu.techcommunityperu.exceptions.ResourceNotFoundException;
 import com.techcommunityperu.techcommunityperu.mapper.EventoMapper;
 import com.techcommunityperu.techcommunityperu.mapper.InscripcionMapper;
 import com.techcommunityperu.techcommunityperu.model.entity.Evento;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
-import com.techcommunityperu.techcommunityperu.model.entity.Participante;
 import com.techcommunityperu.techcommunityperu.repository.*;
 import com.techcommunityperu.techcommunityperu.service.InscripcionService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -132,4 +129,20 @@ public class InscripcionServiceImpl implements InscripcionService {
         List<Inscripcion> inscripcion = inscriptionRepository.findByParticipanteId(participanteId);
         return inscripcion;
     }
+
+    @Transactional
+    public List<EventoResDTO> getEventosPorUsuario(Integer usuarioId) {
+        // Busca inscripciones relacionadas con el usuario
+        List<Inscripcion> inscripciones = inscriptionRepository.findByParticipanteId(usuarioId);
+
+        if (inscripciones.isEmpty()) {
+            throw new ResourceNotFoundException("El usuario con ID: " + usuarioId + " no tiene eventos inscritos.");
+        }
+
+        // Convierte los eventos asociados a DTOs
+        return inscripciones.stream()
+                .map(inscripcion -> eventoMapperMapper.toDto(inscripcion.getEvento()))
+                .toList();
+    }
+
 }

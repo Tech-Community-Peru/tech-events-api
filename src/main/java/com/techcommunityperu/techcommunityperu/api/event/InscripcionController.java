@@ -1,5 +1,7 @@
 package com.techcommunityperu.techcommunityperu.api.event;
 
+import com.techcommunityperu.techcommunityperu.dto.EventoDTO;
+import com.techcommunityperu.techcommunityperu.dto.EventoResDTO;
 import com.techcommunityperu.techcommunityperu.service.InscripcionService;
 import jakarta.validation.Valid;
 import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
@@ -81,5 +83,12 @@ public class InscripcionController {
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         inscripcionService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PreAuthorize("hasRole('PARTICIPANTE')")
+    @GetMapping("/usuario/{usuarioId}/evento")
+    public ResponseEntity<List<EventoResDTO>> getEventosInscritosPorUsuario(@PathVariable Integer usuarioId) {
+        List<EventoResDTO> eventos = inscripcionService.getEventosPorUsuario(usuarioId);
+        return new ResponseEntity<>(eventos, HttpStatus.OK);
     }
 }

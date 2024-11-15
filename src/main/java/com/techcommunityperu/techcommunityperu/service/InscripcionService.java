@@ -1,10 +1,10 @@
 package com.techcommunityperu.techcommunityperu.service;
 
+import com.techcommunityperu.techcommunityperu.dto.EventoResDTO;
 import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 import java.util.List;
@@ -36,4 +36,5 @@ public interface InscripcionService {
     //Listar eventos por id de participante
     List<Inscripcion> findByParticipanteId(Integer participanteId);
 
+    public List<EventoResDTO> getEventosPorUsuario(Integer usuarioId);
 }
