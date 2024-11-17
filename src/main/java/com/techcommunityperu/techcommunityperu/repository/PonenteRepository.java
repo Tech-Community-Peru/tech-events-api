@@ -16,6 +16,8 @@ public interface PonenteRepository extends JpaRepository<Ponente, Integer> {
 
     boolean existsByNombreAndApellido(String nombre, String apellido);
 
+    Optional<Ponente> findByNombre(String nombre);
+
 // Método para verificar si ya existe un autor con el mismo nombre y apellido, excepto el usuario actual
     boolean existsByNombreAndApellidoAndUsuarioIdNot(String nombre, String apellido, Usuario usuarioId);
 

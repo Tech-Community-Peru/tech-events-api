@@ -23,9 +23,4 @@ public class Ubicacion {
     @Column(name = "descripcion", columnDefinition = "TEXT")
     private String descripcion;
 
-    // Relación con Evento
-//    @ManyToOne
-//    @JoinColumn(name = "evento_id", nullable = false)
-//    private Evento evento;
-
 }
