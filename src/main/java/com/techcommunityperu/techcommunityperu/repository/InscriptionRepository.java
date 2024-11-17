@@ -35,6 +35,8 @@ public interface InscriptionRepository extends JpaRepository<Inscripcion, Intege
 
     List<Inscripcion> findByParticipanteId(Integer participanteId);
 
+    List<Inscripcion> findByUsuarioId(Integer usuarioId);
+
     List<Inscripcion> findByEvento(Evento evento);
 
     List<Inscripcion> findAllByEventoId(Integer id);
