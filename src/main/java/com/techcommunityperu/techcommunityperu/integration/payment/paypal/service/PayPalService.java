@@ -1,5 +1,6 @@
 package com.techcommunityperu.techcommunityperu.integration.payment.paypal.service;
 
+import com.techcommunityperu.techcommunityperu.dto.InscripcionPaypalDTO;
 import com.techcommunityperu.techcommunityperu.exceptions.ResourceNotFoundException;
 import com.techcommunityperu.techcommunityperu.integration.payment.paypal.dto.*;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
@@ -53,18 +54,20 @@ public class PayPalService {
     }
 
     public OrderResponse createOrder(Integer inscriptionId, String returnUrl, String cancelUrl) {
-        Inscripcion inscription = inscriptionRepository.findById(inscriptionId)
+        InscripcionPaypalDTO inscriptionDTO = inscriptionRepository.findInscripcionDTOById(inscriptionId)
                 .orElseThrow(ResourceNotFoundException::new);
-
+        if (inscriptionDTO == null) {
+            throw new ResourceNotFoundException("Inscripción no encontrada con ID: " + inscriptionId);
+        }
         OrderRequest orderRequest = new OrderRequest();
         orderRequest.setIntent("CAPTURE");
 
         Amount amount = new Amount();
         amount.setCurrencyCode("USD");
-        amount.setValue(String.valueOf(inscription.getMonto()));
+        amount.setValue(String.valueOf(inscriptionDTO.getMonto()));
 
         PurchaseUnit purchaseUnit = new PurchaseUnit();
-        purchaseUnit.setReferenceId(inscription.getId().toString());
+        purchaseUnit.setReferenceId(inscriptionDTO.getId().toString());
         purchaseUnit.setAmount(amount);
 
         orderRequest.setPurchaseUnits(Collections.singletonList(purchaseUnit));

@@ -105,7 +105,10 @@ public class CheckoutServiceImpl implements CheckoutService {
 
             inscripcionState.setInscripcionStatus(statusInscription.PAID);
 
-            inscriptionRepository.save(inscripcionState);
+//            Inscripcion inscripcionStateEntity = inscripcionMapper.toEntity(inscripcionState);
+
+
+            inscriptionRepository.save( inscripcionState /*inscripcionStateEntity*/);
 
             Inscripcion inscripcion = inscripcionMapper.toEntity(inscripcionDTO);
 

@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface InscripcionService {
     void cancelarInscripcion(Integer eventoId, Integer participanteId);
-    Inscripcion obtenerInscripcionPorEventoYParticipante(Integer eventoId, Integer participanteId);
+
     Optional<Inscripcion> verificarInscripcion(Integer usuarioId, Integer eventoId);
 
     //CRUD
