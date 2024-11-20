@@ -8,6 +8,7 @@ public class UsuarioPerfilDTO {
     //Obligatorio
     private Integer id;
     private String correoElectronico;
+    private Integer idParticipante;
     private Roles roles;
 
     private String nombre;

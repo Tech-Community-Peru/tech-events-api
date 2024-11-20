@@ -1,5 +1,6 @@
 package com.techcommunityperu.techcommunityperu.service.impl;
 import com.techcommunityperu.techcommunityperu.dto.EventoDTO;
+import com.techcommunityperu.techcommunityperu.dto.EventoResDTO;
 import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
 import com.techcommunityperu.techcommunityperu.exceptions.BadRequestException;
 import com.techcommunityperu.techcommunityperu.exceptions.InscriptionException;
@@ -131,5 +132,20 @@ public class InscripcionServiceImpl implements InscripcionService {
     public List<Inscripcion> findByParticipanteId(Integer participanteId) {
         List<Inscripcion> inscripcion = inscriptionRepository.findByParticipanteId(participanteId);
         return inscripcion;
+    }
+
+    @Transactional
+    public List<EventoResDTO> getEventosPorParticipante(Integer idParticipante) {
+        // Busca inscripciones relacionadas con el usuario
+        List<Inscripcion> inscripciones = inscriptionRepository.findByParticipanteId(idParticipante);
+
+        if (inscripciones.isEmpty()) {
+            throw new ResourceNotFoundException("El participante con ID: " + idParticipante + " no tiene eventos inscritos.");
+        }
+
+        // Convierte los eventos asociados a DTOs
+        return inscripciones.stream()
+                .map(inscripcion -> eventoMapperMapper.toDto(inscripcion.getEvento()))
+                .toList();
     }
 }

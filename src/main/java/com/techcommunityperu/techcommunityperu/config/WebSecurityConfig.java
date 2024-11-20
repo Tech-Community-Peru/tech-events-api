@@ -54,6 +54,7 @@ public class WebSecurityConfig {
                         .requestMatchers(antMatcher("/auth/register/ponente")).permitAll()
                         .requestMatchers(antMatcher("/api/v1/ticket/purchase")).permitAll()
                         .requestMatchers(antMatcher("/mail/**")).permitAll()
+                        .requestMatchers(antMatcher("/evento")).permitAll()
                         .requestMatchers(antMatcher("/qrcode/**")).permitAll()
                         .requestMatchers("/estadisticas/**").permitAll()
                         .requestMatchers(antMatcher("/user/profile/**")).permitAll()

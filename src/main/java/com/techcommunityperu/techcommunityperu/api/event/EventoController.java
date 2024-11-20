@@ -24,20 +24,25 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/evento")
-@PreAuthorize("hasAnyRole('PARTICIPANTE', 'PONENTE', 'ADMINISTRADOR')")
 
 public class EventoController {
 
 
     private  final EventServiceImpl eventService;
 
-
+    @GetMapping
+    public ResponseEntity<List<EventoDTO>> getAllEvento(){
+        List<EventoDTO> eventoList = eventService2.getAll();
+        return new ResponseEntity<>(eventoList,HttpStatus.OK);
+    }
+    @PreAuthorize("hasAnyRole('PARTICIPANTE', 'PONENTE', 'ADMINISTRADOR')")
     @PostMapping("/filtrar")
     public ResponseEntity<?> filtrarEventos(@Valid @RequestBody EventoFiltroDTO filtroDTO) {
         // Este punto solo se ejecuta si las validaciones son correctas
         List<EventoDTO> eventos = eventService.filtrarEventosPorFechaYUbicacion(filtroDTO.getFechaInicio(), filtroDTO.getUbicacionId());
         return ResponseEntity.ok(eventos);
     }
+    @PreAuthorize("hasAnyRole('PARTICIPANTE', 'PONENTE', 'ADMINISTRADOR')")
     @GetMapping("/filtrarCategoria")
     public ResponseEntity<List<EventoResDTO>> filtrarEventosPorTipo(@RequestParam categoryEvent tipoEvento) {
         List<Evento> eventos = eventService.obtenerEventosPorTipo(tipoEvento);
