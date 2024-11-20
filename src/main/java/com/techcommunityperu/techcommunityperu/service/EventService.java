@@ -10,4 +10,5 @@ import java.util.List;
 public interface EventService {
     List<EventoDTO> filtrarEventosPorFechaYUbicacion(LocalDateTime fechaInicio,  Integer ubicacionId);
     List<Evento> obtenerEventosPorTipo(categoryEvent tipoEvento);
+    List<EventoDTO> getAll();
 }
