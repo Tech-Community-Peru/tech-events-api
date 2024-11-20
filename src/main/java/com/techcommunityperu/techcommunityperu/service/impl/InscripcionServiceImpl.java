@@ -135,12 +135,12 @@ public class InscripcionServiceImpl implements InscripcionService {
     }
 
     @Transactional
-    public List<EventoResDTO> getEventosPorUsuario(Integer usuarioId) {
+    public List<EventoResDTO> getEventosPorParticipante(Integer idParticipante) {
         // Busca inscripciones relacionadas con el usuario
-        List<Inscripcion> inscripciones = inscriptionRepository.findByUsuarioId(usuarioId);
+        List<Inscripcion> inscripciones = inscriptionRepository.findByParticipanteId(idParticipante);
 
         if (inscripciones.isEmpty()) {
-            throw new ResourceNotFoundException("El usuario con ID: " + usuarioId + " no tiene eventos inscritos.");
+            throw new ResourceNotFoundException("El participante con ID: " + idParticipante + " no tiene eventos inscritos.");
         }
 
         // Convierte los eventos asociados a DTOs

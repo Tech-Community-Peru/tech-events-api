@@ -84,9 +84,9 @@ public class InscripcionController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @PreAuthorize("hasRole('PARTICIPANTE')")
-    @GetMapping("/usuario/{usuarioId}/evento")
-    public ResponseEntity<List<EventoResDTO>> getEventosInscritosPorUsuario(@PathVariable Integer usuarioId) {
-        List<EventoResDTO> eventos = inscripcionService.getEventosPorUsuario(usuarioId);
+    @GetMapping("/participante/{idParticipante}/evento")
+    public ResponseEntity<List<EventoResDTO>> getEventosInscritosPorParticipante(@PathVariable Integer idParticipante) {
+        List<EventoResDTO> eventos = inscripcionService.getEventosPorParticipante(idParticipante);
         return new ResponseEntity<>(eventos, HttpStatus.OK);
     }
 }

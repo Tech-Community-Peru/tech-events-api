@@ -37,5 +37,5 @@ public interface InscripcionService {
     //Listar eventos por id de participante
     List<Inscripcion> findByParticipanteId(Integer participanteId);
 
-    List<EventoResDTO> getEventosPorUsuario(Integer usuarioId);
+    List<EventoResDTO> getEventosPorParticipante(Integer idParticipante);
 }
