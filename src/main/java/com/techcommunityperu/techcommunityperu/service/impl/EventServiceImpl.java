@@ -1,10 +1,8 @@
 package com.techcommunityperu.techcommunityperu.service.impl;
 
 import com.techcommunityperu.techcommunityperu.dto.EventoDTO;
-import com.techcommunityperu.techcommunityperu.mapper.EventoMapper;
 import com.techcommunityperu.techcommunityperu.model.entity.Cronograma;
 import com.techcommunityperu.techcommunityperu.model.entity.Evento;
-import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.repository.CronogramaRepository;
 import com.techcommunityperu.techcommunityperu.repository.EventRepository;
 import com.techcommunityperu.techcommunityperu.service.EventService;
@@ -15,8 +13,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import com.techcommunityperu.techcommunityperu.model.enums.categoryEvent;
 import lombok.AllArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
-
 @Service
 @AllArgsConstructor
 public class EventServiceImpl implements EventService {
@@ -24,17 +20,6 @@ public class EventServiceImpl implements EventService {
     private CronogramaRepository cronogramaRepository;
     @Autowired
     private EventRepository eventRepository;
-    @Autowired
-    private EventoMapper eventoMapper;
-
-    @Override
-    @Transactional
-    public List<EventoDTO> getAll() {
-        List<Evento> eventoList = eventRepository.findAll();
-        return eventoList.stream()
-                .map(eventoMapper::toDtoA)
-                .toList();
-    }
 
     public List<Evento> obtenerEventosPorTipo(categoryEvent tipoEvento) {
         return eventRepository.findByTipoEvento(tipoEvento);

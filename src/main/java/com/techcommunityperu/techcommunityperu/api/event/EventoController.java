@@ -3,8 +3,6 @@ package com.techcommunityperu.techcommunityperu.api.event;
 import com.techcommunityperu.techcommunityperu.dto.EventoDTO;
 import com.techcommunityperu.techcommunityperu.dto.EventoFiltroDTO;
 import com.techcommunityperu.techcommunityperu.dto.EventoResDTO;
-import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
-import com.techcommunityperu.techcommunityperu.service.EventService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,7 +29,6 @@ public class EventoController {
 
 
     private  final EventServiceImpl eventService;
-    private  final EventService eventService2;
 
     @GetMapping
     public ResponseEntity<List<EventoDTO>> getAllEvento(){
