@@ -5,11 +5,14 @@ import jakarta.persistence.*;
 import lombok.Data;
 import com.techcommunityperu.techcommunityperu.model.enums.categoryEvent;
 import com.techcommunityperu.techcommunityperu.model.enums.typeEvent;
+import lombok.ToString;
+
 import java.util.List;
 
 @Data
 @Table (name = "evento")
 @Entity
+@ToString(exclude = {"ponente", "comunidad", "ubicacion", "cronograma"})
 public class Evento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
