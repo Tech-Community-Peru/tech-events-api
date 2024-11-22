@@ -1,6 +1,8 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import com.techcommunityperu.techcommunityperu.model.enums.categoryEvent;
@@ -43,6 +45,7 @@ public class Evento {
     // Relación con Comunidad
     @ManyToOne
     @JoinColumn(name = "comunidad_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_evento_comunidad"))
+    @JsonBackReference
     private Comunidad comunidad;
 
     // Relación con Ubicacion
@@ -54,4 +57,19 @@ public class Evento {
     @JsonIgnore
     @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cronograma> cronograma;
+
+    // Relación con Asistencia
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Asistencia> asistencias;
+
+    // Relación con Inscripcion
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Inscripcion> inscripciones;
+
+    // Relación con Sorteo
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Sorteo> sorteos;
 }

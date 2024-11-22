@@ -1,5 +1,6 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class Asistencia {
 
     @ManyToOne
     @JoinColumn(name = "evento_id")
+    @JsonBackReference
     private Evento evento;
 
     private boolean asistio;

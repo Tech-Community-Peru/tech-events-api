@@ -1,6 +1,8 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.techcommunityperu.techcommunityperu.model.enums.statusInscription;
 import com.techcommunityperu.techcommunityperu.model.enums.paymentType;
 import jakarta.persistence.*;
@@ -37,9 +39,12 @@ public class Inscripcion {
     // Relación con Evento
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "evento_id", referencedColumnName = "id")
+    @JsonBackReference
     private Evento evento;
 
     // Relación con Ganador, con eliminación en cascada
     @OneToMany(mappedBy = "inscripcion", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Ganador> ganadores;
+
+
 }

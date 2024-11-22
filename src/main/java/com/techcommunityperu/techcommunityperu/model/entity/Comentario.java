@@ -1,5 +1,6 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,8 +33,9 @@ public class Comentario {
 
     @ManyToOne
     @JoinColumn(name = "comunidad_id", referencedColumnName = "id")
+    @JsonBackReference
     private Comunidad comunidad;
-  
+
     @PrePersist
     public void prePersist() {
         this.fechaPublicacion = LocalDateTime.now();

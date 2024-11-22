@@ -1,5 +1,6 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.techcommunityperu.techcommunityperu.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class usuarioComunidad {
 
     @ManyToOne
     @JoinColumn(name = "comunidad_id", nullable = false)
+    @JsonBackReference
     private Comunidad comunidad;
 
     @Column(name = "fecha_unido", nullable = false)
