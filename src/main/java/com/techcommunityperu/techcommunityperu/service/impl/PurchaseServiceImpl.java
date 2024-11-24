@@ -1,15 +1,16 @@
 package com.techcommunityperu.techcommunityperu.service.impl;
 
+import com.google.zxing.WriterException;
 import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
 import com.techcommunityperu.techcommunityperu.exceptions.InscriptionException;
 import com.techcommunityperu.techcommunityperu.exceptions.ResourceNotFoundException;
 import com.techcommunityperu.techcommunityperu.integration.email.dto.EmailDTO;
+import com.techcommunityperu.techcommunityperu.integration.email.service.EmailService;
 import com.techcommunityperu.techcommunityperu.mapper.EventoMapper;
 import com.techcommunityperu.techcommunityperu.mapper.ParticipanteMapper;
 import com.techcommunityperu.techcommunityperu.model.entity.Evento;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.model.entity.Participante;
-import com.techcommunityperu.techcommunityperu.model.enums.paymentStatus;
 import com.techcommunityperu.techcommunityperu.model.enums.paymentType;
 import com.techcommunityperu.techcommunityperu.model.enums.statusInscription;
 import com.techcommunityperu.techcommunityperu.repository.EventRepository;
@@ -17,12 +18,14 @@ import com.techcommunityperu.techcommunityperu.repository.InscriptionRepository;
 import com.techcommunityperu.techcommunityperu.repository.ParticipantRepository;
 import com.techcommunityperu.techcommunityperu.service.PaymentService;
 import com.techcommunityperu.techcommunityperu.service.PurchaseService;
-import com.techcommunityperu.techcommunityperu.integration.email.service.EmailService;
+import com.techcommunityperu.techcommunityperu.service.QRCodeService;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,6 +46,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private QRCodeService qrCodeService;
 
     @Autowired
     private EventoMapper eventoMapper;
@@ -115,7 +121,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public String purchaseTicket(Integer eventoId, Integer partipanteId, paymentType tipoPago) throws MessagingException{
+    public String purchaseTicket(Integer eventoId, Integer participanteId, paymentType tipoPago) throws MessagingException {
         // Validar el tipo de pago
         validatePaymentType(tipoPago);
 
@@ -124,7 +130,7 @@ public class PurchaseServiceImpl implements PurchaseService {
                 .orElseThrow(() -> new InscriptionException("Evento no encontrado"));
 
         // Buscar el participante
-        Participante participante = participantRepository.findById(partipanteId)
+        Participante participante = participantRepository.findById(participanteId)
                 .orElseThrow(() -> new InscriptionException("Participante no encontrado"));
 
         // Validar si el costo del evento es mayor a 0 y el tipo de pago es FREE
@@ -141,18 +147,25 @@ public class PurchaseServiceImpl implements PurchaseService {
 
         // Verificar si el costo del evento es 0
         if (evento.getCosto() == 0) {
-            inscripcion.setInscripcionStatus(statusInscription.PAID); // Establecer el estado como PAID
-            inscriptionRepository.save(inscripcion); // Guardar la inscripción
-            checkoutEmail(inscripcion); // Enviar correo sin monto
-            return "Recibirás un correo con tu entrada gratuita.";
+            inscripcion.setInscripcionStatus(statusInscription.PAID); // Marcar como pagado
         }
 
+        // Guardar la inscripción
         inscriptionRepository.save(inscripcion);
 
-        if (inscripcion.getInscripcionStatus()==statusInscription.PENDING) { //verifica si es que la inscripcion está en pendiente
-            return "Redigiriendo a Paypal.";
-        } else {
-            return "Error en el pago. Por favor, inténtalo de nuevo.";
+        // Generar el contenido del QR
+        String qrContent = "Evento: " + evento.getNombre() + "\n" +
+                "Participante: " + participante.getNombre() + " " + participante.getApellido();
+
+        try {
+            byte[] qrCodeImage = qrCodeService.generateQRCodeImage(qrContent, 350, 350);
+            // Convertir el QR en Base64 para enviarlo en la respuesta o como archivo adjunto
+            String qrBase64 = Base64.getEncoder().encodeToString(qrCodeImage);
+            return "Inscripción realizada con éxito. QR generado: " + qrBase64;
+        } catch (WriterException | IOException e) {
+            throw new RuntimeException("Error al generar el QR.", e);
         }
+
     }
+
 }
