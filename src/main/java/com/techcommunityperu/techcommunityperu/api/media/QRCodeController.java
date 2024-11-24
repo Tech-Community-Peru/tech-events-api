@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/qrcode")
-//@PreAuthorize("hasAnyRole('ADMINISTRADOR')")
+@PreAuthorize("hasAnyRole('ADMINISTRADOR', 'PARTICIPANTE')")
 public class QRCodeController {
 
     @Autowired
@@ -65,11 +66,9 @@ public class QRCodeController {
             // Verificar si ya ha escaneado previamente dentro del tiempo límite
             Duration duracion = Duration.between(ultimoRegistro.getFechaGeneracion(), LocalDateTime.now());
             if (duracion.toMinutes() < 2) {
-                // Si el escaneo es reciente, retornar sin generar un nuevo QR ni contar el escaneo
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                         .body("El tiempo límite para escanear el QR ha expirado.");
             } else {
-                // Si el escaneo es antiguo, no generar un nuevo QR, pero permitir que pase el tiempo límite
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                         .body("El participante ya está registrado para este evento.");
             }
@@ -82,11 +81,12 @@ public class QRCodeController {
                 "Participante ID: " + participante.getId() + "\n" +
                 "Nombre del Participante: " + participante.getNombre() + " " + participante.getApellido();
 
-        byte[] qrCodeImage;
         try {
-            qrCodeImage = qrCodeService.generateQRCodeImage(qrContent, 250, 250);
+            // Generar el QR y guardarlo en el directorio
+            String filePath = "src/main/resources/qrCodes/" + evento.getId() + "_" + participante.getId() + ".png";
+            qrCodeService.saveQRCodeToFile(qrContent, 250, 250, filePath);
 
-            // Registrar el nuevo escaneo en la base de datos con la fecha de generación
+            // Registrar el nuevo escaneo en la base de datos
             RegistroEscaneo registroEscaneo = new RegistroEscaneo();
             registroEscaneo.setEvento(evento);
             registroEscaneo.setParticipante(participante);
@@ -104,11 +104,10 @@ public class QRCodeController {
             asistenciaRepository.save(asistencia);
 
         } catch (WriterException | IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al generar el QR.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al generar o guardar el QR.");
         }
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_TYPE, "image/png");
-        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(qrCodeImage);
+        return ResponseEntity.status(HttpStatus.OK).body("QR generado y guardado exitosamente.");
     }
+
 }
