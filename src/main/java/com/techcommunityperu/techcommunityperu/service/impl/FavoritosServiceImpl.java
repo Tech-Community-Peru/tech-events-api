@@ -61,6 +61,9 @@ public class FavoritosServiceImpl {
         Double montoEvento= inscripcion.get().getMonto();
         String tipoPago=  inscripcion.get().getTipoPago().toString();
         String statusInscripcion = inscripcion.get().getInscripcionStatus().toString();
+        // Ruta relativa del QR
+        String qrPath = String.format("qrCodes/inscripcion_%d.png", inscripcionId);
+
 //        Mapeo para el formato de html
         Map<String, Object> model = new HashMap<>();
         model.put("correoElectronico", correoParticipante);
@@ -71,6 +74,7 @@ public class FavoritosServiceImpl {
         model.put("montoInscripcion", montoEvento);
         model.put("tipoPago", tipoPago);
         model.put("estadoInscripcion", statusInscripcion);
+        model.put("qrCodePath", qrPath); // Añade la ruta del QR al modelo
 
 //        Configuracion del mensje del email
         EmailDTO mail = emailService.createEmail(

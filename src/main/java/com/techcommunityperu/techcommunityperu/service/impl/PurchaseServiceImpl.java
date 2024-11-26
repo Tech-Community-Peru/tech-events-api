@@ -71,6 +71,9 @@ public class PurchaseServiceImpl implements PurchaseService {
         Double montoInscripcion = inscripcionId.getMonto();
         String estadoInscripcion = inscripcionId.getInscripcionStatus().name();
         String tipoPago = inscripcionId.getTipoPago().name();
+
+        // Ruta relativa del QR
+        String qrPath = String.format("qrCodes/inscripcion_%d.png", inscripcionId.getId());
 //        Mapeo para el formato de html
         Map<String, Object> model = new HashMap<>();
         model.put("correoElectronico", correoParticipante);
@@ -81,6 +84,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         model.put("estadoInscripcion", estadoInscripcion);
         model.put("tipoPago", tipoPago);
         model.put("montoInscripcion", montoInscripcion);
+        model.put("qrCodePath", qrPath); // Añade la ruta del QR al modelo
 
 //        Configuracion del mensje del email
         EmailDTO mail = emailService.createEmail(

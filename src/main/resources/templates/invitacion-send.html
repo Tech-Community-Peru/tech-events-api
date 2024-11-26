@@ -64,6 +64,10 @@
             <li><strong>Monto de Inscripción:</strong> <span th:text="${montoInscripcion}">0.00</span> USD</li>
         </ul>
 
+        <!-- Mostrar el QR generado -->
+        <p><strong>Tu Código QR de inscripción:</strong></p>
+        <img th:src="@{${qrCodePath}}" alt="Código QR de inscripción" style="max-width: 200px; height: auto;" />
+
         <p>Un correo de confirmación ha sido enviado a: <span th:text="${correoElectronico}">correo@ejemplo.com</span>.</p>
         <p>¡Gracias por confiar en nosotros!</p>
     </div>
