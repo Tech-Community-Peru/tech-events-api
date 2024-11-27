@@ -1,5 +1,6 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -33,7 +34,8 @@ public class Evento {
     private typeEvent tipoEvento;
 
     // Relación con Ponente
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ponente_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_evento_ponente"))
     private Ponente ponente;
 
