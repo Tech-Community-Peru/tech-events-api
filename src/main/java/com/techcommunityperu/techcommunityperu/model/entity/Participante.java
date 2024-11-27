@@ -47,7 +47,7 @@ public class Participante {
     private LocalDateTime updatedAt;
 
     //Relaciones
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuarioId;
 }

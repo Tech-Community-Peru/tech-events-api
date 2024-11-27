@@ -55,15 +55,12 @@ public class InscripcionController {
         InscripcionDTO updatedInscripcion = inscripcionService.update(id, inscripcionDTO);
         return new ResponseEntity<>(updatedInscripcion, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('PARTICIPANTE')")
     @GetMapping("/evento/{eventoId}/participante/{participanteId}")
-    public ResponseEntity<String> verificarInscripcion(@PathVariable Integer eventoId, @PathVariable Integer participanteId) {
+    public ResponseEntity<Object> verificarInscripcion(@PathVariable Integer eventoId, @PathVariable Integer participanteId) {
         Optional<Inscripcion> inscripcion = inscripcionService.verificarInscripcion(participanteId, eventoId);
-        if (inscripcion.isPresent()) {
-            return ResponseEntity.ok("El usuario está inscrito en el evento.");
-        } else {
-            return ResponseEntity.ok("El usuario NO está inscrito en el evento.");
-        }
+        return inscripcion.<ResponseEntity<Object>>map(value -> ResponseEntity.ok(value.getId()))
+                .orElseGet(() -> ResponseEntity.ok("El usuario NO está inscrito en el evento."));
     }
 
     @DeleteMapping("/cancelar/{eventoId}/{usuarioId}")
