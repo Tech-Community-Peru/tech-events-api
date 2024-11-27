@@ -19,5 +19,10 @@ public class UsuarioPerfilDTO {
     private String cargo;
     private String especialidad;
     //Sea participante
+    private String habilidades;
     private String paisOrigen;
+    private String ubicacion;
+    private String informacionAdicional;
+    private String linkedin;
+    private Integer edad;
 }

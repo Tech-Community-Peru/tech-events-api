@@ -11,6 +11,7 @@ import java.util.List;
 
 @Data
 @Entity
+@ToString(exclude = {"evento"})
 @Table(name = "ponente")
 public class Ponente {
     @Id
