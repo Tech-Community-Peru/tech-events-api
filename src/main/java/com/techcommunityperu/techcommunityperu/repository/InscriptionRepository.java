@@ -27,10 +27,6 @@ public interface InscriptionRepository extends JpaRepository<Inscripcion, Intege
     @Query("SELECT i FROM Inscripcion i WHERE i.evento.id = :eventoId AND i.participante.id = :participanteId")
     Inscripcion findByEventoIdAndParticipanteId(@Param("eventoId") Integer eventoId, @Param("participanteId") Integer participanteId);
 
-
-    @Query("SELECT i FROM Inscripcion i WHERE i.evento.id = :eventoId AND i.participante.id = :participanteId")
-    Inscripcion findByEventoAndParticipante(@Param("eventoId") Evento eventoId, @Param("participanteId") Participante participanteId);
-
     Optional<Inscripcion> findById(Integer InscripcionId);
 
     List<Inscripcion> findByParticipanteId(Integer participanteId);
@@ -40,4 +36,6 @@ public interface InscriptionRepository extends JpaRepository<Inscripcion, Intege
     List<Inscripcion> findAllByEventoId(Integer id);
 
     void deleteById(Integer id);
+
+    Optional<Inscripcion> findByEventoAndParticipante(Evento evento, Participante participante);
 }

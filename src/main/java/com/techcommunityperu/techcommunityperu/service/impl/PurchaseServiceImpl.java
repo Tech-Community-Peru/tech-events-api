@@ -31,6 +31,7 @@ import java.io.IOException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
@@ -128,6 +129,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public String purchaseTicket(Integer eventoId, Integer participanteId, paymentType tipoPago) throws MessagingException {
+
         // Validar el tipo de pago
         validatePaymentType(tipoPago);
 
@@ -139,19 +141,21 @@ public class PurchaseServiceImpl implements PurchaseService {
         Participante participante = participantRepository.findById(participanteId)
                 .orElseThrow(() -> new InscriptionException("Participante no encontrado"));
 
-        // Validar si el costo del evento es mayor a 0 y el tipo de pago es FREE
-        if (evento.getCosto() > 0 && tipoPago == paymentType.FREE) {
-            return "Error: No puedes usar el tipo de pago FREE para eventos con costo mayor a 0.";
+        // Verificar si ya existe una inscripción para este evento y participante
+        Inscripcion existingInscripcion = inscriptionRepository.findByEventoIdAndParticipanteId(evento.getId(), participante.getId());
+
+        if (existingInscripcion!= null) {
+            throw new InscriptionException("Ya estás inscrito en este evento.");
         }
 
+        // Continuar con la lógica de creación de inscripción
         Inscripcion inscripcion = new Inscripcion();
         inscripcion.setTipoPago(tipoPago);
         inscripcion.setMonto(evento.getCosto());
         inscripcion.setEvento(evento);
+        inscripcion.setParticipante(participante);
         inscripcion.setInscripcionStatus(statusInscription.PENDING);
         inscripcion.setParticipante(participante);
-
-        // Verificar si el costo del evento es 0
         if (evento.getCosto() == 0) {
             inscripcion.setInscripcionStatus(statusInscription.PAID);
             inscriptionRepository.save(inscripcion);

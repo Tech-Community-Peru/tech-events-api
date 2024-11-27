@@ -1,8 +1,6 @@
 package com.techcommunityperu.techcommunityperu.api.event;
 
-import com.techcommunityperu.techcommunityperu.dto.EventoDTO;
-import com.techcommunityperu.techcommunityperu.dto.EventoFiltroDTO;
-import com.techcommunityperu.techcommunityperu.dto.EventoResDTO;
+import com.techcommunityperu.techcommunityperu.dto.*;
 import com.techcommunityperu.techcommunityperu.service.EventService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @RestController
@@ -47,7 +46,7 @@ public class EventoController {
     @PreAuthorize("hasAnyRole('PARTICIPANTE', 'PONENTE', 'ADMINISTRADOR')")
     @GetMapping("/filtrarCategoria")
     public ResponseEntity<List<EventoResDTO>> filtrarEventosPorTipo(@RequestParam categoryEvent tipoEvento) {
-        List<Evento> eventos = eventService.obtenerEventosPorTipo(tipoEvento);
+        List<Evento> eventos = eventService2.obtenerEventosPorTipo(tipoEvento);
 
         if (eventos.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
@@ -58,4 +57,24 @@ public class EventoController {
             return ResponseEntity.ok(evetosDTO);
         }
     }
+    @PostMapping("/crear")
+    public ResponseEntity<EventoCrearResDTO> crearEvento(@RequestBody EventoCrearReqDTO eventoCrearReqDTO) {
+
+        EventoCrearResDTO eventoCreado = eventService2.crearEvento(eventoCrearReqDTO);
+            return ResponseEntity.ok(eventoCreado);
+    }
+
+    // Eliminar un evento por ID
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<String> eliminarEvento(@PathVariable Integer id) {
+        try {
+            eventService2.eliminarEventoPorId(id);
+            return ResponseEntity.ok("Evento con ID " + id + " eliminado.");
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Evento con ID " + id + " no encontrado.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al eliminar el evento.");
+        }
+    }
+
 }
