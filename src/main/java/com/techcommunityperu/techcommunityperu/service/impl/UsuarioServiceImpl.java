@@ -76,6 +76,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             usuario.getPonente().setApellido(usuarioPerfilDTO.getApellido());
             usuario.getPonente().setCargo(usuarioPerfilDTO.getCargo());
             usuario.getPonente().setEspecialidad(usuarioPerfilDTO.getEspecialidad());
+            usuario.getPonente().setPaisOrigen(usuarioPerfilDTO.getPaisOrigen());
         }
 
         Usuario updateUser = userRepository.save(usuario);

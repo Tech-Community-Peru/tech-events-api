@@ -55,6 +55,7 @@ public class UsuarioMapper {
         else if (usuario.getPonente() != null) {
             authResponseDTO.setNombre(usuario.getPonente().getNombre());
             authResponseDTO.setApellido(usuario.getPonente().getApellido());
+            authResponseDTO.setIdUsuario(usuario.getId());
         }
         // Para cualquier usuario que no sea cliente ni autor (ej. Admin)
         else {
