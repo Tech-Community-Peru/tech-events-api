@@ -49,7 +49,7 @@ public class UsuarioMapper {
         if (usuario.getParticipante() != null) {
             authResponseDTO.setNombre(usuario.getParticipante().getNombre());
             authResponseDTO.setApellido(usuario.getParticipante().getApellido());
-            authResponseDTO.setId(usuario.getParticipante().getId());
+            authResponseDTO.setIdParticipante(usuario.getParticipante().getId());
         }
         // Si es Ponente, asignar los datos de Ponente
         else if (usuario.getPonente() != null) {
