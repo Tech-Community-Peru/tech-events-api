@@ -10,4 +10,6 @@ public interface PurchaseService {
     double getCostoEvento(Integer eventoId);
 
     InscripcionDTO confirmInscription(int inscriptionId);
+
+
 }

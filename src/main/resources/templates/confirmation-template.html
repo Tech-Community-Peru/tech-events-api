@@ -76,7 +76,11 @@
         </ul>
 
         <p>Un correo de confirmación ha sido enviado a: <span th:text="${correoElectronico}">correo@ejemplo.com</span>.</p>
-        <p>¡Gracias por confiar en nosotros!</p>
+
+        <p><strong>Tu código QR</strong></p>
+        <!-- Mostrar el QR generado -->
+        <p><strong>Tu Código QR de inscripción:</strong></p>
+        <img th:src="@{${qrCodePath}}" alt="Código QR de inscripción" style="max-width: 200px; height: auto;" />
     </div>
 
     <div class="footer">

@@ -1,7 +1,7 @@
-INSERT INTO roles (nombre, rol) VALUES
-                                                ('Admin', 'ADMINISTRADOR'),
-                                                ('Participante','PARTICIPANTE'),
-                                                ('Ponente','PONENTE');
+INSERT INTO roles (nombre, rol)
+VALUES ('Admin', 'ADMINISTRADOR'), ('Participante','PARTICIPANTE'), ('Ponente','PONENTE')
+    ON CONFLICT (rol) DO NOTHING;
+
 
 INSERT INTO usuario (correo_electronico, contrasenia, roles_id) VALUES
                                                                    ('jose.ramirez@gmail.com', 'password123',1),
