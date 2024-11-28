@@ -36,9 +36,9 @@ public class EventoCreateCrontroller {
     }
 
     @PreAuthorize("hasAnyRole('PARTICIPANTE', 'ADMINISTRADOR')")
-    @PutMapping("/update")
-    public ResponseEntity<EventoCreateDTO> updateEvent(@Valid @RequestBody EventoCreateDTO eventoCreateDTO) {
-        EventoCreateDTO updateEvent = eventoCreateService.updateEvent(eventoCreateDTO);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<EventoCreateDTO> updateEvent(@Valid @RequestBody EventoCreateDTO eventoCreateDTO, @PathVariable Long id) {
+        EventoCreateDTO updateEvent = eventoCreateService.updateEvent(eventoCreateDTO,id);
         return new ResponseEntity<>(updateEvent, HttpStatus.OK);
     }
 

@@ -32,8 +32,8 @@ public class EventoCreateServiceImpl implements EventoCreateService {
     }
 
     @Override
-    public EventoCreateDTO updateEvent(EventoCreateDTO eventoCreateDTO) {
-        Evento evento = eventoCreateRepository.findByNombre(eventoCreateDTO.getNombre())
+    public EventoCreateDTO updateEvent(EventoCreateDTO eventoCreateDTO, long id) {
+        Evento evento = eventoCreateRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Evento no encontrado"));
         evento = modificarEvento(evento, eventoCreateDTO);
         evento.setNombre(eventoCreateDTO.getNombre());
