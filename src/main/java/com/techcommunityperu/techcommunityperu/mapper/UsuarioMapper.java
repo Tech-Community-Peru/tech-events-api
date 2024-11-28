@@ -46,17 +46,27 @@ public class UsuarioMapper {
         authResponseDTO.setCorreoElectronico(usuario.getCorreoElectronico());
 
 
+
         // Si es Participante, asignar los datos de Participante
         if (usuario.getParticipante() != null) {
             authResponseDTO.setNombre(usuario.getParticipante().getNombre());
             authResponseDTO.setApellido(usuario.getParticipante().getApellido());
             authResponseDTO.setIdParticipante(usuario.getParticipante().getId());
+            authResponseDTO.setIdUsuario(usuario.getId());
+            authResponseDTO.setEdad(usuario.getParticipante().getEdad());
+            authResponseDTO.setHabilidades(usuario.getParticipante().getHabilidades());
+            authResponseDTO.setLinkedin(usuario.getParticipante().getLinkedin());
+            authResponseDTO.setInformacionAdicional(usuario.getParticipante().getInformacionAdicional());
+            authResponseDTO.setUbicacion(usuario.getParticipante().getUbicacion());
+            authResponseDTO.setPaisOrigen(usuario.getParticipante().getPaisOrigen());
         }
         // Si es Ponente, asignar los datos de Ponente
         else if (usuario.getPonente() != null) {
             authResponseDTO.setNombre(usuario.getPonente().getNombre());
             authResponseDTO.setApellido(usuario.getPonente().getApellido());
             authResponseDTO.setIdUsuario(usuario.getId());
+            authResponseDTO.setCargo(usuario.getPonente().getCargo());
+            authResponseDTO.setEspecialidad(usuario.getPonente().getEspecialidad());
         }
         // Para cualquier usuario que no sea cliente ni autor (ej. Admin)
         else {
