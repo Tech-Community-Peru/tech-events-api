@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/checkout")
@@ -38,7 +40,7 @@ public class CheckoutController {
     public ResponseEntity<PaymentCaptureResponse> capturePaymentOrder(
             @RequestParam String orderId,
             @RequestParam(required = false, defaultValue = "paypal") String paymentProvider
-    ) throws MessagingException {
+    ) throws MessagingException, IOException {
         PaymentCaptureResponse response = checkoutService.capturePayment(orderId);
 
         if (response.isCompleted()){
