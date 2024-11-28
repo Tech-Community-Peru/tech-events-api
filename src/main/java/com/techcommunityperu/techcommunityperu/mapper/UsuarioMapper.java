@@ -43,6 +43,7 @@ public class UsuarioMapper {
     public AuthResponseDTO toAuthResponseDTO(Usuario usuario, String token) {
         AuthResponseDTO authResponseDTO = new AuthResponseDTO();
         authResponseDTO.setToken(token); // Asignar el token
+        authResponseDTO.setCorreoElectronico(usuario.getCorreoElectronico());
 
 
         // Si es Participante, asignar los datos de Participante
