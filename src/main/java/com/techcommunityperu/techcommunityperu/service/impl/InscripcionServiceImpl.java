@@ -57,10 +57,7 @@ public class InscripcionServiceImpl implements InscripcionService {
         }
     }
 
-    @Override
-    public Inscripcion obtenerInscripcionPorEventoYParticipante(Integer eventoId, Integer participanteId) {
-        return inscriptionRepository.findByEventoIdAndParticipanteId(eventoId, participanteId);
-    }
+
 
     //CRUD INSCRIPCION
     @Transactional

@@ -1,9 +1,13 @@
 package com.techcommunityperu.techcommunityperu.dto;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.*;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class ParticipanteDTO {
     @NotNull(message = "El id es obligatorio")
     private Integer id;

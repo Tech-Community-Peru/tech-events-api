@@ -1,5 +1,7 @@
 package com.techcommunityperu.techcommunityperu.repository;
 
+import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
+import com.techcommunityperu.techcommunityperu.dto.InscripcionPaypalDTO;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.model.entity.Evento;
 import com.techcommunityperu.techcommunityperu.model.entity.Participante;
@@ -37,5 +39,7 @@ public interface InscriptionRepository extends JpaRepository<Inscripcion, Intege
 
     void deleteById(Integer id);
 
-    Optional<Inscripcion> findByEventoAndParticipante(Evento evento, Participante participante);
+   Optional<Inscripcion> findByEventoAndParticipante(Evento evento, Participante participante);
+  
+   Optional<InscripcionPaypalDTO> findInscripcionDTOById(@Param("inscripcionId") Integer inscripcionId);
 }

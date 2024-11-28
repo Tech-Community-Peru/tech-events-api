@@ -5,10 +5,16 @@ import com.techcommunityperu.techcommunityperu.model.entity.Evento;
 import com.techcommunityperu.techcommunityperu.model.enums.paymentType;
 import com.techcommunityperu.techcommunityperu.model.enums.statusInscription;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.*;
 
 @Data
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class InscripcionDTO {
+    @NotNull(message = "El id es obligatorio")
+    private Integer id;
 
     @NotNull(message = "El tipo de pago es obligatorio")
     private paymentType tipoPago;
