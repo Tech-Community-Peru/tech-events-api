@@ -21,7 +21,7 @@ public class EventoCreateCrontroller {
 
     private final EventoCreateService eventoCreateService;
 
-    @PreAuthorize("hasAnyRole('PARTICIPANTE', 'ADMINISTRADOR')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR')")
     @PostMapping("/create")
     public ResponseEntity<?> createEvent(@Valid @RequestBody EventoCreateDTO eventoCreateDTO, BindingResult result) {
         if (result.hasErrors()) {
@@ -35,7 +35,7 @@ public class EventoCreateCrontroller {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdEvent);
     }
 
-    @PreAuthorize("hasAnyRole('PARTICIPANTE', 'ADMINISTRADOR')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR')")
     @PutMapping("/update/{id}")
     public ResponseEntity<EventoCreateDTO> updateEvent(@Valid @RequestBody EventoCreateDTO eventoCreateDTO, @PathVariable Long id) {
         EventoCreateDTO updateEvent = eventoCreateService.updateEvent(eventoCreateDTO,id);
