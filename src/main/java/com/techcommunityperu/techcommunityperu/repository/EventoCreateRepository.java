@@ -1,5 +1,6 @@
 package com.techcommunityperu.techcommunityperu.repository;
 
+import com.techcommunityperu.techcommunityperu.dto.EventoCreateDTO;
 import com.techcommunityperu.techcommunityperu.model.entity.Evento;
 import org.springframework.data.jpa.repository.JpaRepository;
 
