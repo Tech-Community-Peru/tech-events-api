@@ -44,7 +44,7 @@ public class Evento {
     private Ponente ponente;
 
     // Relación con Comunidad
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comunidad_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_evento_comunidad"))
     @JsonBackReference
     private Comunidad comunidad;

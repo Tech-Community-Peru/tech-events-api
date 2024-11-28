@@ -1,11 +1,13 @@
 package com.techcommunityperu.techcommunityperu.service.impl;
 
 import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
+import com.techcommunityperu.techcommunityperu.dto.QRDTO;
 import com.techcommunityperu.techcommunityperu.exceptions.InscriptionException;
 import com.techcommunityperu.techcommunityperu.exceptions.ResourceNotFoundException;
 import com.techcommunityperu.techcommunityperu.integration.email.dto.EmailDTO;
 import com.techcommunityperu.techcommunityperu.mapper.EventoMapper;
 import com.techcommunityperu.techcommunityperu.mapper.ParticipanteMapper;
+import com.techcommunityperu.techcommunityperu.mapper.QRMapper;
 import com.techcommunityperu.techcommunityperu.model.entity.Evento;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import com.techcommunityperu.techcommunityperu.model.entity.Participante;
@@ -57,14 +59,18 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Autowired
     private ParticipanteMapper participanteMapper;
 
+    @Autowired
+    private QRMapper qRMapper;
+
 
     @Value("${spring.mail.username}")
     private String mailFrom;
 
 
 
-    public void checkoutEmail(Inscripcion inscripcionId) throws MessagingException {
-        String descripcionEvento= inscripcionId.getEvento().getDescripcion();
+    public void checkoutEmail(Inscripcion inscripcionId) throws MessagingException, IOException {
+        // Información básica
+        String descripcionEvento = inscripcionId.getEvento().getDescripcion();
         String nombreEvento = inscripcionId.getEvento().getNombre();
         String nombreParticipante = inscripcionId.getParticipante().getNombre();
         String apellidoParticipante = inscripcionId.getParticipante().getApellido();
@@ -73,9 +79,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         String estadoInscripcion = inscripcionId.getInscripcionStatus().name();
         String tipoPago = inscripcionId.getTipoPago().name();
 
-        // Ruta relativa del QR
-        String qrPath = String.format("qrCodes/inscripcion_%d.png", inscripcionId.getId());
-//        Mapeo para el formato de html
+        // Crear un mapa para el modelo
         Map<String, Object> model = new HashMap<>();
         model.put("correoElectronico", correoParticipante);
         model.put("nombreParticipante", nombreParticipante);
@@ -85,16 +89,28 @@ public class PurchaseServiceImpl implements PurchaseService {
         model.put("estadoInscripcion", estadoInscripcion);
         model.put("tipoPago", tipoPago);
         model.put("montoInscripcion", montoInscripcion);
-        model.put("qrCodePath", qrPath); // Añade la ruta del QR al modelo
 
-//        Configuracion del mensje del email
-        EmailDTO mail = emailService.createEmail(
+        // Generar el QR
+        String tempDir = System.getProperty("java.io.tmpdir");
+        String qrFilePath = tempDir + String.format("inscripcion_%d.png", inscripcionId.getId());
+        generateQrCode(inscripcionId, qrFilePath); // Llamar al método para generar QR
+
+        // ID único para el contenido del QR
+        String qrContentId = "qrCode_" + inscripcionId.getId();
+        model.put("qrCodePath", "cid:" + qrContentId); // Agregar al modelo
+
+        // Crear el correo con el adjunto
+        EmailDTO mail = emailService.createEmailWithAttachment(
                 correoParticipante,
-                "Confirmacion de pago a evento",
+                "Confirmación de pago a evento",
                 model,
-                mailFrom
+                mailFrom,
+                qrFilePath,
+                qrContentId
         );
-        emailService.sendEmail(mail,"confirmation-template");
+
+        // Enviar correo
+        emailService.sendEmail(mail, "confirmation-template");
     }
 
     // Metodo para validar si el tipo de pago es reconocido
@@ -128,7 +144,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public String purchaseTicket(Integer eventoId, Integer participanteId, paymentType tipoPago) throws MessagingException {
+    public String purchaseTicket(Integer eventoId, Integer participanteId, paymentType tipoPago) throws MessagingException, IOException {
 
         // Validar el tipo de pago
         validatePaymentType(tipoPago);
@@ -144,7 +160,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         // Verificar si ya existe una inscripción para este evento y participante
         Inscripcion existingInscripcion = inscriptionRepository.findByEventoIdAndParticipanteId(evento.getId(), participante.getId());
 
-        if (existingInscripcion!= null) {
+        if (existingInscripcion != null) {
             throw new InscriptionException("Ya estás inscrito en este evento.");
         }
 
@@ -156,16 +172,20 @@ public class PurchaseServiceImpl implements PurchaseService {
         inscripcion.setParticipante(participante);
         inscripcion.setInscripcionStatus(statusInscription.PENDING);
         inscripcion.setParticipante(participante);
+
+        // Generar ruta para guardar el QR
+        String tempDir = System.getProperty("java.io.tmpdir"); // Directorio temporal del sistema
+        String qrFilePath = tempDir + String.format("inscripcion_%d.png", inscripcion.getId());
+
         if (evento.getCosto() == 0) {
             inscripcion.setInscripcionStatus(statusInscription.PAID);
             inscriptionRepository.save(inscripcion);
-            generateQrCode(inscripcion); // Generar y guardar el QR
-            checkoutEmail(inscripcion);
+            checkoutEmail(inscripcion); // Enviar correo con QR en un solo paso
             return "Recibirás un correo con tu entrada gratuita.";
         }
 
         inscriptionRepository.save(inscripcion);
-        generateQrCode(inscripcion); // Generar y guardar el QR
+        generateQrCode(inscripcion, qrFilePath); // Generar y guardar el QR
 
         if (inscripcion.getInscripcionStatus() == statusInscription.PENDING) {
             return "Redirigiendo a Paypal.";
@@ -174,16 +194,17 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
     }
 
-    private void generateQrCode(Inscripcion inscripcion) {
-        String qrData = String.format("Evento: %s\nParticipante: %s %s\nMonto: %.2f\nEstado: %s",
-                inscripcion.getEvento().getNombre(),
-                inscripcion.getParticipante().getNombre(),
-                inscripcion.getParticipante().getApellido(),
-                inscripcion.getMonto(),
-                inscripcion.getInscripcionStatus().name()
-        );
+    private void generateQrCode(Inscripcion inscripcion, String qrFilePath) {
+        // Convertir entidad a DTO
+        QRDTO inscripcionDTO = qRMapper.toDto(inscripcion);
 
-        String qrFilePath = String.format("src/main/resources/qrCodes/inscripcion_%d.png", inscripcion.getId());
+        String qrData = String.format("Evento: %s\nParticipante: %s %s\nMonto: %.2f\nEstado: %s",
+                inscripcionDTO.getEventoNombre(),
+                inscripcionDTO.getParticipanteNombre(),
+                inscripcionDTO.getParticipanteApellido(),
+                inscripcionDTO.getMonto(),
+                inscripcionDTO.getEstado()
+        );
 
         try {
             BitMatrix matrix = new MultiFormatWriter().encode(
