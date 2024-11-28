@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/ticket")
 @PreAuthorize("hasAnyRole('PARTICIPANTE', 'ADMINISTRADOR')")
@@ -19,7 +21,7 @@ public class PurchaseController {
     @PostMapping("/purchase")
     public String purchaseTicket(@RequestParam Integer eventoId,
                                  @RequestParam Integer participanteId,
-                                 @RequestParam paymentType tipoPago) throws MessagingException {
+                                 @RequestParam paymentType tipoPago) throws MessagingException, IOException {
         // Validar si el evento tiene un costo mayor a 0 y el tipo de pago es FREE
         if (tipoPago == paymentType.FREE && eventoId != null) {
             // Verificar el costo del evento desde el servicio

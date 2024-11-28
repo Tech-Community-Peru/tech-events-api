@@ -3,6 +3,7 @@ package com.techcommunityperu.techcommunityperu.model.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "comunidad")
+@ToString(exclude = {"eventos", "comentarios","usuariosComunidad"})
 public class Comunidad {
 
     @Id

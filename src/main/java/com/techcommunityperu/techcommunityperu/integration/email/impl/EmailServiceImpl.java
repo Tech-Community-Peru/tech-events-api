@@ -12,7 +12,10 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
+import org.springframework.core.io.FileSystemResource;
 
+import java.io.IOException;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -76,7 +79,34 @@ public class EmailServiceImpl implements EmailService {
 
         // Si necesitas adjuntar un archivo
         //helper.addAttachment("MyTestFile.txt", new ByteArrayResource("test".getBytes()));
+    }
+    @Override
+    public EmailDTO createEmailWithAttachment(String to, String subject, Map<String, Object> model,
+                                              String from, String attachmentPath, String contentId) throws MessagingException, IOException {
+        EmailDTO email = new EmailDTO();
+        email.setTo(to);
+        email.setSubject(subject);
+        email.setFrom(from);
+        email.setModel(model);
 
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true); // 'true' para multipart
+
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setFrom(from);
+
+        // Procesar el contenido HTML con Thymeleaf
+        String htmlContent = templateEngine.process("confirmation-template", new Context(Locale.getDefault(), model));
+        helper.setText(htmlContent, true);
+
+        // Adjuntar el QR como recurso inline
+        FileSystemResource file = new FileSystemResource(attachmentPath);
+        helper.addInline(contentId, file); // Vincular el recurso al contentId
+
+        // Enviar el mensaje
         mailSender.send(message);
+
+        return email;
     }
 }
