@@ -1,9 +1,6 @@
 package com.techcommunityperu.techcommunityperu.service.impl;
 
-import com.techcommunityperu.techcommunityperu.dto.EventoCrearReqDTO;
-import com.techcommunityperu.techcommunityperu.dto.EventoCrearResDTO;
-import com.techcommunityperu.techcommunityperu.dto.EventoDTO;
-import com.techcommunityperu.techcommunityperu.dto.EventoResDTO;
+import com.techcommunityperu.techcommunityperu.dto.*;
 import com.techcommunityperu.techcommunityperu.mapper.EventoMapper;
 import com.techcommunityperu.techcommunityperu.model.entity.Cronograma;
 import com.techcommunityperu.techcommunityperu.model.entity.Evento;

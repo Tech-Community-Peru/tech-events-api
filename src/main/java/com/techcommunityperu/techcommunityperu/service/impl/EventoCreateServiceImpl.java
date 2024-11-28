@@ -35,13 +35,15 @@ public class EventoCreateServiceImpl implements EventoCreateService {
     public EventoCreateDTO updateEvent(EventoCreateDTO eventoCreateDTO, long id) {
         Evento evento = eventoCreateRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Evento no encontrado"));
-        evento = modificarEvento(evento, eventoCreateDTO);
+
         evento.setNombre(eventoCreateDTO.getNombre());
         evento.setCosto(eventoCreateDTO.getCosto());
         evento.setDescripcion(eventoCreateDTO.getDescripcion());
         evento.setEventoCategoria(eventoCreateDTO.getEventoCategoria());
         evento.setTipoEvento(eventoCreateDTO.getTipoEvento());
+
         return eventoMapper.toDtoB(eventoCreateRepository.save(evento));
+
     }
 
     private Evento modificarEvento(Evento evento, EventoCreateDTO eventoCreateDTO) {

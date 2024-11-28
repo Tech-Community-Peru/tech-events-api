@@ -62,7 +62,7 @@ public class InscripcionController {
         return inscripcion.<ResponseEntity<Object>>map(value -> ResponseEntity.ok(value.getId()))
                 .orElseGet(() -> ResponseEntity.ok("El usuario NO está inscrito en el evento."));
     }
-
+    @PreAuthorize("hasRole('PARTICIPANTE')")
     @DeleteMapping("/cancelar/{eventoId}/{usuarioId}")
     public ResponseEntity<String> cancelarInscripcion(
             @PathVariable("eventoId") Integer eventoId,

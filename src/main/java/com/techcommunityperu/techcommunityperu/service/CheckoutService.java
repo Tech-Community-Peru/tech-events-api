@@ -5,10 +5,12 @@ import com.techcommunityperu.techcommunityperu.dto.PaymentOrderResponse;
 import com.techcommunityperu.techcommunityperu.model.entity.Inscripcion;
 import jakarta.mail.MessagingException;
 
+import java.io.IOException;
+
 public interface CheckoutService {
 
     PaymentOrderResponse createPaymentUrl(Integer purchaseId, String returnUrl, String cancelUrl);
 
-    PaymentCaptureResponse capturePayment(String orderId) throws MessagingException;
+    PaymentCaptureResponse capturePayment(String orderId) throws MessagingException, IOException;
 
 }
