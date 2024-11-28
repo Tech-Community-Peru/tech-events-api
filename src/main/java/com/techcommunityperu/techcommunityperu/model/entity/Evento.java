@@ -1,15 +1,20 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import com.techcommunityperu.techcommunityperu.model.enums.categoryEvent;
 import com.techcommunityperu.techcommunityperu.model.enums.typeEvent;
+import lombok.ToString;
+
 import java.util.List;
 
 @Data
 @Table (name = "evento")
 @Entity
+@ToString(exclude = {"ponente", "comunidad", "ubicacion", "cronograma"})
 public class Evento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
@@ -33,13 +38,15 @@ public class Evento {
     private typeEvent tipoEvento;
 
     // Relación con Ponente
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ponente_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_evento_ponente"))
     private Ponente ponente;
 
     // Relación con Comunidad
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comunidad_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_evento_comunidad"))
+    @JsonBackReference
     private Comunidad comunidad;
 
     // Relación con Ubicacion
@@ -51,4 +58,19 @@ public class Evento {
     @JsonIgnore
     @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cronograma> cronograma;
+
+    // Relación con Asistencia
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Asistencia> asistencias;
+
+    // Relación con Inscripcion
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Inscripcion> inscripciones;
+
+    // Relación con Sorteo
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Sorteo> sorteos;
 }

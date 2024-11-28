@@ -3,17 +3,14 @@ package com.techcommunityperu.techcommunityperu.dto;
 import com.techcommunityperu.techcommunityperu.model.enums.categoryEvent;
 import com.techcommunityperu.techcommunityperu.model.enums.typeEvent;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
-public class EventoResDTO {
-
-    private Integer id;
-
+public class EventoCrearReqDTO {
     @NotNull(message = "El nombre no puede ser nulo")
     private String nombre;
 
@@ -28,5 +25,4 @@ public class EventoResDTO {
 
     @NotNull(message = "El tipo de evento es obligatorio")
     private typeEvent tipoEvento;
-
 }

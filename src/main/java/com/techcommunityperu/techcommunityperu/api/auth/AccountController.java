@@ -1,7 +1,10 @@
 package com.techcommunityperu.techcommunityperu.api.auth;
 
+import com.techcommunityperu.techcommunityperu.dto.UsuarioPerfilDTO;
 import com.techcommunityperu.techcommunityperu.model.entity.Participante;
 import com.techcommunityperu.techcommunityperu.service.AccountParticipantService;
+import com.techcommunityperu.techcommunityperu.service.UsuarioService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,16 +15,30 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/account")
-@PreAuthorize("hasAnyRole('PARTICIPANTE')")
+@RequiredArgsConstructor
+@PreAuthorize("hasAnyRole('PARTICIPANTE','PONENTE')")
 public class AccountController {
 
     @Autowired
     private AccountParticipantService participanteService;
 
+    @Autowired
+    private final UsuarioService usuarioService;
+
+
+//    public ResponseEntity<String> update(@PathVariable Integer id, @RequestBody Participante updatedParticipante) {
+//        Participante updated = participanteService.updateParticipante(id, updatedParticipante);
+//        if (updated != null) {
+//            return ResponseEntity.ok("Tus datos han sido actualizados");
+//        } else {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                    .body("Tus datos no se han podido cambiar, inténtalo más tarde");
+//        }
+//    }
     @PutMapping("/{id}")
-    public ResponseEntity<String> update(@PathVariable Integer id, @RequestBody Participante updatedParticipante) {
-        Participante updated = participanteService.updateParticipante(id, updatedParticipante);
-        if (updated != null) {
+    public ResponseEntity<String> update(@PathVariable Integer id, @RequestBody UsuarioPerfilDTO usuarioPerfilDTO) {
+        UsuarioPerfilDTO updatedProfile = usuarioService.updateUsuarioPerfil(id, usuarioPerfilDTO);
+        if (updatedProfile != null) {
             return ResponseEntity.ok("Tus datos han sido actualizados");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

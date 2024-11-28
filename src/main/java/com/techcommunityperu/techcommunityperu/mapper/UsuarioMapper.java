@@ -20,6 +20,7 @@ public class UsuarioMapper {
 
         if(usuario.getParticipante()!=null){
             usuarioPerfilDTO.setApellido(usuario.getParticipante().getApellido());
+            usuarioPerfilDTO.setIdParticipante(usuario.getParticipante().getId());
             usuarioPerfilDTO.setNombre(usuario.getParticipante().getNombre());
             usuarioPerfilDTO.setPaisOrigen(usuario.getParticipante().getPaisOrigen());
         }
@@ -48,11 +49,13 @@ public class UsuarioMapper {
         if (usuario.getParticipante() != null) {
             authResponseDTO.setNombre(usuario.getParticipante().getNombre());
             authResponseDTO.setApellido(usuario.getParticipante().getApellido());
+            authResponseDTO.setIdParticipante(usuario.getParticipante().getId());
         }
         // Si es Ponente, asignar los datos de Ponente
         else if (usuario.getPonente() != null) {
             authResponseDTO.setNombre(usuario.getPonente().getNombre());
             authResponseDTO.setApellido(usuario.getPonente().getApellido());
+            authResponseDTO.setIdUsuario(usuario.getId());
         }
         // Para cualquier usuario que no sea cliente ni autor (ej. Admin)
         else {

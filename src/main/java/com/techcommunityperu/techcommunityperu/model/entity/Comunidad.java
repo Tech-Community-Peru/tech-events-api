@@ -1,14 +1,19 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
-import java.time.LocalDateTime;
+import lombok.ToString;
 
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
 @Table(name = "comunidad")
+@ToString(exclude = {"eventos", "comentarios","usuariosComunidad"})
 public class Comunidad {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -28,4 +33,23 @@ public class Comunidad {
     @Column(name = "tematica_principal", nullable = false, length = 100)
     private String tematicaPrincipal;
 
+    // Relación con Comentario
+    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Comentario> comentarios;
+
+    // Relación con Evento
+    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Evento> eventos;
+
+    // Relación con UsuarioComunidad
+    @OneToMany(mappedBy = "comunidad", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonManagedReference
+    private List<usuarioComunidad> usuariosComunidad;
+
+    @PrePersist
+    public void prePersist() {
+        this.fechaCreacion = LocalDateTime.now();
+    }
 }

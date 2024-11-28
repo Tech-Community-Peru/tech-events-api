@@ -1,5 +1,6 @@
 package com.techcommunityperu.techcommunityperu.api.event;
 
+import com.techcommunityperu.techcommunityperu.dto.EventoResDTO;
 import com.techcommunityperu.techcommunityperu.service.InscripcionService;
 import jakarta.validation.Valid;
 import com.techcommunityperu.techcommunityperu.dto.InscripcionDTO;
@@ -54,15 +55,12 @@ public class InscripcionController {
         InscripcionDTO updatedInscripcion = inscripcionService.update(id, inscripcionDTO);
         return new ResponseEntity<>(updatedInscripcion, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('PARTICIPANTE')")
     @GetMapping("/evento/{eventoId}/participante/{participanteId}")
-    public ResponseEntity<String> verificarInscripcion(@PathVariable Integer eventoId, @PathVariable Integer participanteId) {
+    public ResponseEntity<Object> verificarInscripcion(@PathVariable Integer eventoId, @PathVariable Integer participanteId) {
         Optional<Inscripcion> inscripcion = inscripcionService.verificarInscripcion(participanteId, eventoId);
-        if (inscripcion.isPresent()) {
-            return ResponseEntity.ok("El usuario está inscrito en el evento.");
-        } else {
-            return ResponseEntity.ok("El usuario NO está inscrito en el evento.");
-        }
+        return inscripcion.<ResponseEntity<Object>>map(value -> ResponseEntity.ok(value.getId()))
+                .orElseGet(() -> ResponseEntity.ok("El usuario NO está inscrito en el evento."));
     }
 
     @DeleteMapping("/cancelar/{eventoId}/{usuarioId}")
@@ -81,5 +79,11 @@ public class InscripcionController {
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         inscripcionService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @PreAuthorize("hasRole('PARTICIPANTE')")
+    @GetMapping("/participante/{idParticipante}/evento")
+    public ResponseEntity<List<EventoResDTO>> getEventosInscritosPorParticipante(@PathVariable Integer idParticipante) {
+        List<EventoResDTO> eventos = inscripcionService.getEventosPorParticipante(idParticipante);
+        return new ResponseEntity<>(eventos, HttpStatus.OK);
     }
 }

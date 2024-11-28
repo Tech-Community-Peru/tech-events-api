@@ -1,5 +1,6 @@
 package com.techcommunityperu.techcommunityperu.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,6 +21,7 @@ public class Sorteo {
     private LocalDate fechaSorteo;
 
     @ManyToOne
-    @JoinColumn(name = "evento_id",referencedColumnName = "id", foreignKey = @ForeignKey(name="FK_sorteo_evento"))
+    @JoinColumn(name = "evento_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_sorteo_evento"))
+    @JsonBackReference
     private Evento evento;
 }

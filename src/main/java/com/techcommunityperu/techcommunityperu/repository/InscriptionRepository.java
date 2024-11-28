@@ -39,5 +39,7 @@ public interface InscriptionRepository extends JpaRepository<Inscripcion, Intege
 
     void deleteById(Integer id);
 
-    Optional<InscripcionPaypalDTO> findInscripcionDTOById(@Param("inscripcionId") Integer inscripcionId);
+   Optional<Inscripcion> findByEventoAndParticipante(Evento evento, Participante participante);
+  
+   Optional<InscripcionPaypalDTO> findInscripcionDTOById(@Param("inscripcionId") Integer inscripcionId);
 }

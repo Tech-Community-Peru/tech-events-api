@@ -2,11 +2,14 @@ package com.techcommunityperu.techcommunityperu.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
+
 import java.time.LocalDateTime;
 
 
 @Data
 @Entity
+@ToString(exclude = {"participante", "ponente"})
 @Table(name = "usuario")
 public class Usuario {
 

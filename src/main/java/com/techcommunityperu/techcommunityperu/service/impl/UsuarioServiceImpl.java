@@ -68,7 +68,13 @@ public class UsuarioServiceImpl implements UsuarioService {
         if(usuario.getParticipante() !=null){
             usuario.getParticipante().setNombre(usuarioPerfilDTO.getNombre());
             usuario.getParticipante().setApellido(usuarioPerfilDTO.getApellido());
+            usuario.getParticipante().setHabilidades(usuarioPerfilDTO.getHabilidades());
+            usuario.getParticipante().setLinkedin(usuarioPerfilDTO.getLinkedin());
+            usuario.getParticipante().setInformacionAdicional(usuarioPerfilDTO.getInformacionAdicional());
+            usuario.getParticipante().setUbicacion(usuarioPerfilDTO.getUbicacion());
             usuario.getParticipante().setPaisOrigen(usuarioPerfilDTO.getPaisOrigen());
+            usuario.getParticipante().setEdad(usuarioPerfilDTO.getEdad());
+            usuario.getParticipante().setUpdatedAt(LocalDateTime.now());
         }
 
         if(usuario.getPonente() !=null){
@@ -76,6 +82,8 @@ public class UsuarioServiceImpl implements UsuarioService {
             usuario.getPonente().setApellido(usuarioPerfilDTO.getApellido());
             usuario.getPonente().setCargo(usuarioPerfilDTO.getCargo());
             usuario.getPonente().setEspecialidad(usuarioPerfilDTO.getEspecialidad());
+            usuario.getPonente().setPaisOrigen(usuarioPerfilDTO.getPaisOrigen());
+            usuario.getPonente().setUpdatedAt(LocalDateTime.now());
         }
 
         Usuario updateUser = userRepository.save(usuario);
