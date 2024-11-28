@@ -2,7 +2,7 @@
 FROM openjdk:21-jdk-slim
 
 # Define la variable del archivo JAR
-ARG JAR_FILE=target/techcommunityperu-api-0.1.1.jar
+ARG JAR_FILE=target/techcommunityperu-api-1.0.0.jar
 
 # Copia el archivo JAR en el contenedor
 COPY ${JAR_FILE} techcommunityperu-api.jar
